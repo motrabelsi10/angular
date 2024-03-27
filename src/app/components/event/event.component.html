@@ -118,12 +118,7 @@
                             </div>
                             <input type="date" class="form-control" [(ngModel)]="newEvent.dateFinish">
                         </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">price</span>
-                            </div>
-                            <input type="text" class="form-control" [(ngModel)]="newEvent.price">
-                        </div>
+
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroup-sizing-default">nombre des tickets</span>
@@ -132,11 +127,18 @@
                         </div>
                         <div class="input-group mb-3">
                             <label class="input-group-text mb-0">type de ticket</label>
-                            <select class="default-select  form-control wide" [(ngModel)]="newEvent.typeticket">
+                            <select class="default-select form-control wide" [(ngModel)]="newEvent.typeticket" (ngModelChange)="handleTicketTypeChange()">
+
                                 <option selected>Choose...</option>
                                 <option value="payante">Payante</option>
                                 <option value="nonPayante">Non payante</option>
                             </select>
+                        </div>
+                        <div class="input-group mb-3" *ngIf="newEvent.typeticket === 'payante'">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">price</span>
+                            </div>
+                            <input type="text" class="form-control" [(ngModel)]="newEvent.price">
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">

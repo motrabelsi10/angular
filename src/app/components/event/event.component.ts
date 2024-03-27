@@ -116,5 +116,11 @@ export class EventComponent {
       this.currentPage--;
     }
   }
+
+  handleTicketTypeChange() {
+    if (this.newEvent.typeticket === 'nonPayante') {
+      this.newEvent.price = 0; // Définir le prix à 0
+    }
+  }
   
 }
