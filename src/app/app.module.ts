@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { EventUserComponent } from './components/event-user/event-user.component';
 import { EventDetailsUserComponent } from './components/event-details-user/event-details-user.component';
+import { TicketComponent } from './components/ticket/ticket.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { EventDetailsUserComponent } from './components/event-details-user/event
     EssaiComponent,
     EventComponent,
     EventUserComponent,
-    EventDetailsUserComponent
+    EventDetailsUserComponent,
+    TicketComponent
   ],
   imports: [
     BrowserModule,

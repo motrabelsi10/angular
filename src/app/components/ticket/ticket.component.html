@@ -1,0 +1,98 @@
+<html lang="en">
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="col-lg-12">
+            <div class="shopping-cart  mb-2 me-3">
+                <a class="btn btn-primary text-white" data-toggle="modal" data-target="#EditAddticket"
+                    (click)="openModel()"><i class="fa fa-shopping-basket me-2"></i>Create New ticket</a>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Liste des ticket</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-responsive-md">
+                            <thead>
+                                <tr>
+                                    <th scope="col">id ticket</th>
+                                    <th scope="col">nbr des ticket selectionnéé</th>
+                                    <th scope="col">date d'achat</th>
+                                    <th scope="col">type d'achat</th>
+                                    
+                   
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let ticket of tickets">
+                                    <td class="text-center">{{ ticket.idTicket }}</td>
+                                    
+                           
+                                    <td class="text-center">{{ ticket.nbts }}</td>
+                                    <td class="text-center">{{ ticket.dateAchat | date }}</td>
+                                    <td class="text-center">{{ ticket.typePay }}</td>
+                                    
+                                    
+                                    
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                        <br>
+                        
+                          
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="EditAddticket" tabindex="-1" ticket="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl" ticket="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Ticket</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">nbts</span>
+                            </div>
+                            <input type="text" class="form-control" [(ngModel)]="newTicket.nbts">
+                        </div>
+                        
+                      
+
+                      
+                        <div class="input-group mb-3">
+                            <label class="input-group-text mb-0">type de ticket</label>
+                            <select class="default-select form-control wide" [(ngModel)]="newTicket.typePay">
+
+                                <option selected>Choose...</option>
+                                <option value="inPerson">in person</option>
+                                <option value="online">online</option>
+                            </select>
+                        </div>
+                   
+
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" *ngIf="creatingMode"
+                            (click)="createTicketbyEvent()">Create Ticket</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</html>

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Event } from 'src/app/models/event';
 import { EventService } from 'src/app/services/event.service';
+import { EventDetailsUserComponent } from '../event-details-user/event-details-user.component';
 
 @Component({
   selector: 'app-event',
@@ -25,6 +26,7 @@ export class EventUserComponent {
       this.events = data;
     });
   }
+
   }
 
 
