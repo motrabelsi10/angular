@@ -26,12 +26,21 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let ticket of tickets">
-                                    <td class="text-center">{{ ticket.idTicket }}</td>
+                                    <td>{{ ticket.idTicket }}</td>
                                     
                            
-                                    <td class="text-center">{{ ticket.nbts }}</td>
-                                    <td class="text-center">{{ ticket.dateAchat | date }}</td>
-                                    <td class="text-center">{{ ticket.typePay }}</td>
+                                    <td>{{ ticket.nbts }}</td>
+                                    <td>{{ ticket.dateAchat | date }}</td>
+                                    <td>{{ ticket.typePay }}</td>
+                                    <td>
+                                        <div class="d-flex justify-content-center">
+   
+                                            <a type="button" class="btn btn-danger shadow btn-xs sharp"
+                                                (click)="deleteTicket(ticket.idTicket)">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
                                     
                                     
                                     
