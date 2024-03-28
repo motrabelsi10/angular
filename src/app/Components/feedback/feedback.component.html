@@ -1,0 +1,161 @@
+<html lang="en">
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="col-lg-12">
+
+            <div class="shopping-cart  mb-2 me-3">
+                <a class="btn btn-primary text-white" data-toggle="modal" data-target="#EditAddevent"
+                    (click)="openModel()"><i class="fa fa-shopping-basket me-2"></i>Create New event</a>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Liste des Feedbacks</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-responsive-md">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Titre</th>
+                                    <th scope="col">Corps</th>
+                                    <th scope="col">Date d'envoie</th>
+                                    <th scope="col">Nombre de tickets</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let event of getEventsForPage(currentPage)">
+                                    <td class="text-center">{{ Feedback.title }}</td>
+                                    <td class="text-center">{{ Feedback.body | date }}</td>
+                                    <td class="text-center">{{ event.date | date }}</td>
+                                    
+                                 <!--  <td class="text-center">
+                                        <div class="d-flex justify-content-center">
+                                            <a type="button" class="btn btn-primary shadow btn-xs sharp me-1"
+                                                data-toggle="modal" data-target="#EditAddevent"
+                                                (click)="openModel(event)">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                            <a type="button" class="btn btn-danger shadow btn-xs sharp"
+                                                (click)="deleteEvent(event.idEvent)">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    --> 
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                        <br>
+                        <nav>
+                            <ul class="pagination pagination-gutter">
+                              <li class="page-item page-indicator">
+                                <a class="page-link" href="javascript:void(0)" (click)="decrementPage()">
+                                  <i class="la la-angle-left"></i>
+                                </a>
+                              </li>
+                              <li *ngFor="let chunk of eventsChunks; let i = index"
+                                  [class.active]="currentPage === i + 1" class="page-item">
+                                <a class="page-link" href="javascript:void(0)" (click)="changePage(i + 1)">
+                                  {{ i + 1 }}
+                                </a>
+                              </li>
+                              <li class="page-item page-indicator">
+                                <a class="page-link" href="javascript:void(0)" (click)="incrementPage()">
+                                  <i class="la la-angle-right"></i>
+                                </a>
+                              </li>
+                            </ul>
+                          </nav>
+                          
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal 
+        <div class="modal fade" id="EditAddevent" tabindex="-1" event="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl" event="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Event</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Event Name</span>
+                            </div>
+                            <input type="text" class="form-control" [(ngModel)]="newEvent.nameEvent">
+                        </div>
+                        
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Event Description</span>
+                            </div>
+                            <input type="text" class="form-control" [(ngModel)]="newEvent.description">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Start</span>
+                            </div>
+                            <input type="date" class="form-control" [(ngModel)]="newEvent.dateStart">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Finish</span>
+                            </div>
+                            <input type="date" class="form-control" [(ngModel)]="newEvent.dateFinish">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">nombre des tickets</span>
+                            </div>
+                            <input type="text" class="form-control" [(ngModel)]="newEvent.nbt">
+                        </div>
+                        <div class="input-group mb-3">
+                            <label class="input-group-text mb-0">type de ticket</label>
+                            <select class="default-select form-control wide" [(ngModel)]="newEvent.typeticket" (ngModelChange)="handleTicketTypeChange()">
+
+                                <option selected>Choose...</option>
+                                <option value="payante">Payante</option>
+                                <option value="nonPayante">Non payante</option>
+                            </select>
+                        </div>
+                        <div class="input-group mb-3" *ngIf="newEvent.typeticket === 'payante'">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">price</span>
+                            </div>
+                            <input type="text" class="form-control" [(ngModel)]="newEvent.price">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">place</span>
+                            </div>
+                            <input type="text" class="form-control" [(ngModel)]="newEvent.place">
+                        </div>
+
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" *ngIf="creatingMode"
+                            (click)="createEvent()">Create Event</button>
+                        <button type="button" class="btn btn-primary" *ngIf="!creatingMode"
+                            (click)="modifyEvent()">Modify Event</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+</div>
+
+
+</html>
