@@ -21,12 +21,18 @@
                                             </ul>
                                             <span class="review-text">(34 reviews) / </span><a class="product-review" href="#"  data-bs-toggle="modal" data-bs-target="#reviewModal">Write a review?</a>
                                         </div>
-                                        <div class="d-table mb-2">
+                                        <div class="d-table mb-1">
                                             <p class="price float-start d-block">{{event.price}} TND</p>
                                         </div>
-                                        <p>Availability: <span class="item">{{event.nbt}} <i
-                                                    class="fa fa-shopping-basket"></i></span>
-                                        </p>
+                                        <br>
+                                        <h4>Availability : 
+                                            <span class="item">{{event.nbt}} 
+                                                <i class="fa fa-shopping-basket"></i>
+                                            </span>
+                                            <span *ngIf="event.nbt > 0; else soldOut">Available</span>
+                                            <ng-template #soldOut>Sold Out</ng-template>
+                                        </h4>
+                                        
                                         <p>Start at :</p>
                                             <span class="badge badge-success light">{{event.dateStart | date}}</span>
                                         <p>End at : </p>
@@ -42,11 +48,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-lg-6 col-md-6 col-xxl-5">
+                            <div class="col-xl-3 col-lg-10 col-md-10 col-xxl-5">
                                 <!-- Tab panes -->
                                 <br>
                                 
-                                <div class="tab-content">
+                                <div class="product-detail-content">
                                     <h1>Description of the event : </h1>
                                     <br>
                                     <br>

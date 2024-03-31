@@ -39,4 +39,8 @@ export class TicketService {
     return this.httpClient.get(`${this.API_URL}/retrieve-tickets-by-event/${eventId}`);
   }
 
+  deleteTicketByEvent(eventId: any, ticketId: any) {
+    return this.httpClient.delete(`${this.API_URL}/delete-ticket-by-event/${eventId}/${ticketId}`);
+  }
+
 }

@@ -28,13 +28,43 @@ export class TicketComponent implements OnInit {
       this.retrieveTicketsByEvent(this.eventId);
     }
   }
-
-  deleteTicket(ticketId: string) {
-    this.ticketService.deleteTicket(ticketId).subscribe(() => {
+/*
+  modifyTicket() {
+    this.ticketService.editTicket(this.newTicket).subscribe(() => {
+      
       this.retrieveTicketsByEvent(this.eventId);
-
     });
   }
+  */
+
+  modifyTicket() {
+    // Récupérer les nbts précédents du ticket
+    const previousNbts = this.tickets.find(ticket => ticket.id === this.newTicket.id)?.nbts || 0;
+    
+    this.ticketService.editTicket(this.newTicket).subscribe(() => {
+      // Récupérer la différence entre les nbts précédents et les nbts actuels
+      const nbtsDifference = this.newTicket.nbts - previousNbts;
+      
+      // Mettre à jour le nombre de tickets disponibles dans l'événement associé
+      if (nbtsDifference > 0) {
+        // Incrémenter le nombre de tickets disponibles
+        this.eventNbtService.incrementNbt(this.eventId, nbtsDifference);
+      } else if (nbtsDifference < 0) {
+        // Décrémenter le nombre de tickets disponibles
+        this.eventNbtService.decrementNbt(this.eventId, Math.abs(nbtsDifference));
+      }
+      
+      // Rafraîchir la liste des tickets après la modification
+      this.retrieveTicketsByEvent(this.eventId);
+    });
+  }
+  
+
+
+  
+  
+  
+  
 
 
   
@@ -51,36 +81,39 @@ export class TicketComponent implements OnInit {
 
   createTicketbyEvent() {
     this.eventService.getEvent(this.eventId).subscribe((event: any) => {
-      const availableTickets = event.nbt; // Nombre de tickets disponibles
-      const selectedTickets = this.newTicket.nbts; // Nombre de tickets sélectionnés dans le formulaire
-  
-      // Vérifier si le nombre de tickets sélectionnés est inférieur ou égal au nombre de tickets disponibles
-      if (selectedTickets <= availableTickets) {
-        // Créer le nouveau ticket avec la date actuelle
+      const availableTickets = event.nbt;
+      const selectedTickets = this.newTicket.nbts; 
+        if (selectedTickets <= availableTickets) {
         const newTicket = {
           nbts: selectedTickets,
-          dateAchat: new Date(), // Utiliser la date actuelle
+          dateAchat: new Date(),
           typePay: this.newTicket.typePay
         };
-  
-        // Appeler le service pour ajouter le ticket
-        this.ticketService.addTicketByEvent(newTicket, this.eventId).subscribe(() => {
-          // Mettre à jour le nombre de tickets disponibles
+          this.ticketService.addTicketByEvent(newTicket, this.eventId).subscribe(() => {
           this.eventNbtService.decrementNbt(this.eventId, selectedTickets);
-  
-          // Récupérer à nouveau les tickets après l'ajout du nouveau ticket
-          this.retrieveTicketsByEvent(this.eventId);
-  
-          // Réinitialiser le formulaire pour le prochain ajout
-          this.newTicket = {};
+            this.retrieveTicketsByEvent(this.eventId);
+            this.newTicket = {};
         });
       } else {
-        // Afficher un message d'erreur si le nombre de tickets sélectionnés est supérieur au nombre de tickets disponibles
         console.error('Cannot select more tickets than available.');
-        // Vous pouvez également afficher un message d'erreur à l'utilisateur pour l'informer
       }
     });
   }
+  
+  deleteTicket(ticketId: string) {
+  
+    this.ticketService.deleteTicket(ticketId).subscribe(() => {
+      this.retrieveTicketsByEvent(this.eventId);
+    });
+  }
+  
+
+
+  
+  
+  
+  
+  
 
 
   

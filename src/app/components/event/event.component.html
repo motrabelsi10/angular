@@ -10,72 +10,87 @@
             </div>
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Liste des événements</h4>
+                    <h4 class="card-title">List des events</h4>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-responsive-md">
                             <thead>
                                 <tr>
-                                    <th scope="col">Nom de l'événement</th>
-                                    <th scope="col">Date de début</th>
-                                    <th scope="col">Date de fin</th>
-                                    <th scope="col">Nombre de tickets</th>
-                                    <th scope="col">Lieu</th>
-                                    <th scope="col">Type de ticket</th>
-                                    <th scope="col">Prix</th>
-                                    <th scope="col">Actions</th>
+                                    <th><strong>Event Name</strong></th>
+                                    <th><strong>date Start</strong></th>
+                                    <th><strong>date Finish</strong></th>
+                                    <th><strong>Number Of Tickets</strong></th>
+                                    <th><strong>Place</strong></th>
+                                    <th><strong>Type Of Ticket</strong></th>
+                                    <th><strong>Price</strong></th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let event of getEventsForPage(currentPage)">
-                                    <td class="text-center">{{ event.nameEvent }}</td>
+                                    <td>{{ event.nameEvent }}</td>
                                     <td class="text-center">{{ event.dateStart | date }}</td>
                                     <td class="text-center">{{ event.dateFinish | date }}</td>
                                     <td class="text-center">{{ event.nbt }}</td>
                                     <td class="text-center">{{ event.place }}</td>
                                     <td class="text-center">{{ event.typeticket }}</td>
                                     <td class="text-center">{{ event.price }}</td>
-                                    
+
                                     <td class="text-center">
-                                        <div class="d-flex justify-content-center">
-                                            <a type="button" class="btn btn-primary shadow btn-xs sharp me-1"
-                                                data-toggle="modal" data-target="#EditAddevent"
-                                                (click)="openModel(event)">
-                                                <i class="fa fa-pencil"></i>
+                                        <div class="btn-group mb-1">
+
+
+                                            <button type="button" class="btn btn-primary light px-3" data-toggle="modal"
+                                                data-target="#EditAddevent" (click)="openModel(event)"><i
+                                                    class="fa fa-exclamation-circle"></i></button>
+
+                                            <button type="button" class="btn btn-primary light px-3"
+                                                (click)="deleteEvent(event.idEvent)"><i
+                                                    class="fa fa-trash"></i></button>
+
+                                            <a class="btn btn-primary light px-3 nav-link"
+                                                routerLink="/tickets/{{ event.idEvent }}">
+                                                tickets
                                             </a>
-                                            <a type="button" class="btn btn-danger shadow btn-xs sharp"
-                                                (click)="deleteEvent(event.idEvent)">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
+
+
                                         </div>
                                     </td>
                                 </tr>
-                                
+
                             </tbody>
                         </table>
                         <br>
+                        <br>
+
+                        <br>
+
+                        <br>
+
+                        <br>
+
                         <nav>
                             <ul class="pagination pagination-gutter">
-                              <li class="page-item page-indicator">
-                                <a class="page-link" href="javascript:void(0)" (click)="decrementPage()">
-                                  <i class="la la-angle-left"></i>
-                                </a>
-                              </li>
-                              <li *ngFor="let chunk of eventsChunks; let i = index"
-                                  [class.active]="currentPage === i + 1" class="page-item">
-                                <a class="page-link" href="javascript:void(0)" (click)="changePage(i + 1)">
-                                  {{ i + 1 }}
-                                </a>
-                              </li>
-                              <li class="page-item page-indicator">
-                                <a class="page-link" href="javascript:void(0)" (click)="incrementPage()">
-                                  <i class="la la-angle-right"></i>
-                                </a>
-                              </li>
+                                <li class="page-item page-indicator">
+                                    <a class="page-link" href="javascript:void(0)" (click)="decrementPage()">
+                                        <i class="la la-angle-left"></i>
+                                    </a>
+                                </li>
+                                <li *ngFor="let chunk of eventsChunks; let i = index"
+                                    [class.active]="currentPage === i + 1" class="page-item">
+                                    <a class="page-link" href="javascript:void(0)" (click)="changePage(i + 1)">
+                                        {{ i + 1 }}
+                                    </a>
+                                </li>
+                                <li class="page-item page-indicator">
+                                    <a class="page-link" href="javascript:void(0)" (click)="incrementPage()">
+                                        <i class="la la-angle-right"></i>
+                                    </a>
+                                </li>
                             </ul>
-                          </nav>
-                          
+                        </nav>
+
                     </div>
                 </div>
             </div>
@@ -99,7 +114,7 @@
                             </div>
                             <input type="text" class="form-control" [(ngModel)]="newEvent.nameEvent">
                         </div>
-                        
+
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Event Description</span>
@@ -127,7 +142,8 @@
                         </div>
                         <div class="input-group mb-3">
                             <label class="input-group-text mb-0">type de ticket</label>
-                            <select class="default-select form-control wide" [(ngModel)]="newEvent.typeticket" (ngModelChange)="handleTicketTypeChange()">
+                            <select class="default-select form-control wide" [(ngModel)]="newEvent.typeticket"
+                                (ngModelChange)="handleTicketTypeChange()">
 
                                 <option selected>Choose...</option>
                                 <option value="payante">Payante</option>
@@ -165,4 +181,3 @@
 
 
 </html>
-
