@@ -31,4 +31,9 @@ export class EventService {
     return  this.httpClient.delete(`${this.API_URL}/remove-event/${idEvent}`)
   }
 
+  retrieveEventByNameEvent(nameEvent : any){
+    return  this.httpClient.get(`${this.API_URL}/retrieve-event-by-name/${nameEvent}`)
+
+  }
+
 }

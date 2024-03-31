@@ -1,9 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Event } from 'src/app/models/event';
 import { EventService } from 'src/app/services/event.service';
-import { EventDetailsUserComponent } from '../event-details-user/event-details-user.component';
 
 @Component({
   selector: 'app-event',
@@ -11,37 +7,35 @@ import { EventDetailsUserComponent } from '../event-details-user/event-details-u
   styleUrls: ['./event-user.component.css']
 })
 export class EventUserComponent {
-  events: any;
-  event: any;
+  events: any[] = [];
+  filteredEvents: any[] = [];
+  searchQuery: string = '';
 
+  constructor(private eventService: EventService) { }
 
-
-  constructor(private eventService: EventService,private httpClient: HttpClient, private route: ActivatedRoute)
-  {
-    this.getAllEvents();
+  ngOnInit(): void {
+      this.retrieveAllEvents();
   }
 
-  getAllEvents() {
-    this.eventService.getAllEvents().subscribe(data => {
-      this.events = data;
-    });
+  retrieveAllEvents(): void {
+      this.eventService.getAllEvents().subscribe(
+          (data: any) => {
+              this.events = data;
+              this.filteredEvents = this.events;
+          },
+          (error: any) => {
+              console.error('Error retrieving events:', error);
+          }
+      );
   }
 
-  }
+  searchEvents(): void {
+    if (this.searchQuery.trim() !== '') {
+        const searchTerm = this.searchQuery.toLowerCase();
+        this.filteredEvents = this.events.filter(event => event.nameEvent.toLowerCase().startsWith(searchTerm));
+    } else {
+        this.filteredEvents = this.events;
+    }
+}
 
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-  
-
+}

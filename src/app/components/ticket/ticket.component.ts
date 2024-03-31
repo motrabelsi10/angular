@@ -17,6 +17,7 @@ export class TicketComponent implements OnInit {
   newTicket: any = {};
   creatingMode: boolean = true;
   event!: Event;
+  exceedsAvailableTickets: boolean = false;
 
 
 
@@ -81,24 +82,24 @@ export class TicketComponent implements OnInit {
 
   createTicketbyEvent() {
     this.eventService.getEvent(this.eventId).subscribe((event: any) => {
-      const availableTickets = event.nbt;
-      const selectedTickets = this.newTicket.nbts; 
+        const availableTickets = event.nbt;
+        const selectedTickets = this.newTicket.nbts; 
         if (selectedTickets <= availableTickets) {
-        const newTicket = {
-          nbts: selectedTickets,
-          dateAchat: new Date(),
-          typePay: this.newTicket.typePay
-        };
-          this.ticketService.addTicketByEvent(newTicket, this.eventId).subscribe(() => {
-          this.eventNbtService.decrementNbt(this.eventId, selectedTickets);
-            this.retrieveTicketsByEvent(this.eventId);
-            this.newTicket = {};
-        });
-      } else {
-        console.error('Cannot select more tickets than available.');
-      }
+            const newTicket = {
+                nbts: selectedTickets,
+                dateAchat: new Date(),
+                typePay: this.newTicket.typePay
+            };
+            this.ticketService.addTicketByEvent(newTicket, this.eventId).subscribe(() => {
+                this.eventNbtService.decrementNbt(this.eventId, selectedTickets);
+                this.retrieveTicketsByEvent(this.eventId);
+                this.newTicket = {};
+            });
+        } else {
+            this.exceedsAvailableTickets = true; // Dépassement du nombre de tickets disponibles
+        }
     });
-  }
+}
   
   deleteTicket(ticketId: string) {
   
