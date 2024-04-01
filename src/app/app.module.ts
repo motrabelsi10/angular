@@ -8,13 +8,17 @@ import { FeedbackComponent } from './Components/feedback/feedback.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ManagementComponent } from './Components/management/management.component';
+import { EquipementComponent } from './Components/equipement/equipement.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     EssaiComponent,
-    FeedbackComponent
+    FeedbackComponent,
+    ManagementComponent,
+    EquipementComponent
   ],
   imports: [
     BrowserModule,

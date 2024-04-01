@@ -8,6 +8,7 @@ export class Equipement {
     TypeEquip : Typeequip;
     approuvement : boolean;
     price : number;
+    event : number;
 
 
     constructor(){
@@ -17,5 +18,6 @@ export class Equipement {
         this.TypeEquip = Typeequip.nothing,
         this.approuvement = false;
         this.price = 0;
+        this.event = 0;
       }
 }
