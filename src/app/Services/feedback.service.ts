@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class FeedbackService {
   readonly API_URL = 'http://localhost:8089/espritgather/feedback';
 
   constructor(private router: Router,private httpClient: HttpClient) { }
-  getAllFeedback() {
+  getAllFeedback(): Observable<any> {
     return this.httpClient.get(`${this.API_URL}/feedbacks`)
   }
   addFeedback(event : any) {
