@@ -19,9 +19,10 @@
                             <thead>
                                 <tr>
                                     <th scope="col">équipement</th>
-                                    <th scope="col">Type d'achat</th>
+                                    <th scope="col">Quantité</th>
                                     <th scope="col">Prix éstimé</th>
                                     <th scope="col">Evenement concerné</th>
+                                    <th scope="col">Date administration</th>
                                     <th scope="col">Autre équipement</th>
                                     <th scope="col">Aprouvement</th>
                                     <th scope="col">Actions</th>
@@ -30,9 +31,10 @@
                             <tbody>
                                 <tr *ngFor="let equipement of equipement" >
                                     <td class="text-center">{{equipement.equipement}}</td>
-                                    <td class="text-center">{{equipement.typeequip}}</td>
-                                    <td class="text-center">{{equipement.price}}</td>
+                                    <td class="text-center">{{equipement.quantite}} {{equipement.typeequip}}</td>
+                                    <td class="text-center">{{equipement.price}} DT</td>
                                     <td class="text-center">{{equipement.event.nameEvent}}</td>
+                                    <td class="text-center">{{equipement.datemeeting}}</td>
                                     <td class="text-center">{{equipement.other}}</td>
                                     <td class="text-center">{{equipement.approuvement?"Aprouvé":"Non aprouvé"}}</td>
                                     
@@ -121,6 +123,12 @@
                         <option value="nothing">nothing</option>
                     </select>
                 </div>
+                <div class="input-group mb-3" *ngIf=" newEquipement.typeequip !== 'nothing'">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Quantité</span>
+                    </div>
+                    <input type="text" class="form-control" [(ngModel)]="newEquipement.quantite">
+                </div>
                 <div class="modal-body">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -128,6 +136,14 @@
                         </div>
                         <input type="text" class="form-control" [(ngModel)]="newEquipement.price">
                     </div>
+
+                    <div class="modal-body">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Date rendez vous administrative</span>
+                            </div>
+                            <input type="text" class="form-control" [(ngModel)]="newEquipement.datemeeting">
+                        </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

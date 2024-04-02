@@ -62,6 +62,8 @@ export class EquipementComponent {
         equipement: this.newEquipement.equipement,
         typeequip: this.newEquipement.typeequip,
         other: this.newEquipement.typeequip == "other"? this.newEquipement.other:"",
+        datemeeting : this.newEquipement.datemeeting,
+        quantite : this.newEquipement.quantite,
         approuvement: true,
         price: this.newEquipement.price,
         event: event,

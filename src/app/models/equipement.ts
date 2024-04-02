@@ -7,6 +7,8 @@ export class Equipement {
     typeequip : string;
     approuvement : boolean;
     price : number;
+    quantite : number;
+    datemeeting : Date;
     event : Event;
 
 
@@ -17,6 +19,8 @@ export class Equipement {
         this.typeequip = "",
         this.approuvement = false;
         this.price = 0;
+        this.datemeeting = new Date();
+        this.quantite = 0;
         this.event = new Event();
        
       }
