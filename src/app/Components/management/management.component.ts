@@ -48,9 +48,8 @@ export class ManagementComponent {
         end: this.newManagement.heureFinish,
         approuvement: this.newManagement.approuvement,
         event: this.newManagement.event,
-  
       }
-      this.managementService.addManagement(this.newManagement).subscribe(() => {
+      this.managementService.addManagement(newManagement).subscribe(() => {
         this.getAllManagement();
         window.location.reload();
       });
@@ -94,4 +93,9 @@ export class ManagementComponent {
         this.ManagementChunks.push(this.management.slice(i, i + chunkSize));
     }
     }
+
+
+    selectRoom(room: string) {
+      this.newManagement.classe = room;
+  }
 }

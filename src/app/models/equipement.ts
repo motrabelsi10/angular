@@ -1,5 +1,4 @@
-import { Equip } from "./equip";
-import { Typeequip } from "./typeequip";
+import { Event } from "./event";
 
 export class Equipement {
     idEquipement : number;
@@ -8,7 +7,7 @@ export class Equipement {
     TypeEquip : string;
     approuvement : boolean;
     price : number;
-    event : number;
+    event : Event;
 
 
     constructor(){
@@ -18,6 +17,7 @@ export class Equipement {
         this.TypeEquip = "",
         this.approuvement = false;
         this.price = 0;
-        this.event = 0;
+        this.event = new Event();
+       
       }
 }

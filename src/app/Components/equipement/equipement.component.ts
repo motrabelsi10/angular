@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Event } from "src/app/models/event";
 import { EquipementService } from 'src/app/Services/equipement.service';
 import { Equipement } from 'src/app/models/equipement';
 
@@ -9,12 +10,14 @@ import { Equipement } from 'src/app/models/equipement';
   styleUrls: ['./equipement.component.css']
 })
 export class EquipementComponent {
+  event : Event = new Event();
   equipement : any;
   newEquipement : Equipement = new Equipement();
   creatingMode: boolean = true;
   equipementChunks: any[] = [];
   currentPage: number = 1;
   selectedFile!: File;
+  
   constructor(private equipementService: EquipementService, private router: Router) {
     this.getAllEquipement();
   }
@@ -25,14 +28,26 @@ export class EquipementComponent {
         });
     }
   
-    openModel(equipement : Equipement = new Equipement()) {
+   /* openModel(equipement : Equipement = new Equipement()) {
       if (this.equipement.idEquipement == 0) {
         this.newEquipement = new Equipement();
       } else {
         this.creatingMode = false;
         this.newEquipement = equipement;
       }
+    }*/
+    openModel(equipement: Equipement = new Equipement()) {
+      if (!equipement.idEquipement) {
+        // If equipement doesn't have an idEquipement, it means it's a new equipment
+        this.creatingMode = true;
+        this.newEquipement = new Equipement();
+      } else {
+        this.creatingMode = false;
+        this.newEquipement = equipement;
+      }
     }
+    
+
     deleteEquipement(equipementId: string) {
       this.equipementService.deletEequipement(equipementId).subscribe(() => {
         this.getAllEquipement();
@@ -41,16 +56,19 @@ export class EquipementComponent {
     }
   
     createEquipement() {
+      const event = {
+        idEvent : "1"
+      }
       const newEquipement = {
         equipement: this.newEquipement.equipement,
         TypeEquip: this.newEquipement.TypeEquip,
-        other: this.newEquipement.other ,
-        approuvement: this.newEquipement.approuvement,
+        other: this.newEquipement.TypeEquip == "other"? this.newEquipement.other:"",
+        approuvement: true,
         price: this.newEquipement.price,
-        event: this.newEquipement.event,
+        event: event,
   
       }
-      this.equipementService.addEquipement(this.newEquipement).subscribe(() => {
+      this.equipementService.addEquipement(newEquipement).subscribe(() => {
         this.getAllEquipement();
         window.location.reload();
       });

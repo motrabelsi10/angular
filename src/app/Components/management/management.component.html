@@ -79,27 +79,126 @@
         </div>
 
         <!-- Modal -->
-        
-  <!---->      <div class="modal fade" id="#EditAddManagement" tabindex="-1" event="dialog" aria-labelledby="exampleModalCenterTitle"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-xl" event="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Feedback</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" *ngIf="creatingMode"
-                            >Create Management</button>
-                        <button type="button" class="btn btn-primary" *ngIf="!creatingMode"
-                            >Modify Management</button>
-                    </div>
+
+
+        <div class="modal fade" id="EditAddManagement" tabindex="-1" event="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" event="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Management</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
+
+<!--
+
+
+    
+-->
+
+                <div class="input-group mb-3">
+                    <label class="input-group-text mb-0">Bloc</label>
+                    <select class="default-select form-control wide" [(ngModel)]="newManagement.bloc">
+
+                        <option selected>Veuillez choisir...</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <label class="input-group-text mb-0">La salle</label>
+                    <select class="default-select form-control wide" [(ngModel)]="newManagement.classe">
+
+                        <option selected>Veuillez choisir...</option>
+                        <option value="S001">S001</option>
+                        <option value="S002">S002</option>
+                        <option value="S003">S003</option>
+                        <option value="S004">S004</option>
+                        <option value="S005">S005</option>
+                        <option value="S006">S006</option>
+                        <option value="S007">S007</option>
+                        <option value="S008">S008</option>
+                        <option value="S009">S009</option>
+                        <option value="S010">S010</option>
+                        <option value="S101">S101</option>
+                        <option value="S102">S102</option>
+                        <option value="S103">S103</option>
+                        <option value="S104">S104</option>
+                        <option value="S105">S105</option>
+                        <option value="S106">S106</option>
+                        <option value="S107">S107</option>
+                        <option value="S108">S108</option>
+                        <option value="S109">S109</option>
+                        <option value="S110">S110</option>
+                        <option value="amphi">amphi</option>
+                        <option value="cours">cours</option>
+
+                    </select>
+                </div>
+
+
+                <!--
+
+<div class="input-group mb-3">
+    <label class="input-group-text mb-0">La salle</label>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td (click)="selectRoom('S001')">S001</td>
+                    <td (click)="selectRoom('S002')">S002</td>
+                    <td (click)="selectRoom('S003')">S003</td>
+                    <td (click)="selectRoom('S004')">S004</td>
+                    <td (click)="selectRoom('S005')">S005</td>
+                    <td (click)="selectRoom('S006')">S006</td>
+                    <td (click)="selectRoom('S007')">S007</td>
+                    <td (click)="selectRoom('S008')">S008</td>
+                    <td (click)="selectRoom('S009')">S009</td>
+                    <td (click)="selectRoom('S010')">S010</td>
+                </tr>
+                <tr>
+                    <td (click)="selectRoom('S101')">S101</td>
+                    <td (click)="selectRoom('S102')">S102</td>
+                    <td (click)="selectRoom('S103')">S103</td>
+                    <td (click)="selectRoom('S104')">S104</td>
+                    <td (click)="selectRoom('S105')">S105</td>
+                    <td (click)="selectRoom('S106')">S106</td>
+                    <td (click)="selectRoom('S107')">S107</td>
+                    <td (click)="selectRoom('S108')">S108</td>
+                    <td (click)="selectRoom('S109')">S109</td>
+                    <td (click)="selectRoom('S110')">S110</td>
+                </tr>
+                <tr>
+                    <td (click)="selectRoom('amphi')">amphi</td>
+                    <td (click)="selectRoom('cours')">cours</td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+                -->
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" *ngIf="creatingMode"
+                        (click)="createManagement()">Create Management</button>
+                    <button type="button" class="btn btn-primary" *ngIf="!creatingMode"
+                        (click)="modifyManagement()">Modify Management</button>
+                </div>
+
+                
             </div>
+        </div>
+    </div>
+   
         </div>
     </div>
 

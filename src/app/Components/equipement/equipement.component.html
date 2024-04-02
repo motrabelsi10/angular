@@ -121,6 +121,13 @@
                         <option value="nothing">nothing</option>
                     </select>
                 </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Prix Estimé</span>
+                        </div>
+                        <input type="text" class="form-control" [(ngModel)]="newEquipement.price">
+                    </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

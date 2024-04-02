@@ -50,7 +50,7 @@ constructor(private feedbackService: FeedbackService, private router: Router) {
       user: this.newFeedback.user,
 
     }
-    this.feedbackService.addFeedback(this.newFeedback).subscribe(() => {
+    this.feedbackService.addFeedback(newfeedback).subscribe(() => {
       this.getAllFeedback();
       window.location.reload();
     });
