@@ -11,7 +11,7 @@ export class UserComponent {
   userList : User[] = [];
   userToModify : User = new User(); 
   creatingMode : boolean = true;
-  
+
   constructor(private userService: UserService,){
     this.getUsers();
   }
@@ -34,6 +34,7 @@ export class UserComponent {
     modifyUser(){
       this.userService.modifyUser(this.userToModify).subscribe(()=>{
         alert("User Updated Successfully");
+        this.getUsers();
         window.location.reload();
       })
 

@@ -22,10 +22,14 @@ export class RegisterComponent implements OnInit {
   ) {
     // Initialize registerForm in the constructor
     this.registerForm = this.fb.group({
+
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       mail: ['', [Validators.required]],
+      role: ['', [Validators.required]],
       telNumber: ['', [Validators.required]],
+      birthDay: ['', [Validators.required]],
+      address: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
   }
@@ -38,9 +42,11 @@ export class RegisterComponent implements OnInit {
      console.log(this.registerForm.value);
      this.service.register(this.registerForm.value).subscribe(
       ( Response ) => {
+        
         alert("User Added Successfully");
         window.location.reload();
         console.log(Response)
+        
       }
     )
    /* const newUser = {

@@ -59,10 +59,35 @@
                                             <label class="mb-1"><strong>Email</strong></label>
                                             <input type="email" class="form-control" placeholder="hello@example.com" formControlName="mail">
                                         </div>
+                                       
+                                        <div class="mb-3">
+                                            <label class="mb-1"><strong>Role</strong></label>
+
+                                           
+                                       
+                                            <select class="default-select form-control wide" formControlName="role">
+                        
+                                                <option disabled selected>Choose...</option>
+                                                <option value="user" >user</option>
+                                                <option value="club">club</option>
+                                               
+                                            </select>
+                                        </div>
+                                        
+
                                         <div class="mb-3">
                                             <label class="mb-1"><strong>Telephone</strong></label>
                                             <input type="email" class="form-control" placeholder="+216" formControlName="telNumber">
                                         </div>
+                                        <div class="mb-3">
+                                            <label class="mb-1"><strong>BirthDay</strong></label>
+                                            <input type="date" class="form-control" placeholder="YYYYY/MM/DD" formControlName="birthDay">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="mb-1"><strong>Address</strong></label>
+                                            <input type="email" class="form-control" placeholder="House number Street name Town/City County Postcode" formControlName="address">
+                                        </div>
+                                        
                                         <div class="mb-3">
                                             <label class="mb-1"><strong>Password</strong></label>
                                             <input type="password" class="form-control" value="Password" formControlName="password">

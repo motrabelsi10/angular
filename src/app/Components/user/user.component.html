@@ -26,6 +26,7 @@
                                             
                                             <th class=" ps-5" style="min-width: 200px;">Address
                                             </th>
+                                            <th>Role</th>
                                             <th>Approuved</th>
                                            
                                         </tr>
@@ -41,6 +42,7 @@
                                             </td>
                                             <td class="py-2">{{user.telNumber}} </td>
                                             <td class="py-2 ps-5">{{user.address}}</td>
+                                            <td class="py-2 ps-5">{{user.role}}</td>
                                             <td class="py-2">{{user.approuvement}} </td>
                                             
                                             <td class="py-2 text-end">
@@ -73,7 +75,7 @@
     <div class="modal-dialog modal-dialog-centered" user="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Role</h5>
+          <h5 class="modal-title" id="exampleModalLongTitle">User</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -85,13 +87,61 @@
             </div>
             <input type="text" class="form-control" [(ngModel)]="userToModify.firstName">
             <input type="text" class="form-control" [(ngModel)]="userToModify.lastName">
+           
           </div><br>
-          <div class="input-group mb-3">
+
+          <div class="input-group">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="inputGroupSelect01">Roles</label>
+              <span class="input-group-text" id="">Email</span>
             </div>
             
+            <input type="text" class="form-control" [(ngModel)]="userToModify.mail">
+            
+          </div><br>
+
+          <div class="input-group mb-3">
+            <label class="input-group-text mb-0">Role</label>
+            <select class="default-select form-control wide" [(ngModel)]="userToModify.role">
+
+                <option disabled selected>Choose...</option>
+                <option value="user">user</option>
+                <option value="club">club</option>
+              
+            </select>
+        </div><br>
+
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="">Telephone</span>
           </div>
+          
+          <input type="text" class="form-control" [(ngModel)]="userToModify.telNumber">
+          
+        </div><br>
+
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="">BirthDay</span>
+          </div>
+          
+          <input type="date" class="form-control" [(ngModel)]="userToModify.birthDay">
+          
+        </div><br>
+
+
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="">Address</span>
+          </div>
+          
+          <input type="text" class="form-control" [(ngModel)]="userToModify.address">
+          
+        </div><br>
+
+
+        
+
+       
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
