@@ -29,12 +29,13 @@ export class ManagementComponent {
         });
     }
   
-    openModel(management : Management = new Management()) {
-      if (this.management.idManagement == 0) {
+    openModel(man : Management = new Management()) {
+      if (man.idManagement == 0) {
+        this.creatingMode = true;
         this.newManagement = new Management();
       } else {
         this.creatingMode = false;
-        this.newManagement = management;
+        this.newManagement = man;
       }
     }
     deleteManagement(managementId: string) {

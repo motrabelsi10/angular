@@ -36,14 +36,13 @@ export class EquipementComponent {
         this.newEquipement = equipement;
       }
     }*/
-    openModel(equipement: Equipement = new Equipement()) {
-      if (!equipement.idEquipement) {
-        // If equipement doesn't have an idEquipement, it means it's a new equipment
+    openModel(equip: Equipement = new Equipement()) {
+      if (equip.idEquipement == 0) {
         this.creatingMode = true;
         this.newEquipement = new Equipement();
       } else {
         this.creatingMode = false;
-        this.newEquipement = equipement;
+        this.newEquipement = equip;
       }
     }
     
@@ -75,6 +74,7 @@ export class EquipementComponent {
     }
   
     modifyEquipement() {
+      console.log(this.newEquipement);
       this.equipementService.editEquipement(this.newEquipement).subscribe(() => {
         this.getAllEquipement();
         window.location.reload();

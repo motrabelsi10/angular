@@ -22,7 +22,7 @@
                                     <th scope="col">Type d'achat</th>
                                     <th scope="col">Prix éstimé</th>
                                     <th scope="col">Evenement concerné</th>
-                                    <th scope="col">Quantité</th>
+                                    <th scope="col">Autre équipement</th>
                                     <th scope="col">Aprouvement</th>
                                     <th scope="col">Actions</th>
                                 </tr>
@@ -131,9 +131,9 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" *ngIf="creatingMode"
+                    <button type="button" class="btn btn-primary" *ngIf="creatingMode == true"
                         (click)="createEquipement()">Create Equipement</button>
-                    <button type="button" class="btn btn-primary" *ngIf="!creatingMode"
+                    <button type="button" class="btn btn-primary" *ngIf="creatingMode == false"
                         (click)="modifyEquipement()">Modify Equipement</button>
                 </div>
 
