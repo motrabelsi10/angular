@@ -43,7 +43,7 @@ export class EquipementComponent {
     createEquipement() {
       const newEquipement = {
         equipement: this.newEquipement.equipement,
-        typeequip: this.newEquipement.TypeEquip,
+        TypeEquip: this.newEquipement.TypeEquip,
         other: this.newEquipement.other ,
         approuvement: this.newEquipement.approuvement,
         price: this.newEquipement.price,
@@ -93,5 +93,14 @@ export class EquipementComponent {
       for (let i = 0; i < this.equipement.length; i += chunkSize) {
         this.equipementChunks.push(this.equipement.slice(i, i + chunkSize));
     }
+    }
+
+
+
+    handleTypeChange() {
+    
+      if (this.newEquipement.equipement == "other" ) {
+        this.newEquipement.other = "";
+      }
     }
 }

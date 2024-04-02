@@ -77,7 +77,7 @@
             </div>
         </div>
 
-        <!-- Modal -->
+        <!-- Modal 
         
         <div class="modal fade" id="EditAddfeedback" tabindex="-1" event="dialog" aria-labelledby="exampleModalCenterTitle"
             aria-hidden="true">
@@ -98,8 +98,58 @@
                             >Modify Feedback</button>
                     </div>
                 </div>
+            </div>-->
+
+            <div class="modal fade" id="EditAddfeedback" tabindex="-1" event="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl" event="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Event</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Titre du feedback</span>
+                            </div>
+                            <input type="text" class="form-control" [(ngModel)]="newFeedback.title">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Corps</span>
+                            </div>
+                            <input type="text" class="form-control" [(ngModel)]="newFeedback.body">
+                        </div>
+                      <!-- <div class="input-group mb-3">
+                            <label class="input-group-text mb-0">Type d'avis</label>
+                            <select class="default-select form-control wide" [(ngModel)]="newFeedback.note"
+                                (ngModelChange)="handleTypeChange()">
+
+                                <option selected>Veuillez choisir...</option>
+                                <option value="true">true</option>
+                                <option value="false">false</option>
+                            </select>
+                        </div>--> 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" *ngIf="creatingMode"
+                            (click)="createFeedback()">Create Feedback</button>
+                        <button type="button" class="btn btn-primary" *ngIf="!creatingMode"
+                            (click)="modifyFeedback()">Modify Feedback</button>
+                    </div>
+                </div>
             </div>
+        </div>
+
+
+
+
         </div>
     </div>
 
-
+</html>

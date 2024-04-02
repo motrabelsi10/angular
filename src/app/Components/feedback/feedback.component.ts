@@ -94,4 +94,11 @@ constructor(private feedbackService: FeedbackService, private router: Router) {
       this.feedbackChunks.push(this.feedback.slice(i, i + chunkSize));
   }
   }
+
+  handleTypeChange() {
+    
+    if (this.newFeedback.note == true ) {
+      
+    }
+  }
 }

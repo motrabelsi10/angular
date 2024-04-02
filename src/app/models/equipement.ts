@@ -3,9 +3,9 @@ import { Typeequip } from "./typeequip";
 
 export class Equipement {
     idEquipement : number;
-    equipement  : Equip;
+    equipement  : string;
     other  : string;
-    TypeEquip : Typeequip;
+    TypeEquip : string;
     approuvement : boolean;
     price : number;
     event : number;
@@ -13,9 +13,9 @@ export class Equipement {
 
     constructor(){
         this.idEquipement = 0;
-        this.equipement = Equip.other;
+        this.equipement = "";
         this.other = "";
-        this.TypeEquip = Typeequip.nothing,
+        this.TypeEquip = "",
         this.approuvement = false;
         this.price = 0;
         this.event = 0;

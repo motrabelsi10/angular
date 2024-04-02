@@ -3,8 +3,8 @@ import { Classe } from "./classe";
 
 export class Management {
     idManagement : number;
-    bloc  : Bloc;
-    classe : Classe;
+    bloc  : string;
+    classe : string;
     heureStart : Date;
     heureFinish : Date;
     approuvement : boolean;
@@ -13,8 +13,8 @@ export class Management {
 
     constructor(){
         this.idManagement = 0;
-        this.bloc = Bloc.A;
-        this.classe = Classe.cours;
+        this.bloc = "";
+        this.classe = "";
         this.heureStart = new Date();
         this.heureFinish = new Date();
         this.approuvement = false;
