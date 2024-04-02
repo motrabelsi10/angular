@@ -20,7 +20,7 @@
                                     <th scope="col">Titre</th>
                                     <th scope="col">Corps</th>
                                     <th scope="col">Date du feedback</th>
-                                    <th scope="col">note</th>
+                                    <th scope="col">Date de traitement</th>
                                     <th scope="col">User</th>
                                     <th scope="col">Actions</th>
                                 </tr>
@@ -29,8 +29,8 @@
                                 <tr *ngFor="let feedback of feedbackChunks" >
                                     <td class="text-center">{{feedback.title}}</td>
                                     <td class="text-center">{{feedback.body}}</td>
-                                    <td class="text-center">{{feedback.dateFeedback | date:'MMM dd, yyyy à HH:mm '  }}</td>
-                                    <td class="text-center">{{feedback.note?"Good":"Bad"}}</td>
+                                    <td class="text-center">{{feedback.dateFeedback | date:'MMM dd, yyyy à HH:mm '}}</td>
+                                    <td class="text-center">{{feedback.datevu | date:'MMM dd, yyyy à HH:mm '}}</td>
                                     <td class="text-center">{{feedback.user.firstName}} {{feedback.user.lastName}}</td>
                                     
                                     <td class="text-center">

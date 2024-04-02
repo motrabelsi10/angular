@@ -82,7 +82,7 @@ constructor(private feedbackService: FeedbackService, private router: Router) {
     const newfeedback = {
       title: this.newFeedback.title,
       body: this.newFeedback.body,
-      note: true ,
+      datevu: this.newFeedback.datevu,
       user: user,
       event : event,
 
@@ -135,8 +135,6 @@ constructor(private feedbackService: FeedbackService, private router: Router) {
 
   handleTypeChange() {
     
-    if (this.newFeedback.note == true ) {
-      
-    }
+    
   }
 }

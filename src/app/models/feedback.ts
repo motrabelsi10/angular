@@ -7,7 +7,7 @@ export class Feedback {
     title  : string;
     body  : string;
     date : Date;
-    note : boolean;
+    datevu : Date;
     user : User;
     event : Event;
 
@@ -16,7 +16,7 @@ export class Feedback {
         this.title = "";
         this.body = "";
         this.date = new Date();
-        this.note = false;
+        this.datevu = new Date();
         this.user = new User();
         this.event = new Event();
       }
