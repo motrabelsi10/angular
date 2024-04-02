@@ -47,16 +47,12 @@ export class ManagementComponent {
   
     createManagement() {
       const event = {
-        idEvent : "1"
-      }
-      const user = {
-        idUser : "1"
+        idEvent : "2"
       }
       const newManagement = {
         bloc: this.newManagement.bloc,
         classe: this.newManagement.classe,
-        start: this.newManagement.heureStart ,
-        end: this.newManagement.heureFinish,
+        details: this.newManagement.details,
         approuvement: this.newManagement.approuvement,
         event: event,
       }

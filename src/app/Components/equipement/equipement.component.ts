@@ -60,8 +60,8 @@ export class EquipementComponent {
       }
       const newEquipement = {
         equipement: this.newEquipement.equipement,
-        TypeEquip: this.newEquipement.TypeEquip,
-        other: this.newEquipement.TypeEquip == "other"? this.newEquipement.other:"",
+        typeequip: this.newEquipement.typeequip,
+        other: this.newEquipement.typeequip == "other"? this.newEquipement.other:"",
         approuvement: true,
         price: this.newEquipement.price,
         event: event,
@@ -74,7 +74,6 @@ export class EquipementComponent {
     }
   
     modifyEquipement() {
-      console.log(this.newEquipement);
       this.equipementService.editEquipement(this.newEquipement).subscribe(() => {
         this.getAllEquipement();
         window.location.reload();

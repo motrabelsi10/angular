@@ -29,7 +29,7 @@
                                 <tr *ngFor="let feedback of feedbackChunks" >
                                     <td class="text-center">{{feedback.title}}</td>
                                     <td class="text-center">{{feedback.body}}</td>
-                                    <td class="text-center">{{feedback.dateFeedback | date }}</td>
+                                    <td class="text-center">{{feedback.dateFeedback | date:'MMM dd, yyyy à HH:mm '  }}</td>
                                     <td class="text-center">{{feedback.note?"Good":"Bad"}}</td>
                                     <td class="text-center">{{feedback.user.firstName}} {{feedback.user.lastName}}</td>
                                     
@@ -77,28 +77,6 @@
             </div>
         </div>
 
-        <!-- Modal 
-        
-        <div class="modal fade" id="EditAddfeedback" tabindex="-1" event="dialog" aria-labelledby="exampleModalCenterTitle"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-xl" event="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Feedback</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" *ngIf="creatingMode"
-                            >Create Feedback</button>
-                        <button type="button" class="btn btn-primary" *ngIf="!creatingMode"
-                            >Modify Feedback</button>
-                    </div>
-                </div>
-            </div>-->
 
             <div class="modal fade" id="EditAddfeedback" tabindex="-1" event="dialog" aria-labelledby="exampleModalCenterTitle"
             aria-hidden="true">

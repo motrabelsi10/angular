@@ -6,8 +6,7 @@ export class Management {
     idManagement : number;
     bloc  : string;
     classe : string;
-    heureStart : Date;
-    heureFinish : Date;
+    details: string;
     approuvement : boolean;
     event : Event;
 
@@ -16,8 +15,7 @@ export class Management {
         this.idManagement = 0;
         this.bloc = "";
         this.classe = "";
-        this.heureStart = new Date();
-        this.heureFinish = new Date();
+        this.details = "";
         this.approuvement = false;
         this.event = new Event();
       }
