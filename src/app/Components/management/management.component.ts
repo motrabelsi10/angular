@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ManagementService } from 'src/app/Services/management.service';
 import { Management } from 'src/app/models/management';
+import { User } from 'src/app/models/user';
+import { Event } from 'src/app/models/event';
 
 @Component({
   selector: 'app-management',
@@ -9,6 +11,8 @@ import { Management } from 'src/app/models/management';
   styleUrls: ['./management.component.css']
 })
 export class ManagementComponent {
+  event : Event = new Event();
+  user : User = new User();
   management : any;
   newManagement : Management = new Management();
   creatingMode: boolean = true;
@@ -41,13 +45,19 @@ export class ManagementComponent {
     }
   
     createManagement() {
+      const event = {
+        idEvent : "1"
+      }
+      const user = {
+        idUser : "1"
+      }
       const newManagement = {
         bloc: this.newManagement.bloc,
         classe: this.newManagement.classe,
         start: this.newManagement.heureStart ,
         end: this.newManagement.heureFinish,
         approuvement: this.newManagement.approuvement,
-        event: this.newManagement.event,
+        event: event,
       }
       this.managementService.addManagement(newManagement).subscribe(() => {
         this.getAllManagement();

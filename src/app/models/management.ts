@@ -1,5 +1,6 @@
 import { Bloc } from "./bloc";
 import { Classe } from "./classe";
+import { Event } from "./event";
 
 export class Management {
     idManagement : number;
@@ -8,7 +9,7 @@ export class Management {
     heureStart : Date;
     heureFinish : Date;
     approuvement : boolean;
-    event : number;
+    event : Event;
 
 
     constructor(){
@@ -18,6 +19,6 @@ export class Management {
         this.heureStart = new Date();
         this.heureFinish = new Date();
         this.approuvement = false;
-        this.event = 0;
+        this.event = new Event();
       }
 }

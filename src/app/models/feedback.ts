@@ -1,3 +1,6 @@
+import { Event } from "./event";
+import { User } from "./user";
+
 export class Feedback {
    
     idFeedback : number;
@@ -5,7 +8,8 @@ export class Feedback {
     body  : string;
     date : Date;
     note : boolean;
-    user : number;
+    user : User;
+    event : Event;
 
     constructor(){
         this.idFeedback = 0;
@@ -13,7 +17,8 @@ export class Feedback {
         this.body = "";
         this.date = new Date();
         this.note = false;
-        this.user = 1;
+        this.user = new User();
+        this.event = new Event();
       }
   
 }

@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FeedbackService } from 'src/app/Services/feedback.service';
 import { Feedback } from 'src/app/models/feedback';
+import { User } from 'src/app/models/user';
+import { Event } from 'src/app/models/event';
+import { getLocaleDateTimeFormat } from '@angular/common';
+import { timestamp } from 'rxjs';
 
 @Component({
   selector: 'app-feedback',
@@ -9,6 +13,8 @@ import { Feedback } from 'src/app/models/feedback';
   styleUrls: ['./feedback.component.css']
 })
 export class FeedbackComponent {
+  event : Event = new Event();
+  user : User = new User();
 feedback : any;
 newFeedback : Feedback = new Feedback();
 creatingMode: boolean = true;
@@ -41,15 +47,47 @@ constructor(private feedbackService: FeedbackService, private router: Router) {
     });
   }
 
+   convertDate(currentDate : Date) {
+    const year = currentDate.getFullYear();
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+    const day = currentDate.getDate().toString().padStart(2, '0');
+    const hours = currentDate.getHours().toString().padStart(2, '0');
+    const minutes = currentDate.getMinutes().toString().padStart(2, '0');
+    const seconds = currentDate.getSeconds().toString().padStart(2, '0');
+
+    const formattedDate = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+    return formattedDate;
+}
+
   createFeedback() {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+    const day = currentDate.getDate().toString().padStart(2, '0');
+    const hours = currentDate.getHours().toString().padStart(2, '0');
+    const minutes = currentDate.getMinutes().toString().padStart(2, '0');
+    const seconds = currentDate.getSeconds().toString().padStart(2, '0');
+    const add = currentDate.getMilliseconds().toString().padStart(2,'0');
+
+    const formattedDate = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${add}`;
+
+    const event = {
+      idEvent : "1"
+    }
+    const user = {
+      idUser : "1"
+    }
+    
+
     const newfeedback = {
       title: this.newFeedback.title,
       body: this.newFeedback.body,
-      note: this.newFeedback.note ,
-      dateFeedback: new Date,
-      user: this.newFeedback.user,
+      note: true ,
+      user: user,
+      event : event,
 
     }
+    
     this.feedbackService.addFeedback(newfeedback).subscribe(() => {
       this.getAllFeedback();
       window.location.reload();
