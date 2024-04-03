@@ -14,16 +14,19 @@ export class FeedbackService {
   getAllFeedback(): Observable<any> {
     return this.httpClient.get(`${this.API_URL}/feedbacks`)
   }
-  addFeedback(event : any) {
-    return this.httpClient.post(`${this.API_URL}/add-feedback`, event)
+  addFeedback(Feedback : any) {
+    return this.httpClient.post(`${this.API_URL}/add-feedback`, Feedback)
   }
-  getFeedback(idEvent : any){
-    return this.httpClient.get(`${this.API_URL}/retrieve-feedback/${idEvent}`)
+  getFeedback(idFeedback : any){
+    return this.httpClient.get(`${this.API_URL}/retrieve-feedback/${idFeedback}`)
   }
-  editFeedback(event : any){
-    return this.httpClient.put(`${this.API_URL}/modify-feedback`, event)
+  editFeedback(Feedback : any){
+    return this.httpClient.put(`${this.API_URL}/modify-feedback`, Feedback)
   }
-  deleteFeedback(idEvent : any){
-    return  this.httpClient.delete(`${this.API_URL}/remove-feedback/${idEvent}`)
+  addFeedbackAdmin(Feedback : any){
+    return this.httpClient.put(`${this.API_URL}/add-feedback-admin`, Feedback)
+  }
+  deleteFeedback(idFeedback : any){
+    return  this.httpClient.delete(`${this.API_URL}/remove-feedback/${idFeedback}`)
   }
 }

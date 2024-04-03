@@ -6,11 +6,11 @@ import { User } from 'src/app/models/user';
 import { Event } from 'src/app/models/event';
 
 @Component({
-  selector: 'app-management',
-  templateUrl: './management.component.html',
-  styleUrls: ['./management.component.css']
+  selector: 'app-management-user',
+  templateUrl: './management-user.component.html',
+  styleUrls: ['./management-user.component.css']
 })
-export class ManagementComponent {
+export class ManagementUserComponent {
   event : Event = new Event();
   user : User = new User();
   management : any;
@@ -38,17 +38,6 @@ export class ManagementComponent {
         this.newManagement = man;
       }
     }
-
-
-    EditApprouvement(man : Management = new Management()){
-      man.approuvement = true;
-      this.managementService.addManagementAdmin(man).subscribe(() => {
-        this.getAllManagement();
-        window.location.reload();
-      });
-    }
-
-
     deleteManagement(managementId: string) {
       this.managementService.deleteManagement(managementId).subscribe(() => {
         this.getAllManagement();
@@ -58,13 +47,10 @@ export class ManagementComponent {
   
     createManagement() {
       const event = {
-        idEvent : "2"
+        idEvent : "1"
       }
       const newManagement = {
-        bloc: this.newManagement.bloc,
-        classe: this.newManagement.classe,
         details: this.newManagement.details,
-        approuvement: this.newManagement.approuvement,
         event: event,
       }
       this.managementService.addManagement(newManagement).subscribe(() => {

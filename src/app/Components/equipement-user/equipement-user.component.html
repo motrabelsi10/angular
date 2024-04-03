@@ -4,6 +4,11 @@
     <div class="container-fluid">
         <div class="col-lg-12">
 
+           <div class="shopping-cart  mb-2 me-3">
+                <a class="btn btn-primary text-white" data-toggle="modal" data-target="#EditAddEquipement"
+                    (click)="openModel()"><i class="fa fa-shopping-basket me-2"></i>Create New Equipement</a>
+                    
+            </div>-
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Liste des équipements</h4>
@@ -31,24 +36,18 @@
                                     <td class="text-center">{{equipement.event.nameEvent}}</td>
                                     <td class="text-center">{{equipement.datemeeting}}</td>
                                     <td class="text-center">{{equipement.other}}</td>
-                                    <!--<td class="text-center">{{equipement.approuvement?"Aprouvé":<a class="btn btn-primary text-white" 
-                                        (click)="EditApprouvement(equipement)"><i class="fa fa-shopping-basket me-2"></i>Approuvé?</a>}}</td>-->
-                                        <td class="text-center">
-                                            <ng-container *ngIf="equipement.approuvement; else editButton">
-                                              Approuvé
-                                            </ng-container>
-                                            <ng-template #editButton>
-                                              <a class="btn btn-primary text-white" (click)="EditApprouvement(equipement)">
-                                                <i class="fa fa-shopping-basket me-2"></i>Approuvé?
-                                              </a>
-                                            </ng-template>
-                                          </td>
+                                    <td class="text-center">{{equipement.approuvement?"Aprouvé":"Non aprouvé"}}</td>
+                                    
                                     <td class="text-center">
                                         <div class="d-flex justify-content-center">
                                           <a type="button" class="btn btn-primary shadow btn-xs sharp me-1"
                                                 data-toggle="modal" data-target="#EditAddEquipement"
                                                 (click)="openModel(equipement)">
                                                 <i class="fa fa-pencil"></i>
+                                            </a>
+                                            <a type="button" class="btn btn-danger shadow btn-xs sharp"
+                                                (click)="deleteEquipement(equipement.idEquipmenet)">
+                                                <i class="fa fa-trash"></i>
                                             </a>
                                         </div>
                                     </td>
@@ -93,14 +92,54 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-            
-                    <div class="modal-body">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Date rendez vous administrative</span>
-                            </div>
-                            <input type="text" class="form-control" [(ngModel)]="newEquipement.datemeeting">
+                <div class="input-group mb-3">
+                    <label class="input-group-text mb-0">équipement</label>
+                    <select class="default-select form-control wide" [(ngModel)]="newEquipement.equipement">
+
+                        <option selected>Veuillez choisir...</option>
+                        <option value="eau">eau</option>
+                        <option value="sono">sono</option>
+                        <option value="lumiere">lumière</option>
+                        <option value="tapi">tapi</option>
+                        <option value="jus">jus</option>
+                        <option value="sandwichs">sandwitch</option>
+                        <option value="other">autre</option>
+                    </select>
+                </div>
+                <div class="input-group mb-3" *ngIf="newEquipement.equipement === 'other'">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">autre équipement</span>
+                    </div>
+                    <input type="text" class="form-control" [(ngModel)]="newEquipement.other">
+                </div>
+                <div class="input-group mb-3">
+                    
+                    <label class="input-group-text mb-0">Type d'équipement</label>
+                    <select class="default-select form-control wide" [(ngModel)]="newEquipement.typeequip"
+                        (ngModelChange)="handleTypeChange()">
+
+                        <option selected>Veuillez choisir...</option>
+                        <option value="Bouteille">Bouteille</option>
+                        <option value="kg">kg</option>
+                        <option value="nothing">nothing</option>
+                    </select>
+                </div>
+                <div class="input-group mb-3" *ngIf=" newEquipement.typeequip !== 'nothing'">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Quantité</span>
+                    </div>
+                    <input type="text" class="form-control" [(ngModel)]="newEquipement.quantite">
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Prix Estimé</span>
                         </div>
+                        <input type="text" class="form-control" [(ngModel)]="newEquipement.price">
+                    </div>
+
+            <div class="modal-body">
+                      
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -118,46 +157,10 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <!-- Modal 
-        
-        <div class="modal fade" id="#EditAddEquipement" tabindex="-1" event="dialog" aria-labelledby="exampleModalCenterTitle"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-xl" event="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Feedback</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" *ngIf="creatingMode"
-                            >Create Equipement</button>
-                        <button type="button" class="btn btn-primary" *ngIf="!creatingMode"
-                            >Modify Equipement</button>
-                    </div>
-                </div>
-            </div> -->
+              
         </div>
     </div>
+
 
 
 

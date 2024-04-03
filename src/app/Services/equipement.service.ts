@@ -12,17 +12,20 @@ export class EquipementService {
   getAllEquipement() {
     return this.httpClient.get(`${this.API_URL}/equipements`)
   }
-  addEquipement(event : any) {
-    return this.httpClient.post(`${this.API_URL}/add-equipement`, event)
+  addEquipement(equipement : any) {
+    return this.httpClient.post(`${this.API_URL}/add-equipement`, equipement)
   }
-  getEquipement(idEvent : any){
-    return this.httpClient.get(`${this.API_URL}/retrieve-equipement/${idEvent}`)
+  getEquipement(idequipement : any){
+    return this.httpClient.get(`${this.API_URL}/retrieve-equipement/${idequipement}`)
   }
-  editEquipement(event : any){
-    return this.httpClient.put(`${this.API_URL}/modify-equipement`, event)
+  editEquipement(equipement : any){
+    return this.httpClient.put(`${this.API_URL}/modify-equipement`, equipement)
   }
-  deletEequipement(idEvent : any){
-    return  this.httpClient.delete(`${this.API_URL}/remove-equipement/${idEvent}`)
+  addEquipementAdmin(equipement : any){
+    return this.httpClient.put(`${this.API_URL}/add-equipement-admin`, equipement)
+  }
+  deletEequipement(idequipement : any){
+    return  this.httpClient.delete(`${this.API_URL}/remove-equipement/${idequipement}`)
   }
 
 }

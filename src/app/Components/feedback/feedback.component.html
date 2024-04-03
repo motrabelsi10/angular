@@ -3,11 +3,6 @@
 <div class="content-body">
     <div class="container-fluid">
         <div class="col-lg-12">
-
-           <div class="shopping-cart  mb-2 me-3">
-                <a class="btn btn-primary text-white" data-toggle="modal" data-target="#EditAddfeedback"
-                    (click)="openModel()"><i class="fa fa-shopping-basket me-2"></i>Create New Feedback</a>
-            </div>-
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Liste des feedbacks</h4>
@@ -20,9 +15,8 @@
                                     <th scope="col">Titre</th>
                                     <th scope="col">Corps</th>
                                     <th scope="col">Date du feedback</th>
-                                    <th scope="col">Date de traitement</th>
                                     <th scope="col">User</th>
-                                    <th scope="col">Actions</th>
+                                    <th scope="col">Traitement</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -30,22 +24,22 @@
                                     <td class="text-center">{{feedback.title}}</td>
                                     <td class="text-center">{{feedback.body}}</td>
                                     <td class="text-center">{{feedback.dateFeedback | date:'MMM dd, yyyy à HH:mm '}}</td>
-                                    <td class="text-center">{{feedback.datevu | date:'MMM dd, yyyy à HH:mm '}}</td>
+                                   
                                     <td class="text-center">{{feedback.user.firstName}} {{feedback.user.lastName}}</td>
                                     
                                     <td class="text-center">
-                                        <div class="d-flex justify-content-center">
-                                          <a type="button" class="btn btn-primary shadow btn-xs sharp me-1"
-                                                data-toggle="modal" data-target="#EditAddfeedback"
-                                                (click)="openModel(feedback)">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                            <a type="button" class="btn btn-danger shadow btn-xs sharp"
-                                                (click)="deleteFeedback(feedback.idFeedback)">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </div>
-                                    </td>
+                                        <ng-container *ngIf="feedback.datevu !== null; else showButton">
+                                          {{ feedback.datevu | date:'MMM dd, yyyy à HH:mm ' }}
+                                        </ng-container>
+                                        <ng-template #showButton>
+                                          <button class="btn btn-primary text-white" (click)="traitementFeedback(feedback)">
+                                            Traitement
+                                          </button>
+                                        </ng-template>
+                                      </td>
+                                      
+                                    <!--    <td class="text-center">{{feedback.datevu !==""?| date:'MMM dd, yyyy à HH:mm ' }}</td>-->
+                                    
                              </tr>   
                                 
                             </tbody>
@@ -78,41 +72,7 @@
         </div>
 
 
-            <div class="modal fade" id="EditAddfeedback" tabindex="-1" event="dialog" aria-labelledby="exampleModalCenterTitle"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-xl" event="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Event</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Titre du feedback</span>
-                            </div>
-                            <input type="text" class="form-control" [(ngModel)]="newFeedback.title">
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Corps</span>
-                            </div>
-                            <input type="text" class="form-control" [(ngModel)]="newFeedback.body">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" *ngIf="creatingMode"
-                            (click)="createFeedback()">Create Feedback</button>
-                        <button type="button" class="btn btn-primary" *ngIf="!creatingMode"
-                            (click)="modifyFeedback()">Modify Feedback</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+           
 
 
 

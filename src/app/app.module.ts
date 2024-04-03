@@ -10,6 +10,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ManagementComponent } from './Components/management/management.component';
 import { EquipementComponent } from './Components/equipement/equipement.component';
+import { EquipementUserComponent } from './Components/equipement-user/equipement-user.component';
+import { FeedbackUserComponent } from './Components/feedback-user/feedback-user.component';
+import { ManagementUserComponent } from './Components/management-user/management-user.component';
 
 
 @NgModule({
@@ -18,7 +21,10 @@ import { EquipementComponent } from './Components/equipement/equipement.componen
     EssaiComponent,
     FeedbackComponent,
     ManagementComponent,
-    EquipementComponent
+    EquipementComponent,
+    EquipementUserComponent,
+    FeedbackUserComponent,
+    ManagementUserComponent
   ],
   imports: [
     BrowserModule,

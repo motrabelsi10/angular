@@ -5,11 +5,11 @@ import { EquipementService } from 'src/app/Services/equipement.service';
 import { Equipement } from 'src/app/models/equipement';
 
 @Component({
-  selector: 'app-equipement',
-  templateUrl: './equipement.component.html',
-  styleUrls: ['./equipement.component.css']
+  selector: 'app-equipement-user',
+  templateUrl: './equipement-user.component.html',
+  styleUrls: ['./equipement-user.component.css']
 })
-export class EquipementComponent {
+export class EquipementUserComponent {
   event : Event = new Event();
   equipement : any;
   newEquipement : Equipement = new Equipement();
@@ -28,14 +28,6 @@ export class EquipementComponent {
         });
     }
   
-   /* openModel(equipement : Equipement = new Equipement()) {
-      if (this.equipement.idEquipement == 0) {
-        this.newEquipement = new Equipement();
-      } else {
-        this.creatingMode = false;
-        this.newEquipement = equipement;
-      }
-    }*/
     openModel(equip: Equipement = new Equipement()) {
       if (equip.idEquipement == 0) {
         this.creatingMode = true;
@@ -45,8 +37,6 @@ export class EquipementComponent {
         this.newEquipement = equip;
       }
     }
-
-    
     
 
     deleteEquipement(equipementId: string) {
@@ -83,15 +73,6 @@ export class EquipementComponent {
         window.location.reload();
       });
     }
-
-    EditApprouvement(equip: Equipement = new Equipement()){
-      equip.approuvement = true;
-      this.equipementService.addEquipementAdmin(equip).subscribe(() => {
-        this.getAllEquipement();
-        window.location.reload();
-      });
-    }
-
   
     changePage(pageNumber: number) {
       this.currentPage = pageNumber;

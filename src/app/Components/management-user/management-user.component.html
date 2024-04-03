@@ -4,6 +4,10 @@
     <div class="container-fluid">
         <div class="col-lg-12">
 
+           <div class="shopping-cart  mb-2 me-3">
+                <a class="btn btn-primary text-white" data-toggle="modal" data-target="#EditAddManagement"
+                    (click)="openModel()"><i class="fa fa-shopping-basket me-2"></i>Create New Management</a>
+            </div>-
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Liste des Managements</h4>
@@ -15,11 +19,10 @@
                                 <tr>
                                     <th scope="col">évenement concerné</th>
                                     <th scope="col">Détails</th>
-                                    
+                                    <th scope="col">Aprouvement</th>
                                     <th scope="col">Emplacement</th>
                                     <th scope="col">Début de l'évènement</th>
                                     <th scope="col">Fin de l'évènement</th>
-                                    <th scope="col">Aprouvement</th>
                                     <th scope="col">Actions</th>
                                 </tr>
                             </thead>
@@ -27,20 +30,11 @@
                                 <tr *ngFor="let management of management" >
                                     <td class="text-center">{{management.event.nameEvent}}</td>
                                     <td class="text-center">{{management.details}}</td>
-                                   <!-- <td class="text-center">{{management.approuvement?"Aprouvé":"Non aprouvé"}}</td>c-->
+                                    <td class="text-center">{{management.approuvement?"Aprouvé":"Non aprouvé"}}</td>
                                     <td class="text-center">{{management.bloc}}, {{management.classe}}</td>
                                     <td class="text-center">{{ management.event.dateStart | date:'MMM dd, yyyy à HH:mm ' }}</td>
                                     <td class="text-center">{{ management.event.dateFinish | date:'MMM dd, yyyy à HH:mm' }}</td>
-                                    <td class="text-center">
-                                        <ng-container *ngIf="management.approuvement; else editButton">
-                                          Approuvé
-                                        </ng-container>
-                                        <ng-template #editButton>
-                                          <a class="btn btn-primary text-white" (click)="EditApprouvement(management)">
-                                            <i class="fa fa-shopping-basket me-2"></i>Approuvé?
-                                          </a>
-                                        </ng-template>
-                                      </td>
+                                    
                                     
                                     <td class="text-center">
                                         <div class="d-flex justify-content-center">
@@ -49,7 +43,10 @@
                                                 (click)="openModel(management)">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                           
+                                            <a type="button" class="btn btn-danger shadow btn-xs sharp"
+                                                (click)="deleteManagement(management.idManagement)">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
                                         </div>
                                     </td>
                              </tr>   
@@ -96,50 +93,14 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-              
-                    
-                <div class="input-group mb-3">
-                    <label class="input-group-text mb-0">Bloc</label>
-                    <select class="default-select form-control wide" [(ngModel)]="newManagement.bloc">
-
-                        <option selected>Veuillez choisir...</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                        <option value="D">D</option>
-                        <option value="E">E</option>
-                    </select>
-                </div>
-                <div class="input-group mb-3">
-                    <label class="input-group-text mb-0">La salle</label>
-                    <select class="default-select form-control wide" [(ngModel)]="newManagement.classe">
-
-                        <option selected>Veuillez choisir...</option>
-                        <option value="S001">S001</option>
-                        <option value="S002">S002</option>
-                        <option value="S003">S003</option>
-                        <option value="S004">S004</option>
-                        <option value="S005">S005</option>
-                        <option value="S006">S006</option>
-                        <option value="S007">S007</option>
-                        <option value="S008">S008</option>
-                        <option value="S009">S009</option>
-                        <option value="S010">S010</option>
-                        <option value="S101">S101</option>
-                        <option value="S102">S102</option>
-                        <option value="S103">S103</option>
-                        <option value="S104">S104</option>
-                        <option value="S105">S105</option>
-                        <option value="S106">S106</option>
-                        <option value="S107">S107</option>
-                        <option value="S108">S108</option>
-                        <option value="S109">S109</option>
-                        <option value="S110">S110</option>
-                        <option value="amphi">amphi</option>
-                        <option value="cours">cours</option>
-
-                    </select>
-                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Détails concernant la demande :</span>
+                        </div>
+                        <input type="text" class="form-control" [(ngModel)]="newManagement.details">
+                    </div>
+               
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" *ngIf="creatingMode"

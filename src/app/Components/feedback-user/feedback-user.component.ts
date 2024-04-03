@@ -4,15 +4,13 @@ import { FeedbackService } from 'src/app/Services/feedback.service';
 import { Feedback } from 'src/app/models/feedback';
 import { User } from 'src/app/models/user';
 import { Event } from 'src/app/models/event';
-import { getLocaleDateTimeFormat } from '@angular/common';
-import { timestamp } from 'rxjs';
 
 @Component({
-  selector: 'app-feedback',
-  templateUrl: './feedback.component.html',
-  styleUrls: ['./feedback.component.css']
+  selector: 'app-feedback-user',
+  templateUrl: './feedback-user.component.html',
+  styleUrls: ['./feedback-user.component.css']
 })
-export class FeedbackComponent {
+export class FeedbackUserComponent {
   event : Event = new Event();
   user : User = new User();
 feedback : any;
@@ -40,16 +38,6 @@ constructor(private feedbackService: FeedbackService, private router: Router) {
       this.newFeedback = feedback;
     }
   }
-
-  traitementFeedback(feedback: Feedback = new Feedback()){
-    this.feedbackService.addFeedbackAdmin(feedback).subscribe(() => {
-      this.getAllFeedback();
-      window.location.reload();
-    });
-  }
-
-
-
   deleteFeedback(feedbacktId: string) {
     this.feedbackService.deleteFeedback(feedbacktId).subscribe(() => {
       this.getAllFeedback();
@@ -92,7 +80,6 @@ constructor(private feedbackService: FeedbackService, private router: Router) {
     const newfeedback = {
       title: this.newFeedback.title,
       body: this.newFeedback.body,
-      datevu: this.newFeedback.datevu,
       user: user,
       event : event,
 

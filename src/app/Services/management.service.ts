@@ -12,16 +12,19 @@ export class ManagementService {
   getAllManagement() {
     return this.httpClient.get(`${this.API_URL}/managements`)
   }
-  addManagement(event : any) {
-    return this.httpClient.post(`${this.API_URL}/add-management`, event)
+  addManagement(management : any) {
+    return this.httpClient.post(`${this.API_URL}/add-management`, management)
   }
-  getManagement(idEvent : any){
-    return this.httpClient.get(`${this.API_URL}/retrieve-management/${idEvent}`)
+  getManagement(idmanagement : any){
+    return this.httpClient.get(`${this.API_URL}/retrieve-management/${idmanagement}`)
   }
-  editManagement(event : any){
-    return this.httpClient.put(`${this.API_URL}/modify-management`, event)
+  editManagement(management : any){
+    return this.httpClient.put(`${this.API_URL}/modify-management`, management)
   }
-  deleteManagement(idEvent : any){
-    return  this.httpClient.delete(`${this.API_URL}/remove-management/${idEvent}`)
+  addManagementAdmin(management : any){
+    return this.httpClient.put(`${this.API_URL}/add-management-admin`, management)
+  }
+  deleteManagement(idmanagement : any){
+    return  this.httpClient.delete(`${this.API_URL}/remove-management/${idmanagement}`)
   }
 }
