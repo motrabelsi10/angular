@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RecrutementComponent } from '../recrutement/recrutement.component';
 import { RecrutementProcess } from 'src/app/models/recrutement-process';
 import { RecrutementprocessService } from 'src/app/Services/recrutementprocess.service';
-
+import { NgForm } from '@angular/forms';
 import { RecrutementService } from 'src/app/Services/recrutement.service';
 import { Recrutement } from 'src/app/models/recrutement';
 @Component({
@@ -27,14 +27,6 @@ export class RecrutementprocessUserComponent implements OnInit {
   }
   
 
-
-  loadProcesses(): void {
-    this.RecrutementProcess.getAllProcesses().subscribe((processes: any) => {
-        // Ajouter le nouvel entretien au début du tableau
-        this.processes = [this.newRecrutementProcess, ...processes];
-    });
-}
-
 ngOnInit(): void {
   this.idRecrutement = this.route.snapshot.paramMap.get('idRecrutement');
   if (this.idRecrutement !== null) {
@@ -55,81 +47,55 @@ retrieveProcessesByRecrutement(idRecrutement: number): void {
 
   modifyProcess(modifiedProcess: RecrutementProcess): void {
     this.RecrutementProcess.editProcess(modifiedProcess).subscribe(() => {
-      this.loadProcesses(); // Recharger la liste après la modification
+      this.retrieveProcessesByRecrutement(this.idRecrutement); // Recharger la liste après la modification
     });
   }
 
   deleteProcess(idProcessRecrutement: number): void {
     this.RecrutementProcess.deleteProcess(idProcessRecrutement).subscribe(() => {
-      this.loadProcesses(); // Recharger la liste après la suppression
+      this.retrieveProcessesByRecrutement(this.idRecrutement); // Recharger la liste après la modification
     });
   }
-  
+  loadProcesses(idRecrutement:number): void {
+    this.RecrutementProcess.retrieveProcessesByRecrutement(idRecrutement).subscribe((processes: any) => {
+        // Ajouter le nouvel entretien au début du tableau
+        this.processes = [this.newRecrutementProcess, ...processes];
+    });
+}
  
   openModel(process: RecrutementProcess = new RecrutementProcess()) {
     if (process.idProcessRecrutement == 0) {
       this.newRecrutementProcess = new RecrutementProcess();
+      
+      this.loadProcesses(this.idRecrutement);
     } else {
       this.creatingMode = false;
       this.newRecrutementProcess = process;
+      
     }
   }
   createProcessbyRecrutement(): void {
-    // Récupérer les détails du recrutement
-    this.recrutementservice.getRecrutement(this.idRecrutement).subscribe({
-      next: (recrutement: any) => {
-        // Créer un nouvel objet de processus de recrutement
-        const newRecrutementProcess = {
-          availability: this.newRecrutementProcess.availability,
-          interviewDate: this.newRecrutementProcess.interviewDate,
-          integratedInOtherClubs: this.newRecrutementProcess.integratedInOtherClubs,
-          skills:this.newRecrutementProcess.skills,
-          whyToJoin: this.newRecrutementProcess.whyToJoin,
-          otherClubs:this.newRecrutementProcess.otherClubs,
-        };
+    const newRecrutementProcess = {
+        skills: this.newRecrutementProcess.skills,
+        interviewDate: this.newRecrutementProcess.interviewDate,
+        whyToJoin: this.newRecrutementProcess.whyToJoin,
+        otherClubs: this.newRecrutementProcess.otherClubs,
+        integratedInOtherClubs: this.newRecrutementProcess.integratedInOtherClubs,
+        availability: this.newRecrutementProcess.availability,
+    };
+
+    this.RecrutementProcess.addProcessByRecrutement(newRecrutementProcess, this.idRecrutement).subscribe(() => {
+      
+        this.loadProcesses(this.idRecrutement);
         
-        // Ajouter le processus de recrutement en utilisant le service approprié
-        this.RecrutementProcess.addProcessByRecrutement(newRecrutementProcess, this.idRecrutement).subscribe({
-          next: () => { 
-            // Réinitialiser les données du formulaire après l'ajout
-            this.newRecrutementProcess = new RecrutementProcess();
-            // Recharger la liste des processus après l'ajout
-            this.loadProcesses(); 
-            // Masquer le formulaire après l'ajout
-            this.showRecrutementForm = false; 
-          },
-          error: (error) => {
-            console.error('Erreur lors de l\'ajout du processus de recrutement :', error);
-          }
-        });
-      },
-      error: (error) => {
-        console.error('Erreur lors de la récupération des détails du recrutement :', error);
-      }
-    });
-  }
-
-  /*createProcessbyRecrutement(): void {
-    // Récupérer les détails du recrutement
-    this.recrutementservice.getRecrutement(this.idRecrutement).subscribe((recrutement: any) => {
-        // Créer un nouvel objet de processus de recrutement
-        const newRecrutementProcess = {
-
-                interviewDate: new Date(),
-
-        };
-
-        // Ajouter le processus de recrutement en utilisant le service approprié
-        this.RecrutementProcess.addProcessByRecrutement(newRecrutementProcess, this.idRecrutement).subscribe(() => {
-                // Recharger la liste des processus après l'ajout
-                this.loadProcesses();
-        // Masquer le formulaire après l'ajout
+        this.newRecrutementProcess = {}; // Réinitialiser les valeurs du formulaire après la création réussie
         this.showRecrutementForm = false;
-        // Réinitialiser les données du formulaire
-        this.newRecrutementProcess={};
-          });
-    })
-}/*
+        this.retrieveProcessesByRecrutement(this.idRecrutement);
+    });
+}
+
+
+ 
 
   
 
@@ -144,20 +110,5 @@ retrieveProcessesByRecrutement(idRecrutement: number): void {
     });
   }*/
 
-  /*
- createProcess(newProcess: RecrutementProcess): void {
-    this.RecrutementProcess.addProcess(newProcess).subscribe(() => {
-        this.loadProcesses(); // Recharger la liste après l'ajout
-        this.showRecrutementForm = false; // Masquer le formulaire après l'ajout
-        this.newRecrutementProcess = {}; // Réinitialiser le nouvel objet de processus
-    });
-}
-*/
-/* constructor(private router: Router,private route: ActivatedRoute,private RecrutementProcess: RecrutementprocessService) { 
-  }
-  */
- /*  ngOnInit(): void {
-    this.loadProcesses();
-  }
-*/
+  
   }

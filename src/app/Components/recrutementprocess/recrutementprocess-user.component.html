@@ -1,4 +1,4 @@
-//interface  user affichage cards
+    //interface  user affichage cards
 <div class="content-body">
     <div class="container-fluid">
         <!-- Bouton pour afficher le formulaire -->
@@ -12,33 +12,33 @@
                     <form>
                         <div class="mb-3">
                             <label for="whyToJoin" class="form-label">Why to join ?</label>
-                            <input type="text" class="form-control" id="whyToJoin" [(ngModel)]="newRecrutementProcess.whyToJoin">
+                            <input type="text" class="form-control" id="whyToJoin" [(ngModel)]="newRecrutementProcess.whyToJoin"  [ngModelOptions]="{standalone: true}">
                         </div>
                         <div class="mb-3">
                             <label for="skills" class="form-label">Skills</label>
-                            <input type="text" class="form-control" id="skills" [(ngModel)]="newRecrutementProcess.skills">
+                            <input type="text" class="form-control" id="skills" [(ngModel)]="newRecrutementProcess.skills"  [ngModelOptions]="{standalone: true}">
                         </div>
                         <div class="mb-3">
                             <label for="availability" class="form-label">Availability</label>
-                            <select class="form-select" id="availability" [(ngModel)]="newRecrutementProcess.availability">
+                            <select class="form-select" id="availability" [(ngModel)]="newRecrutementProcess.availability"  [ngModelOptions]="{standalone: true}">
                                 <option value="full-time">Full-time</option>
                                 <option value="part-time">Part-time</option>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="dateInterview" class="form-label">Interview Date</label>
-                            <input type="date" class="form-control" id="dateInterview" [value]="newRecrutementProcess.interviewDate" [(ngModel)]="newRecrutementProcess.interviewDate">
+                            <input type="date" class="form-control" id="dateInterview" [value]="newRecrutementProcess.interviewDate" [(ngModel)]="newRecrutementProcess.interviewDate"  [ngModelOptions]="{standalone: true}">
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Integrated in other clubs?</span>
                             </div>&nbsp;&nbsp;&nbsp;&nbsp;
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="integratedRadio" id="yesRadio" [value]="true" [(ngModel)]="newRecrutementProcess.integratedInOtherClubs">
+                                <input class="form-check-input" type="radio" name="integratedRadio" id="yesRadio" [value]="true" [(ngModel)]="newRecrutementProcess.integratedInOtherClubs"  [ngModelOptions]="{standalone: true}">
                                 <label class="form-check-label" for="yesRadio">Yes</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="integratedRadio" id="noRadio" [value]="false" [(ngModel)]="newRecrutementProcess.integratedInOtherClubs">
+                                <input class="form-check-input" type="radio" name="integratedRadio" id="noRadio" [value]="false" [(ngModel)]="newRecrutementProcess.integratedInOtherClubs"  [ngModelOptions]="{standalone: true}">
                                 <label class="form-check-label" for="noRadio">No</label>
                             </div>
                         </div>
