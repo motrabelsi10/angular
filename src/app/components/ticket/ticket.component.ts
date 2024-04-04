@@ -16,9 +16,12 @@ export class TicketComponent implements OnInit {
   eventId: any;
   tickets: any[] = [];
   newTicket: any = {};
+  totalPrice: number = 0;
+
   creatingMode: boolean = true;
   event!: Event;
   exceedsAvailableTickets: boolean = false;
+
 
 
 
@@ -43,26 +46,37 @@ export class TicketComponent implements OnInit {
     );
   }
 
-  createTicketbyEvent() {
-    this.eventService.getEvent(this.eventId).subscribe((event: any) => {
-        const availableTickets = event.nbt;
-        const selectedTickets = this.newTicket.nbts; 
-        if (selectedTickets <= availableTickets) {
-            const newTicket = {
-                nbts: selectedTickets,
-                dateAchat: new Date(),
-                typePay: this.newTicket.typePay
-            };
-            this.ticketService.addTicketByEvent(newTicket, this.eventId).subscribe(() => {
-                this.eventNbtService.decrementNbt(this.eventId, selectedTickets);
-                this.retrieveTicketsByEvent(this.eventId);
-                this.newTicket = {};
-            });
-        } else {
-            this.exceedsAvailableTickets = true;
-        }
-    });
-  }
+  calculateTotalPrice(nbts: number, pricePerTicket: number): number {
+    return nbts * pricePerTicket;
+}
+updateTotalPrice() {
+  const pricePerTicket = this.newTicket.event.price;
+  this.totalPrice = this.calculateTotalPrice(this.newTicket.nbts, pricePerTicket);
+}
+
+
+
+createTicketbyEvent() {
+  this.eventService.getEvent(this.eventId).subscribe((event: any) => {
+      const availableTickets = event.nbt;
+      const selectedTickets = this.newTicket.nbts; 
+      if (selectedTickets <= availableTickets) {
+          const newTicket = {
+              nbts: selectedTickets,
+              dateAchat: new Date(),
+              typePay: this.newTicket.typePay
+          };
+          this.ticketService.addTicketByEvent(newTicket, this.eventId).subscribe(() => {
+              this.eventNbtService.decrementNbt(this.eventId, selectedTickets);
+              this.retrieveTicketsByEvent(this.eventId);
+              this.newTicket = {};
+          });
+      } else {
+          this.exceedsAvailableTickets = true; // Activer le drapeau si le nombre de tickets sélectionnés dépasse le nombre de tickets disponibles
+      }
+  });
+}
+
   
   deleteTicket(ticketId: string) {
     this.ticketService.getTicket(ticketId).subscribe((ticket: any) => {
