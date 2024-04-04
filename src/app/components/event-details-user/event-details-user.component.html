@@ -6,8 +6,17 @@
                     <div class="card-body">
                         <div class="row">
                             <!--Tab slider End-->
-                            <div class="col-xl-9 col-lg-6 col-md-6 col-xxl-7 col-sm-12">
-                                <div class="product-detail-content">
+ 
+
+                            
+                        <div class="col-6">
+                            <div class="product-detail-content">
+                                <div role="tabpanel" class="tab-pane fade show active" id="first">
+                                    <img class="img-fluid" src="../../../assets/images/{{event.imagePath}}" alt="">
+                            </div>
+
+                            <br>
+                            <br>
                                     <!--Product details-->
                                     <div class="new-arrival-content pr">
                                         <h1>{{event.nameEvent}}</h1>
@@ -48,9 +57,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-lg-10 col-md-10 col-xxl-5">
+
+                            
+                            <div class="col-6">
                                 <!-- Tab panes -->
                                 <br>
+                                
+                                
                                 
                                 <div class="product-detail-content">
                                     <h1>Description of the event : </h1>
@@ -114,4 +127,21 @@
     margin-left: 10px; /* Ajustez la valeur selon vos besoins */
 }
 
+.product-detail-content .tab-pane.fade.show.active .img-fluid {
+    width: 60%; /* Ajustez la largeur selon vos besoins */
+    height: auto; /* Garantit que l'image conserve ses proportions */
+    border-radius: 15px; /* Ajoute des coins arrondis */
+    transform: scale(1.1); /* Agrandit légèrement l'image */
+    transition: transform 0.3s ease; /* Animation de transition fluide */
+}
+
+.product-detail-content .tab-pane.fade.show.active .img-fluid:hover {
+    transform: scale(1.15); /* Augmente encore la taille de l'image au survol */
+}
+
+
 </style>
+
+
+
+

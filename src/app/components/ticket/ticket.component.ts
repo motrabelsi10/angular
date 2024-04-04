@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Ticket } from 'src/app/models/ticket';
 import { TicketService } from 'src/app/services/ticket.service';
@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Event } from 'src/app/models/event';
 import { EventService } from 'src/app/services/event.service';
 import { EventNbtService } from 'src/app/services/event-nbt.service';
+
 @Component({
   selector: 'app-ticket',
   templateUrl: './ticket.component.html',
@@ -21,6 +22,7 @@ export class TicketComponent implements OnInit {
 
 
 
+
   constructor(private router: Router,private route: ActivatedRoute,private eventNbtService:EventNbtService,private eventService:EventService, private ticketService: TicketService) { }
 
   ngOnInit(): void {
@@ -29,46 +31,7 @@ export class TicketComponent implements OnInit {
       this.retrieveTicketsByEvent(this.eventId);
     }
   }
-/*
-  modifyTicket() {
-    this.ticketService.editTicket(this.newTicket).subscribe(() => {
-      
-      this.retrieveTicketsByEvent(this.eventId);
-    });
-  }
-  */
 
-  modifyTicket() {
-    // Récupérer les nbts précédents du ticket
-    const previousNbts = this.tickets.find(ticket => ticket.id === this.newTicket.id)?.nbts || 0;
-    
-    this.ticketService.editTicket(this.newTicket).subscribe(() => {
-      // Récupérer la différence entre les nbts précédents et les nbts actuels
-      const nbtsDifference = this.newTicket.nbts - previousNbts;
-      
-      // Mettre à jour le nombre de tickets disponibles dans l'événement associé
-      if (nbtsDifference > 0) {
-        // Incrémenter le nombre de tickets disponibles
-        this.eventNbtService.incrementNbt(this.eventId, nbtsDifference);
-      } else if (nbtsDifference < 0) {
-        // Décrémenter le nombre de tickets disponibles
-        this.eventNbtService.decrementNbt(this.eventId, Math.abs(nbtsDifference));
-      }
-      
-      // Rafraîchir la liste des tickets après la modification
-      this.retrieveTicketsByEvent(this.eventId);
-    });
-  }
-  
-
-
-  
-  
-  
-  
-
-
-  
   retrieveTicketsByEvent(eventId: number): void {
     this.ticketService.retrieveTicketsByEvent(eventId).subscribe(
       (response: any) => {
@@ -96,17 +59,38 @@ export class TicketComponent implements OnInit {
                 this.newTicket = {};
             });
         } else {
-            this.exceedsAvailableTickets = true; // Dépassement du nombre de tickets disponibles
+            this.exceedsAvailableTickets = true;
+        }
+    });
+  }
+  
+  deleteTicket(ticketId: string) {
+    this.ticketService.getTicket(ticketId).subscribe((ticket: any) => {
+        if (ticket) {
+            const nbtsToDelete = ticket.nbts;
+                this.ticketService.deleteTicket(ticketId).subscribe(() => {
+                this.eventNbtService.incrementNbt(this.eventId, nbtsToDelete);
+                this.retrieveTicketsByEvent(this.eventId);
+            });
+        } else {
+            console.error('Ticket not found with ID:', ticketId);
         }
     });
 }
-  
-  deleteTicket(ticketId: string) {
-  
-    this.ticketService.deleteTicket(ticketId).subscribe(() => {
-      this.retrieveTicketsByEvent(this.eventId);
-    });
-  }
+
+modifyTicket() {
+  const previousNbts = this.tickets.find(ticket => ticket.idTicket === this.newTicket.idTicket)?.nbts || 0;
+  this.ticketService.editTicket(this.newTicket).subscribe(() => {
+      const nbtsDifference = this.newTicket.nbts - previousNbts;
+      if (nbtsDifference > 0) {
+          this.eventNbtService.incrementNbt(this.newTicket.event.id, nbtsDifference);
+      } else if (nbtsDifference < 0) {
+          this.eventNbtService.decrementNbt(this.newTicket.event.id, Math.abs(nbtsDifference));
+      }
+          this.retrieveTicketsByEvent(this.newTicket.event.id);
+  });
+}
+
   
 
 

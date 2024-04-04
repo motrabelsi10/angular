@@ -37,35 +37,45 @@ export class EventComponent {
   }
 
 
-
-
-
-  createEvent() {
-    const newEvent = {
-      nameEvent: this.newEvent.nameEvent,
-      description: this.newEvent.description,
-      dateStart: this.newEvent.dateStart,
-      dateFinish: this.newEvent.dateFinish,
-      place: this.newEvent.place,
-      nbt: this.newEvent.nbt,
-      price: this.newEvent.price,
-      typeticket: this.newEvent.typeticket,
-
+  onFileSelected(event: any) {
+    if (event.target.files.length > 0) {
+      this.selectedFile = event.target.files[0];
     }
-    this.eventService.addEvent(newEvent).subscribe(() => {
-      
+  }
+  
+
+
+  
+  createEvent() {
+    const formData = new FormData();
+    formData.append('nameEvent', this.newEvent.nameEvent);
+    formData.append('description', this.newEvent.description);
+    
+    if (this.newEvent.dateStart instanceof Date) {
+      formData.append('dateStart', new Date(this.newEvent.dateStart).toISOString());
+    } else {
+      console.error('this.newEvent.dateStart is not an instance of Date');
+    }
+    
+    if (this.newEvent.dateFinish instanceof Date) {
+      formData.append('dateFinish', new Date(this.newEvent.dateFinish).toISOString()); // Utilisez dateFinish ici
+    } else {
+      console.error('this.newEvent.dateFinish is not an instance of Date');
+    }
+    
+    formData.append('place', this.newEvent.place);
+    formData.append('nbt', this.newEvent.nbt.toString());
+    formData.append('typeticket', this.newEvent.typeticket);
+    formData.append('price', this.newEvent.price.toString());
+    formData.append('imageFile', this.selectedFile); // Ajoutez le fichier ici
+  
+    this.eventService.addEvent(formData).subscribe(() => {
       this.getAllEvents();
       window.location.reload();
     });
   }
-
   
-
-
-
-
-
-
+  
 
   modifyEvent() {
     this.eventService.editEvent(this.newEvent).subscribe(() => {

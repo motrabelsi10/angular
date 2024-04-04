@@ -10,7 +10,8 @@ export class Event {
     user : number;
     price : number;
     typeticket: string;
-    image:string;
+    imagePath: string;
+
 
     constructor(){
       this.idEvent = 0;
@@ -23,6 +24,6 @@ export class Event {
       this.user = 1;
       this.price =0;
       this.typeticket = '';
-      this.image="";
+      this.imagePath="";
     }
 }
