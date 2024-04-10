@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Ticket } from 'src/app/models/ticket';
 import { TicketService } from 'src/app/services/ticket.service';
@@ -6,17 +6,19 @@ import { Router } from '@angular/router';
 import { Event } from 'src/app/models/event';
 import { EventService } from 'src/app/services/event.service';
 import { EventNbtService } from 'src/app/services/event-nbt.service';
-
+import * as QRCode from 'qrcode';
 @Component({
   selector: 'app-ticket',
   templateUrl: './ticket.component.html',
   styleUrls: ['./ticket.component.css']
 })
 export class TicketComponent implements OnInit {
+
   eventId: any;
   tickets: any[] = [];
   newTicket: any = {};
   totalPrice: number = 0;
+  qrCodeURL: string = '';
 
   creatingMode: boolean = true;
   event!: Event;
@@ -35,47 +37,66 @@ export class TicketComponent implements OnInit {
     }
   }
 
-  retrieveTicketsByEvent(eventId: number): void {
-    this.ticketService.retrieveTicketsByEvent(eventId).subscribe(
-      (response: any) => {
-        this.tickets = response;
-      },
-      (error: any) => {
-        console.error('Error fetching tickets by event:', error);
-      }
-    );
-  }
-
-  calculateTotalPrice(nbts: number, pricePerTicket: number): number {
-    return nbts * pricePerTicket;
-}
-updateTotalPrice() {
-  const pricePerTicket = this.newTicket.event.price;
-  this.totalPrice = this.calculateTotalPrice(this.newTicket.nbts, pricePerTicket);
-}
-
-
-
-createTicketbyEvent() {
-  this.eventService.getEvent(this.eventId).subscribe((event: any) => {
+  createTicketbyEvent() {
+    this.eventService.getEvent(this.eventId).subscribe((event: any) => {
       const availableTickets = event.nbt;
       const selectedTickets = this.newTicket.nbts; 
       if (selectedTickets <= availableTickets) {
-          const newTicket = {
-              nbts: selectedTickets,
-              dateAchat: new Date(),
-              typePay: this.newTicket.typePay
-          };
-          this.ticketService.addTicketByEvent(newTicket, this.eventId).subscribe(() => {
-              this.eventNbtService.decrementNbt(this.eventId, selectedTickets);
-              this.retrieveTicketsByEvent(this.eventId);
-              this.newTicket = {};
-          });
+        const newTicket = {
+          nbts: selectedTickets,
+          dateAchat: new Date(),
+          typePay: this.newTicket.typePay
+        };
+        this.ticketService.addTicketByEvent(newTicket, this.eventId).subscribe(() => {
+          this.eventNbtService.decrementNbt(this.eventId, selectedTickets);
+          this.retrieveTicketsByEvent(this.eventId); // Passer true pour générer les QR codes après l'ajout
+          this.newTicket = {};
+        });
       } else {
-          this.exceedsAvailableTickets = true; // Activer le drapeau si le nombre de tickets sélectionnés dépasse le nombre de tickets disponibles
+        this.exceedsAvailableTickets = true; 
       }
-  });
+    });
+  }
+
+
+  generateQRCodeForTickets(): void {
+    for (let ticket of this.tickets) {
+      const ticketId = ticket.idTicket;
+      QRCode.toDataURL(ticketId.toString(), (err, url) => {
+        if (err) {
+          console.error('Erreur lors de la génération du QR code :', err);
+        } else {
+          ticket.qrCodeURL = url;
+        }
+      });
+    }
+  }
+
+
+  
+
+  retrieveTicketsByEvent(eventId: any): void {
+    this.ticketService.retrieveTicketsByEvent(eventId).subscribe((tickets: any) => {
+      this.tickets = tickets;
+      this.generateQRCodeForTickets(); // Générer les QR codes une fois que les tickets sont récupérés
+    });
+  }
+  
+  
+
+
+
+calculateTotalPrice(nbts: number, pricePerTicket: number): number {
+  return nbts * pricePerTicket;
 }
+updateTotalPrice() {
+const pricePerTicket = this.newTicket.event.price;
+this.totalPrice = this.calculateTotalPrice(this.newTicket.nbts, pricePerTicket);
+}
+
+
+
+
 
   
   deleteTicket(ticketId: string) {

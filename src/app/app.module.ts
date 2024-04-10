@@ -21,7 +21,7 @@ import { TicketAdminComponent } from './components/ticket-admin/ticket-admin.com
     EventUserComponent,
     EventDetailsUserComponent,
     TicketComponent,
-    TicketAdminComponent
+    TicketAdminComponent,
   ],
   imports: [
     BrowserModule,

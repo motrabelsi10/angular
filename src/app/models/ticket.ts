@@ -6,6 +6,7 @@ export class Ticket {
     typePay: string;
     user: number;
     event: Event; 
+    qrcode: string;
 
     constructor() {
         this.idTicket = 0;
@@ -14,5 +15,6 @@ export class Ticket {
         this.typePay = '';
         this.user = 0;
         this.event = new Event(); 
+        this.qrcode = '';
     }
 }

@@ -8,7 +8,7 @@
                 (click)="openModel()"><i class="fa fa-shopping-basket me-2"></i>Reserver un ticket</a>
         </div>
 
-        
+
 
 
         <div class="row">
@@ -20,6 +20,8 @@
 
                                 <div class="new-arrival-content text-center mt-3">
                                     <h3>Ticket ID : {{ ticket.idTicket }}</h3>
+                                    <img [src]="ticket.qrCodeURL" alt="QR Code">
+
                                     <h4>Number of tickets : {{ ticket.nbts }}</h4>
                                     <br>
                                     <span class="badge badge-success light">{{ ticket.dateAchat | date }}</span>
@@ -28,9 +30,6 @@
                                     <span class="price">{{ ticket.typePay }}</span>
                                     <br>
                                     <br>
-
-
-
                                     <div>
                                         <h4 class="mb-0 fs-24 font-w600">{{ ticket.event.price * ticket.nbts
                                             }}</h4>
@@ -55,6 +54,7 @@
                                         <a (click)="deleteTicket(ticket.idTicket)" class="list-group-item"><i
                                                 class="fa fa-trash font-18 align-middle me-2"></i>Trash</a>
                                     </div>
+
                                 </div>
 
 
@@ -65,7 +65,7 @@
             </div>
         </div>
 
-        
+
 
 
         <!-- Modal -->
@@ -88,17 +88,29 @@
                         </div>
                         <div class="input-group mb-3">
                             <label class="input-group-text mb-0">type de ticket</label>
-                            <select class="default-select form-control wide" [(ngModel)]="newTicket.typePay">
+                            <select class="default-select form-control wide" [(ngModel)]="newTicket.typePay" >
 
                                 <option selected>Choose...</option>
                                 <option value="inPerson">in person</option>
                                 <option value="online">online</option>
                             </select>
-                        </div>                      
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">QR Code</label>
+                            <img *ngIf="qrCodeURL" [src]="qrCodeURL" alt="QR Code" class="img-fluid" />
+                            <small class="form-text text-muted">Ce QR code représente les choix du ticket.</small>
+                        </div>
+
                     </div>
 
                     <div *ngIf="exceedsAvailableTickets" class="alert alert-primary alert-dismissible fade show">
-                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                            <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                            <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                        </svg>
                         <strong>Error!</strong> Cannot select more tickets than available.
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
                         </button>
@@ -106,13 +118,13 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary" *ngIf="creatingMode"
-                            (click)="createTicketbyEvent()" >Create Ticket</button>
+                            (click)="createTicketbyEvent()">Create Ticket</button>
 
                         <button type="button" class="btn btn-primary" *ngIf="!creatingMode"
                             (click)="modifyTicket()">Modify Ticket</button>
                     </div>
 
-                    
+
                 </div>
 
             </div>
