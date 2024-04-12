@@ -36,4 +36,16 @@ export class EventService {
 
   }
 
+  findAllEventsOrderedByNbt(){
+    return this.httpClient.get(`${this.API_URL}/ordered-by-nbt`)
+  }
+
+  getAllEventsOrderedByPriceAsc(){
+    return this.httpClient.get(`${this.API_URL}/ordered-by-price`)
+  }
+
+
+
+
+
 }

@@ -1,35 +1,45 @@
-    <div class="card">
-        <div class="card-header">
-            <h4 class="card-title">Statistiques</h4>
-        </div>
-        <div class="card-body">
-            <div *ngIf="chartOptions && chartOptions[0]">
-                <canvasjs-chart [options]="chartOptions[0]" id="column-chart"></canvasjs-chart>
-            </div>
-            <br>
-            <br>
-            <div *ngIf="chartOptions && chartOptions[1]">
-                <canvasjs-chart [options]="chartOptions[1]" id="pie-chart"></canvasjs-chart>
-            </div>
-        </div>
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">Statistiques</h4>
+  </div>
+  <div class="card-body">
+    <div *ngIf="chartOptions && chartOptions[0]">
+      <canvasjs-chart [options]="chartOptions[0]" id="column-chart"></canvasjs-chart>
     </div>
-    <div class="row">
-        <div *ngFor="let event of eventsData" class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-          <div class="card">
-            <div class="card-body d-flex align-items-center justify-content-between">
-              <div class="menu">
-                <span class="font-w500 fs-16 mb-2 d-block">{{ event.name }}</span>
-                <h2>...</h2>
-              </div>
-              <div class="sweetalert mt-5">
-                <h5>Total Price:</h5>
-                <button class="btn btn-danger btn sweet-wrong">{{ event.totalPrice }}</button>
-              </div>
-            </div>
+    <br>
+    <br>
+    <div *ngIf="chartOptions && chartOptions[1]">
+      <canvasjs-chart [options]="chartOptions[1]" id="pie-chart"></canvasjs-chart>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div *ngFor="let event of eventsData" class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+    <div class="widget-stat card">
+      <div class="card-body  p-4">
+        <div class="media ai-icon">
+          <span class="me-3 bgl-danger text-danger">
+            <svg id="icon-revenue" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="feather feather-dollar-sign">
+              <line x1="12" y1="1" x2="12" y2="23"></line>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+          </span>
+          <div class="media-body">
+            <p class="mb-1">{{ event.name }}</p>
+            <h4 class="mb-0">{{ event.totalPrice }}</h4>
+
           </div>
         </div>
       </div>
-      
+    </div>
+  </div>
+</div>
+
+
 
 
 
