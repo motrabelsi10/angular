@@ -1,0 +1,53 @@
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Statistiques</h4>
+        </div>
+        <div class="card-body">
+            <div *ngIf="chartOptions && chartOptions[0]">
+                <canvasjs-chart [options]="chartOptions[0]" id="column-chart"></canvasjs-chart>
+            </div>
+            <br>
+            <br>
+            <div *ngIf="chartOptions && chartOptions[1]">
+                <canvasjs-chart [options]="chartOptions[1]" id="pie-chart"></canvasjs-chart>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div *ngFor="let event of eventsData" class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+          <div class="card">
+            <div class="card-body d-flex align-items-center justify-content-between">
+              <div class="menu">
+                <span class="font-w500 fs-16 mb-2 d-block">{{ event.name }}</span>
+                <h2>...</h2>
+              </div>
+              <div class="sweetalert mt-5">
+                <h5>Total Price:</h5>
+                <button class="btn btn-danger btn sweet-wrong">{{ event.totalPrice }}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+
+
+<br>
+<br>
+
+<script src="../../../assets/vendor/global/global.min.js"></script>
+<script src="../../../assets/vendor/chart.js/Chart.bundle.min.js"></script>
+<!-- Apex Chart -->
+<script src="../../../assets/vendor/apexchart/apexchart.js"></script>
+
+<!-- Chart Chartist plugin files -->
+<script src="../../../assets/vendor/chartist/js/chartist.min.js"></script>
+<script src="../../../assets/vendor/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
+<script src="../../../assets/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+<script src="../../../assets/js/plugins-init/chartist-init.js"></script>
+
+<script src="../../../assets/js/custom.min.js"></script>
+<script src="../../../assets/js/deznav-init.js"></script>
+<script src="../../../assets/js/demo.js"></script>
+<script src="../../../assets/js/styleSwitcher.js"></script>

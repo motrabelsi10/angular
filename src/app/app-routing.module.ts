@@ -6,11 +6,12 @@ import { EventUserComponent } from './components/event-user/event-user.component
 import { EventDetailsUserComponent } from './components/event-details-user/event-details-user.component';
 import { TicketComponent } from './components/ticket/ticket.component';
 import { TicketAdminComponent } from './components/ticket-admin/ticket-admin.component';
+import { TicketChartsComponent } from './components/ticket-charts/ticket-charts.component';
 
 
 
 const routes: Routes = [{path: 'essai', component: EssaiComponent },
-                        {path : 'events' , component : EventComponent},
+                        {path : 'events' , component : EventComponent}, 
                         {path : 'eventsuser' , component : EventUserComponent},
                         {path: 'event/:idEvent', component: EventDetailsUserComponent },
                         {path:  'buyticket/:idEvent',component:TicketComponent},

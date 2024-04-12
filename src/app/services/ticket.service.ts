@@ -43,4 +43,18 @@ export class TicketService {
     return this.httpClient.delete(`${this.API_URL}/delete-ticket-by-event/${eventId}/${ticketId}`);
   }
 
+  getTotalTicketsByDateAchat() {
+    return this.httpClient.get<any>(`${this.API_URL}/total-tickets-by-date`);
+  }
+
+  getTotalTicketsByTypeAchat() {
+    return this.httpClient.get<any>(`${this.API_URL}/total-tickets-by-typeachat`);
+  }
+
+  getTotalPricesByEvent() {
+    return this.httpClient.get<any>(`${this.API_URL}/total-prices-by-event`);
+  }
+
+
+
 }
