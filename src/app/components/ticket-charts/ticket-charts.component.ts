@@ -95,9 +95,9 @@ export class TicketChartsComponent {
       this.ticketService.getTotalPricesByEvent().subscribe((data: any) => {
         for (const eventId in data) {
           if (data.hasOwnProperty(eventId)) {
-            const eventName = eventId;
+            const a = eventId;
             const totalPrice = data[eventId]; 
-                  this.eventsData.push({ name: eventName, totalPrice: totalPrice });
+                  this.eventsData.push({ name: a, totalPrice: totalPrice });
           }
         }
       });
