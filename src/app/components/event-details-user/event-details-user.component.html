@@ -36,13 +36,16 @@
                                             <p class="price float-start d-block">{{event.price}} TND</p>
                                         </div>
                                         <br>
-                                        <h4>Availability : 
-                                            <span class="item">{{event.nbt}} 
-                                                <i class="fa fa-shopping-basket"></i>
+                                        <h4>Availability : {{event.nbt}}  </h4>                              
+                                            <span *ngIf="event.nbt > 0; else soldOut">
+                                                <span class="badge badge-success">Available<span class="ms-1 fa fa-check"></span></span>
                                             </span>
-                                            <span *ngIf="event.nbt > 0; else soldOut">Available</span>
-                                            <ng-template #soldOut>Sold Out</ng-template>
-                                        </h4>
+                                            <ng-template #soldOut>
+                                                <span class="badge badge-primary">Sold out<span class="ms-1 fa fa-redo"></span></span>
+                                            </ng-template>
+                                            
+                                        
+                                        
                                         
                                         <p>Start at :</p>
                                             <span class="badge badge-success light">{{event.dateStart | date}}</span>
@@ -73,6 +76,13 @@
                                     <br>
                                     <p class="description">{{event.description}}</p>
                                 </div>
+                            </div>
+
+                            <div class="alert alert-secondary alert-dismissible fade show">
+                                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                                <strong>Volunteer!</strong> Be part of the staff.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
+                                </button>
                             </div>
                             
                         </div>

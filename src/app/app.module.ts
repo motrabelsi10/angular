@@ -13,6 +13,7 @@ import { TicketComponent } from './components/ticket/ticket.component';
 import { TicketAdminComponent } from './components/ticket-admin/ticket-admin.component';
 import { TicketChartsComponent } from './components/ticket-charts/ticket-charts.component';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
+import { ErrorComponent } from './components/error/error.component';
 
 
 
@@ -26,6 +27,7 @@ import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
     TicketComponent,
     TicketAdminComponent,
     TicketChartsComponent,
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,

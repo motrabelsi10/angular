@@ -49,7 +49,7 @@ export class TicketComponent implements OnInit {
         };
         this.ticketService.addTicketByEvent(newTicket, this.eventId).subscribe(() => {
           this.eventNbtService.decrementNbt(this.eventId, selectedTickets);
-          this.retrieveTicketsByEvent(this.eventId); // Passer true pour générer les QR codes après l'ajout
+          this.retrieveTicketsByEvent(this.eventId);
           this.newTicket = {};
         });
       } else {
@@ -78,7 +78,7 @@ export class TicketComponent implements OnInit {
   retrieveTicketsByEvent(eventId: any): void {
     this.ticketService.retrieveTicketsByEvent(eventId).subscribe((tickets: any) => {
       this.tickets = tickets;
-      this.generateQRCodeForTickets(); // Générer les QR codes une fois que les tickets sont récupérés
+      this.generateQRCodeForTickets(); 
     });
   }
   

@@ -7,6 +7,7 @@ import { EventDetailsUserComponent } from './components/event-details-user/event
 import { TicketComponent } from './components/ticket/ticket.component';
 import { TicketAdminComponent } from './components/ticket-admin/ticket-admin.component';
 import { TicketChartsComponent } from './components/ticket-charts/ticket-charts.component';
+import { ErrorComponent } from './components/error/error.component';
 
 
 
@@ -15,7 +16,9 @@ const routes: Routes = [{path: 'essai', component: EssaiComponent },
                         {path : 'eventsuser' , component : EventUserComponent},
                         {path: 'event/:idEvent', component: EventDetailsUserComponent },
                         {path:  'buyticket/:idEvent',component:TicketComponent},
-                        {path:  'tickets/:idEvent',component:TicketAdminComponent}];
+                        {path:  'tickets/:idEvent',component:TicketAdminComponent},
+                        { path: 'error', component: ErrorComponent },
+                        { path: '**', redirectTo: '/error' }];
 
 
 @NgModule({
