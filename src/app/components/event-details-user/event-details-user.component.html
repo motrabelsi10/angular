@@ -54,10 +54,12 @@
                                  
                                         <div class="d-flex align-items-end flex-wrap mt-4">
   
-                                            <div class="shopping-cart  mb-2 me-3">
-                                                <a class="btn btn-primary nav-link" routerLink="/buyticket/{{ event.idEvent }}"><i
-                                                        class="fa fa-shopping-basket me-2"></i>Buy a ticket</a>
+                                            <div class="shopping-cart mb-2 me-3">
+                                                <a class="btn btn-primary nav-link blinking" routerLink="/buyticket/{{ event.idEvent }}">
+                                                    <i class="fa fa-shopping-basket me-2"></i>Buy a ticket now
+                                                </a>
                                             </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -65,11 +67,7 @@
 
                             
                             <div class="col-6">
-                                <!-- Tab panes -->
-                                <br>
-                                
-                                
-                                
+                                <br>                                                                          
                                 <div class="product-detail-content">
                                     <h1>Description of the event : </h1>
                                     <br>
@@ -150,6 +148,23 @@
 .product-detail-content .tab-pane.fade.show.active .img-fluid:hover {
     transform: scale(1.15); /* Augmente encore la taille de l'image au survol */
 }
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.blinking {
+    animation: blink 1s infinite;
+}
+
 
 
 </style>

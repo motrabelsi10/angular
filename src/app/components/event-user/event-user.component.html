@@ -9,20 +9,22 @@
                                 class="flaticon-381-search-2"></i></a></span>
                 </div>
             </div>
-        
+
             <div class="nav-item" style="width: 30%;">
                 <div class="card">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-xl-3 col-2" style="width: 50%;">
                                 <div class="form-check custom-checkbox mb-3 checkbox-warning">
-                                    <input type="checkbox" class="form-check-input" checked id="customCheckBox4" [(ngModel)]="filterByPrice" (change)="toggleFilterByPrice()">
+                                    <input type="checkbox" class="form-check-input" checked id="customCheckBox4"
+                                        [(ngModel)]="filterByPrice" (change)="toggleFilterByPrice()">
                                     <label class="form-check-label" for="customCheckBox1">Price</label>
                                 </div>
                             </div>
                             <div class="col-xl-8 col-2" style="width: 50%;">
                                 <div class="form-check custom-checkbox mb-3 checkbox-info">
-                                    <input type="checkbox" class="form-check-input" id="customCheckBox2" [(ngModel)]="filterByNbt" (change)="toggleFilterByNbt()">
+                                    <input type="checkbox" class="form-check-input" id="customCheckBox2"
+                                        [(ngModel)]="filterByNbt" (change)="toggleFilterByNbt()">
                                     <label class="form-check-label" for="customCheckBox2">Number Of Tickets</label>
                                 </div>
                             </div>
@@ -30,19 +32,18 @@
                     </div>
                 </div>
             </div>
-            
-            
+
+
 
         </div>
 
         <br>
         <br>
-        
+
         <div class="row">
-            <div *ngFor="let event of filteredEvents" class="col-xl-4">
-                <div class="card">
-                    <img class="card-img-top img-fluid" src="../../../assets/images/{{event.imagePath}}"
-                        alt="Card image cap">
+            <div class="col-md-4" *ngFor="let event of filteredEvents">
+                <div class="card" (mouseenter)="highlightCard($event)" (mouseleave)="resetCards()">
+                    <img class="card-img-top img-fluid" src="../../../assets/images/{{event.imagePath}}" alt="Card image cap">
                     <div class="card-header">
                         <h5 class="card-title">{{ event.nameEvent}}</h5>
                     </div>
@@ -51,24 +52,44 @@
                     </div>
                     <div class="text-center">
                         <div class="card-footer-link mb-4 mb-sm-0">
-                            <p class="card-text text-dark d-inline"><span class="fs-14 me-2">start From</span>{{event.price}} DT</p>
+                            <p class="card-text text-dark d-inline"><span class="fs-14 me-2">start From</span><strong>{{event.price}} DT</strong></p>
                         </div>
-                    
+        
                         <div class="card-footer-link mb-4 mb-sm-0">
-                            <p class="card-text text-dark d-inline">Tickets available {{ event.nbt }}</p>
+                            <p class="card-text text-dark d-inline">Tickets available <strong>{{event.nbt}}</strong></p>
                         </div>
                     </div>
-                    
-
-
-
-
                     <div class="card-footer">
-                        <a class="card-link float-end" routerLink="/event/{{ event.idEvent }}">View Details</a>
+                        <a class="card-link float-end" routerLink="/event/{{ event.idEvent }}"><strong>View Details</strong></a>
                     </div>
                 </div>
             </div>
         </div>
+        
 
+        <style>
+            .card {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .card:hover {
+                transform: scale(1.05);
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            }
+
+            .gray-background {
+                background-color: #f7f7f7;
+            }
+
+
+
+
+
+
+
+
+
+
+        </style>
 
     </div>

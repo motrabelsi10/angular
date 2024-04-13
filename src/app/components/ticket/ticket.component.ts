@@ -18,7 +18,7 @@ export class TicketComponent implements OnInit {
   tickets: any[] = [];
   newTicket: any = {};
   totalPrice: number = 0;
-  qrCodeURL: string = '';
+  selectedTicket: any;
 
   creatingMode: boolean = true;
   event!: Event;
@@ -126,7 +126,8 @@ modifyTicket() {
   });
 }
 
-  
+
+
 
 
   

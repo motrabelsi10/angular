@@ -12,6 +12,8 @@ export class EventUserComponent implements OnInit {
   searchQuery: string = '';
   filterByPrice: boolean = false;
   filterByNbt: boolean = false;
+  currentIndex: number = 0;
+  cardWidth: number = 310;
   constructor(private eventService: EventService) { }
 
   ngOnInit(): void {
@@ -78,6 +80,26 @@ export class EventUserComponent implements OnInit {
       }
     );
   }
+
+  highlightCard(event: MouseEvent) {
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        if (card !== event.currentTarget) {
+            card.classList.add('gray-background');
+        }
+    });
+}
+
+resetCards() {
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        card.classList.remove('gray-background');
+    });
+}
+
+
+
+
 
 }
 
