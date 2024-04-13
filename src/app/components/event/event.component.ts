@@ -22,6 +22,8 @@ export class EventComponent {
     this.getAllEvents();
   }
 
+  
+
   getAllEvents() {
     this.eventService.getAllEvents().subscribe(data => {
       this.events = data;
@@ -94,6 +96,7 @@ export class EventComponent {
     }
   }
 
+
   divideEventsIntoChunks() {
     const chunkSize = 2;
     this.eventsChunks = [];
@@ -131,5 +134,8 @@ export class EventComponent {
       this.newEvent.price = 0; // Définir le prix à 0
     }
   }
+
+
+
   
 }

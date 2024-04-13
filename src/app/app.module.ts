@@ -16,7 +16,6 @@ import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { ErrorComponent } from './components/error/error.component';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +27,7 @@ import { ErrorComponent } from './components/error/error.component';
     TicketAdminComponent,
     TicketChartsComponent,
     ErrorComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -35,6 +35,7 @@ import { ErrorComponent } from './components/error/error.component';
     HttpClientModule,
     FormsModule,
     CanvasJSAngularChartsModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

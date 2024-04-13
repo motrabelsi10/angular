@@ -20,9 +20,9 @@
                                     <th><strong>Event Name</strong></th>
                                     <th><strong>date Start</strong></th>
                                     <th><strong>date Finish</strong></th>
-                                    <th><strong>Number Of Tickets</strong></th>
+                                    <th><strong>Tickets</strong></th>
                                     <th><strong>Place</strong></th>
-                                    <th><strong>Type Of Ticket</strong></th>
+                                    <th><strong>Ticket</strong></th>
 
                                     <th><strong>Price</strong></th>
                                     <th></th>
@@ -47,9 +47,14 @@
                                                     class="fa fa-exclamation-circle"></i></button>
 
 
-                                                    <button type="button" class="btn btn-primary light px-3" data-toggle="modal" data-target="#exampleModal">
-                                                        <i class="fa fa-trash"></i> Delete Event
-                                                    </button>
+                                            <button type="button" class="btn btn-primary light px-3" data-toggle="modal"
+                                                data-target="#exampleModal">
+                                                <i class="fa fa-trash"></i> Delete Event
+                                            </button>
+                                            <button type="button" class="btn btn-primary light px-3" data-toggle="modal"
+                                                [attr.data-target]="'#details-' + event.idEvent">
+                                                Details
+                                            </button>
 
                                             <a class="btn btn-primary light px-3 nav-link"
                                                 routerLink="/tickets/{{ event.idEvent }}">
@@ -59,12 +64,14 @@
 
                                         </div>
                                     </td>
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="exampleModalLabel">Delete Event</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
@@ -72,15 +79,143 @@
                                                     Are you sure you want to delete this event?
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary" (click)="deleteEvent(event.idEvent)">Delete Event</button>
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary"
+                                                        (click)="deleteEvent(event.idEvent)">Delete Event</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
+
+                                    <div class="modal fade" [id]="'details-' + event.idEvent" tabindex="-1"
+                                        role="dialog" aria-labelledby="detailsLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="detailsLabel">{{ event.nameEvent }}
+                                                    </h5>
+
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <img class="img-fluid"
+                                                                src="../../../assets/images/{{ event.imagePath }}"
+                                                                alt="">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="product-detail-content">
+                                                                <h1>{{ event.place }}</h1>
+
+                                                                <div class="d-table mb-1">
+                                                                    <p class="price float-start d-block">{{ event.price
+                                                                        }} TND</p>
+                                                                </div>
+                                                                <br>
+                                                                <h4>Availability : {{ event.nbt }} </h4>
+                                                                <span *ngIf="event.nbt > 0; else soldOut">
+                                                                    <span class="badge badge-success">Available<span
+                                                                            class="ms-1 fa fa-check"></span></span>
+                                                                </span>
+                                                                <ng-template #soldOut>
+                                                                    <span class="badge badge-primary">Sold out<span
+                                                                            class="ms-1 fa fa-redo"></span></span>
+                                                                </ng-template>
+                                                                <p>Start at :</p>
+                                                                <span class="badge badge-success light">{{
+                                                                    event.dateStart | date}}</span>
+                                                                <p>End at : </p>
+                                                                <span class="badge badge-success light">{{
+                                                                    event.dateFinish | date}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <div class="col-md-12">
+                                                            <br>
+                                                            <div class="product-detail-content">
+                                                                <h1>Description of the event : </h1>
+                                                                <br>
+
+                                                                <p class="description">{{ event.description }}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+
+
+                                                <style>
+                                                    .custom-btn {
+                                                        width: 100%;
+                                                    }
+                                                </style>
+                                                
+                                                <div class="card-body">
+                                                    <div class="row align-items-center text-center">
+                                                        <div class="col-xl-6">
+                                                            <div class="row">
+                                                                <div class="col-6">
+                                                                    <button class="alert alert-primary left-icon-big alert-dismissible fade show custom-btn">
+                                                                        <div class="media">
+                                                                            <div class="media-body">
+                                                                                <h6 class="mt-1 mb-2">Tasks</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <button class="alert alert-warning left-icon-big alert-dismissible fade show custom-btn">
+                                                                        <div class="media">
+                                                                            <div class="media-body">
+                                                                                <h6 class="mt-1 mb-2" style="text-align: center;">Management</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-6">
+                                                            <div class="row">
+                                                                <div class="col-6">
+                                                                    <button class="alert alert-success left-icon-big alert-dismissible fade show custom-btn">
+                                                                        <div class="media">
+                                                                            <div class="media-body">
+                                                                                <h6 class="mt-1 mb-2">Equipment</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <button class="alert alert-danger left-icon-big alert-dismissible fade show custom-btn">
+                                                                        <div class="media">
+                                                                            <div class="media-body">
+                                                                                <h6 class="mt-1 mb-2">Volunteers</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+
+
+
+
                                 </tr>
 
                             </tbody>
+
                         </table>
                         <br>
                         <br>
@@ -207,6 +342,9 @@
                 </div>
             </div>
         </div>
+
+
+
 
 
 
