@@ -5,6 +5,8 @@ export class Equipement {
     equipement  : string;
     other  : string;
     typeequip : string;
+    details : string;
+    metric : string;
     approuvement : boolean;
     price : number;
     quantite : number;
@@ -14,13 +16,15 @@ export class Equipement {
 
     constructor(){
         this.idEquipement = 0;
-        this.equipement = "";
+        this.equipement = "other";
         this.other = "";
-        this.typeequip = "",
+        this.typeequip = "nothing",
         this.approuvement = false;
         this.price = 0;
         this.datemeeting = new Date();
         this.quantite = 0;
+        this.metric = "";
+        this.details = "";
         this.event = new Event();
        
       }

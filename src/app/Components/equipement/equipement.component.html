@@ -13,9 +13,11 @@
                         <table class="table table-responsive-md">
                             <thead>
                                 <tr>
+                                    <th scope="col">type équipement</th>
                                     <th scope="col">équipement</th>
                                     <th scope="col">Quantité</th>
                                     <th scope="col">Prix éstimé</th>
+                                    <th scope="col">détails</th>
                                     <th scope="col">Evenement concerné</th>
                                     <th scope="col">Date administration</th>
                                     <th scope="col">Autre équipement</th>
@@ -25,11 +27,13 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let equipement of equipement" >
+                                    <td class="text-center">{{equipement.metric=="all"?"ND":equipement.metric}}</td>
                                     <td class="text-center">{{equipement.equipement}}</td>
-                                    <td class="text-center">{{equipement.quantite}} {{equipement.typeequip}}</td>
+                                    <td class="text-center">{{equipement.quantite}} {{equipement.typeequip=="nothing"?"":equipement.typeequip}}</td>
                                     <td class="text-center">{{equipement.price}} DT</td>
+                                    <td class="text-center">{{equipement.details}}</td>
                                     <td class="text-center">{{equipement.event.nameEvent}}</td>
-                                    <td class="text-center">{{equipement.datemeeting}}</td>
+                                    <td class="text-center">{{equipement.datemeeting  | date:'MMM dd, yyyy à HH:mm '}}</td>
                                     <td class="text-center">{{equipement.other}}</td>
                                     <!--<td class="text-center">{{equipement.approuvement?"Aprouvé":<a class="btn btn-primary text-white" 
                                         (click)="EditApprouvement(equipement)"><i class="fa fa-shopping-basket me-2"></i>Approuvé?</a>}}</td>-->

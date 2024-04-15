@@ -8,6 +8,8 @@ export class Feedback {
     body  : string;
     date : Date;
     datevu : Date;
+    note : string;
+    serviceType : string;
     user : User;
     event : Event;
 
@@ -15,6 +17,8 @@ export class Feedback {
         this.idFeedback = 0;
         this.title = "";
         this.body = "";
+        this.serviceType = "";
+        this.note = "";
         this.date = new Date();
         this.datevu = new Date();
         this.user = new User();

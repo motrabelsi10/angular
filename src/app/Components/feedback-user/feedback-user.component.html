@@ -17,8 +17,10 @@
                         <table class="table table-responsive-md">
                             <thead>
                                 <tr>
+                                    <th scope="col">Type</th>
                                     <th scope="col">Titre</th>
                                     <th scope="col">Corps</th>
+                                    <th scope="col">Note</th>
                                     <th scope="col">Date du feedback</th>
                                     <th scope="col">Date de traitement</th>
                                     <th scope="col">User</th>
@@ -27,8 +29,10 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let feedback of feedbackChunks" >
+                                    <td class="text-center">{{feedback.serviceType}}</td>
                                     <td class="text-center">{{feedback.title}}</td>
                                     <td class="text-center">{{feedback.body}}</td>
+                                    <td class="text-center">{{feedback.note}}</td>
                                     <td class="text-center">{{feedback.dateFeedback | date:'MMM dd, yyyy à HH:mm '}}</td>
                                     <td class="text-center">{{feedback.datevu | date:'MMM dd, yyyy à HH:mm '}}</td>
                                     <td class="text-center">{{feedback.user.firstName}} {{feedback.user.lastName}}</td>
@@ -89,6 +93,20 @@
                         </button>
                     </div>
                     <div class="modal-body">
+
+                        <div class="input-group mb-3">
+                            <label class="input-group-text mb-0">Type</label>
+                            <select class="default-select form-control wide" [(ngModel)]="newFeedback.serviceType">
+                                <option value="equipement">equipement</option>
+                                <option value="emplacement">emplacement</option>
+                                <option value="horaire">horaire</option>
+                                <option value="tarification">tarification</option>
+                                <option value="services">services</option>
+                                <option value="nouriture">nourriture</option>
+                                <option value="autre">autre</option>
+                            </select>
+                        </div>
+
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Titre du feedback</span>
@@ -102,6 +120,18 @@
                             </div>
                             <input type="text" class="form-control" [(ngModel)]="newFeedback.body">
                         </div>
+
+                        <div class="input-group mb-3">
+                            <label class="input-group-text mb-0">Type</label>
+                            <select class="default-select form-control wide" [(ngModel)]="newFeedback.note">
+                                <option value="mauvais">mauvais</option>
+                                <option value="insuffisant">insuffisant</option>
+                                <option value="moyen">moyen</option>
+                                <option value="bien">bien</option>
+                                <option value="excellent">excellent</option>
+                            </select>
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

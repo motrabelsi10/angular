@@ -53,9 +53,11 @@ export class EquipementUserComponent {
       const newEquipement = {
         equipement: this.newEquipement.equipement,
         typeequip: this.newEquipement.typeequip,
-        other: this.newEquipement.typeequip == "other"? this.newEquipement.other:"",
+        other: this.newEquipement.metric == "all"? this.newEquipement.other:"",
         datemeeting : this.newEquipement.datemeeting,
         quantite : this.newEquipement.quantite,
+        metric : this.newEquipement.metric,
+        details : this.newEquipement.details,
         approuvement: true,
         price: this.newEquipement.price,
         event: event,

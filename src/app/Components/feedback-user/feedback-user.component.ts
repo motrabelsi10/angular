@@ -78,8 +78,10 @@ constructor(private feedbackService: FeedbackService, private router: Router) {
     
 
     const newfeedback = {
+      serviceType : this.newFeedback.serviceType,
       title: this.newFeedback.title,
       body: this.newFeedback.body,
+      note: this.newFeedback.note,
       user: user,
       event : event,
 
