@@ -11,6 +11,7 @@ export class UserComponent {
   userList : User[] = [];
   userToModify : User = new User(); 
   creatingMode : boolean = true;
+  
 
   constructor(private userService: UserService,){
     this.getUsers();
@@ -18,6 +19,7 @@ export class UserComponent {
   getUsers(){
     this.userService.getUsers().subscribe((response : User[])=>{
       this.userList = response;
+      //console.log(response.map(user => user.idUser)); // Log userIds to console
     });
   }
 

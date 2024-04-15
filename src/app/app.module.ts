@@ -9,7 +9,8 @@ import { EssaiComponent } from './essai/essai.component';
 import { RegisterComponent } from './register/register.component';
 import { UserComponent } from './Components/user/user.component';
 import { FormsModule } from '@angular/forms';
-import { SideBarComponent } from './Components/side-bar/side-bar.component'; // Import FormsModule here
+import { SideBarComponent } from './Components/side-bar/side-bar.component';
+import { LoginComponent } from './Components/login/login.component'; // Import FormsModule here
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { SideBarComponent } from './Components/side-bar/side-bar.component'; // 
     EssaiComponent,
     RegisterComponent,
     UserComponent,
-    SideBarComponent
+    SideBarComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
