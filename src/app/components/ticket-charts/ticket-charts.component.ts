@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { TicketService } from "../../services/ticket.service";
-import { EventService } from "src/app/services/event.service";
+import { interval } from "rxjs";
 
 @Component({
   selector: 'app-ticket-charts',
@@ -9,44 +9,40 @@ import { EventService } from "src/app/services/event.service";
 })
 export class TicketChartsComponent {
 
-  chartOptions: any;
+  chartOptions: any[] = [];
   eventsData: any[] = [];
 
-
-  constructor(private ticketService: TicketService,private eventService: EventService) { 
+  constructor(private ticketService: TicketService) { 
     this.ticketService.getTotalTicketsByDateAchat().subscribe((data: any) => {
       const dataPoints = [];
-      for (const date in data) {
-        if (data.hasOwnProperty(date)) {
-          dataPoints.push({ y: data[date], label: date });
-        }
+      const last30Days = [];
+      const today = new Date();
+      for (let i = 29; i >= 0; i--) {
+        const date = new Date(today);
+        date.setDate(today.getDate() - i);
+        last30Days.push(date.toISOString().split('T')[0]);
       }
-
-      // Mettre à jour les options pour le graphique à colonnes
-      const columnChartOptions = {
+      for (const date of last30Days) {
+        const tickets = data[date] || 0;
+        dataPoints.push({ y: tickets, label: date });
+      }
+          const lineChartOptions = {
         animationEnabled: true,
         theme: "light2",
         title: {
-          text: "Tickets sold by date"
+          text: "Tickets sold in the last 30 days"
         },
         axisX: {
-          title: "Date"
+          title: "Date",
+          interval: 4 
         },
         axisY: {
-          title: "Tickets", 
-          lineColor: "transparent", 
-          gridColor: "transparent",
-          tickColor: "transparent", 
-          labelFontColor: "transparent",
-          includeZero: true
+          title: "Tickets",
+          tickLength: 0,
+
         },
         data: [{
-          type: "column",
-          indexLabelPlacement: "outside",
-          indexLabelFontColor: "#333",
-          indexLabelFontSize: 14,
-          indexLabel: "{y}",
-          toolTipContent: "{label}: {y}", 
+          type: "spline",
           dataPoints: dataPoints
         }],
         margin: {
@@ -56,8 +52,8 @@ export class TicketChartsComponent {
           right: 20
         }
       };
-
-      // Appeler getTotalTicketsByTypeAchat pour obtenir les données pour le graphique "pie"
+    
+      this.chartOptions.push(lineChartOptions); 
       this.ticketService.getTotalTicketsByTypeAchat().subscribe((pieData: any) => {
         const pieDataPoints = [];
         for (const type in pieData) {
@@ -65,12 +61,9 @@ export class TicketChartsComponent {
             pieDataPoints.push({ y: pieData[type], label: type });
           }
         }
-
-        // Mettre à jour les options pour le graphique "pie"
         const pieChartOptions = {
           animationEnabled: true,
           theme: "light2",
-
           title: {
             text: "Tickets sold by type of purchase"
           },
@@ -89,24 +82,18 @@ export class TicketChartsComponent {
             right: 20
           }
         };
-        this.chartOptions = [columnChartOptions, pieChartOptions];
-      });
 
+        this.chartOptions.push(pieChartOptions);
+      });
       this.ticketService.getTotalPricesByEvent().subscribe((data: any) => {
         for (const eventId in data) {
           if (data.hasOwnProperty(eventId)) {
             const a = eventId;
             const totalPrice = data[eventId]; 
-                  this.eventsData.push({ name: a, totalPrice: totalPrice });
+            this.eventsData.push({ name: a, totalPrice: totalPrice });
           }
         }
       });
-      
-
-
-      
     });
   }
 }
-
-
