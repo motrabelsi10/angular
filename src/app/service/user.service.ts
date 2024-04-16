@@ -14,6 +14,9 @@ export class UserService {
   getUsers():Observable<any> {
     return this.httpClient.get(`${this.URL}/users`)
   }
+  getUserById(idUser : any) : Observable<any> {
+    return this.httpClient.get(`${this.URL}/retrieve-user/${idUser}`)
+  }
   retrieveByMail(mail : any){
     return this.httpClient.get(`${this.URL}/retrieve-user-by-mail/${mail}`)
   }

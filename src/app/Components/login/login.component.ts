@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl("/user");
         break;
       case "club":
-        this.router.navigateByUrl("/club");
+        this.router.navigateByUrl("/user");
         break;
       case "admin":
         this.router.navigateByUrl("/admin");
