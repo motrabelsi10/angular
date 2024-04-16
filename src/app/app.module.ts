@@ -10,7 +10,10 @@ import { RegisterComponent } from './register/register.component';
 import { UserComponent } from './Components/user/user.component';
 import { FormsModule } from '@angular/forms';
 import { SideBarComponent } from './Components/side-bar/side-bar.component';
-import { LoginComponent } from './Components/login/login.component'; // Import FormsModule here
+import { LoginComponent } from './Components/login/login.component';
+import { ClubComponent } from './Components/club/club.component';
+import { SimpleUserComponent } from './Components/simple-user/simple-user.component';
+import { AdminComponent } from './Components/admin/admin.component'; // Import FormsModule here
 
 
 @NgModule({
@@ -20,7 +23,10 @@ import { LoginComponent } from './Components/login/login.component'; // Import F
     RegisterComponent,
     UserComponent,
     SideBarComponent,
-    LoginComponent
+    LoginComponent,
+    ClubComponent,
+    SimpleUserComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
