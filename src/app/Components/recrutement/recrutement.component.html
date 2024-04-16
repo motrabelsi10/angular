@@ -23,7 +23,7 @@
                                     <th scope="col">End Date</th>
                                     <th scope="col">Number of Vacancies</th>
                                     <th scope="col">Description</th>
-                                    
+                                    <th scope="col">Skills</th> <!-- Nouvelle colonne -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -35,8 +35,14 @@
                                     <td class="text-center">{{ recrutement.niveau }}</td>
                                     <td class="text-center">{{ recrutement.description }}</td>
                                     <td class="text-center">
-
-                                        
+                                        <ul>
+                                          <li *ngFor="let skill of recrutement.requiredSkills | keyvalue">
+                                            {{ skill.key }}: {{ skill.value }}
+                                          </li>
+                                        </ul>
+                                      </td>
+                                      
+                                    <td class="text-center">
                                         <div class="d-flex justify-content-center">
                                             <a type="button" class="btn btn-primary shadow btn-xs sharp me-1"
                                                 data-toggle="modal" data-target="#EditAddrecrutement"
@@ -79,9 +85,9 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="EditAddrecrutement" tabindex="-1" recrutement="dialog"
+        <div class="modal fade" id="EditAddrecrutement" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-xl" recrutement="document">
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">Recrutement</h5>
@@ -92,13 +98,13 @@
                     <div class="modal-body">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">recrutement Name</span>
+                                <span class="input-group-text" id="inputGroup-sizing-default">Recrutement Name</span>
                             </div>
                             <input type="text" class="form-control" [(ngModel)]="newRecrutement.title">
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">recrutement Description</span>
+                                <span class="input-group-text" id="inputGroup-sizing-default">Recrutement Description</span>
                             </div>
                             <input type="text" class="form-control" [(ngModel)]="newRecrutement.description">
                         </div>
@@ -120,13 +126,36 @@
                             </div>
                             <input type="number" class="form-control" [(ngModel)]="newRecrutement.niveau">
                         </div>
+                        <button class="btn btn-primary mb-3" (click)="addSkill()">Add Skill</button>
+                        <!-- Votre code existant -->
+
+<div *ngFor="let skill of addedSkills; let i = index">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Skill</span>
+      </div>
+      <select class="form-select" [(ngModel)]="addedSkills[i].skill">
+        <option *ngFor="let item of skillValues" [value]="item">{{ item }}</option>
+      </select>
+      <select class="form-select" [(ngModel)]="addedSkills[i].level">
+        <option *ngFor="let level of skillLevelValues" [value]="level">{{ level }}</option>
+      </select>
+      <button class="btn btn-primary" (click)="addSkill()">+</button>
+      <button class="btn btn-danger" (click)="removeSkill(i)">-</button> 
+      
+
+    </div>
+  </div>
+  
+  <!-- Votre code existant -->
+  
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary" *ngIf="creatingMode"
-                            (click)="createRecrutement()">Create recrutement</button>
+                            (click)="createRecrutement()">Create Recrutement</button>
                         <button type="button" class="btn btn-primary" *ngIf="!creatingMode"
-                            (click)="modifyRecrutement()">Modify recrutement</button>
+                            (click)="modifyRecrutement()">Modify Recrutement</button>
                     </div>
                 </div>
             </div>

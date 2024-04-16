@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Recrutement } from 'src/app/models/recrutement';
+import { Recrutement, RecrutementAvecSkills, Skill, SkillLevel } from 'src/app/models/recrutement';
 import { RecrutementService } from 'src/app/Services/recrutement.service';
 
 @Component({
@@ -17,6 +17,13 @@ export class RecrutementComponent {
   recrutementsChunks: any[] = [];
   currentPage: number = 1;
   selectedFile!: File;
+ 
+  
+  
+  
+  skillValues = Object.values(Skill);
+  skillLevelValues = Object.values(SkillLevel);
+  addedSkills: { skill: Skill; level: SkillLevel }[] = [];
   
   constructor(private recrutementService: RecrutementService, private router: Router) {
     this.getAllRecrutements();
@@ -43,14 +50,27 @@ export class RecrutementComponent {
       dateStart: this.newRecrutement.dateStart,
       dateFinish: this.newRecrutement.dateFinish,
       niveau: this.newRecrutement.niveau,
-      
-    }
-    this.recrutementService.addRecrutement(this.newRecrutement).subscribe(() => {
-      
-      this.newRecrutement = new Recrutement();
-    this.getAllRecrutements();
+      // Add requiredSkills based on retrieved data from backend
+      requiredSkills: this.newRecrutement.requiredSkills || new Map<Skill, SkillLevel>(), // Use existing Map if populated, otherwise create a new one
+    };
+  
+    // Loop through addedSkills and add them to the requiredSkills Map
+    this.addedSkills.forEach(skill => {
+      newRecrutement.requiredSkills.set(skill.skill, skill.level);
     });
-  }
+  
+    this.recrutementService.addRecrutement(newRecrutement).subscribe(() => {
+        this.newRecrutement = new Recrutement();
+        this.addedSkills =[];
+        this.getAllRecrutements();
+        window.location.reload();
+    });
+}
+
+getRequiredSkillsKeys(recrutement: any): string[] {
+  return Array.from(recrutement.requiredSkills.keys());
+}
+
 
 
   modifyRecrutement() {
@@ -67,8 +87,29 @@ export class RecrutementComponent {
     } else {
       this.creatingMode = false;
       this.newRecrutement = recrutement;
+      this.recrutementService.getRecrutement(recrutement.idRecrutement)
+      .subscribe((retrievedRecrutement: object) => { // Cast to any (not recommended)
+        const requiredSkills = (retrievedRecrutement as RecrutementAvecSkills).requiredSkills;
+        this.newRecrutement.requiredSkills = requiredSkills || new Map<Skill, SkillLevel>();
+      });
     }
   }
+  
+ /* openModel(recrutement: Recrutement = new Recrutement()) {
+    if (recrutement.idRecrutement === 0) {
+      this.creatingMode = true;
+      this.newRecrutement = new Recrutement();
+    } else {
+      this.creatingMode = false;
+      this.newRecrutement = recrutement;
+  
+      // **Assuming a separate API call to fetch required_skills for editing:**
+      this.recrutementService.getRecrutement(recrutement.idRecrutement)
+        .subscribe(retrievedRecrutement => {
+          this.newRecrutement.requiredSkills = retrievedRecrutement.requiredSkills || new Map<Skill, SkillLevel>();
+        });
+    }
+  }*/
 
   divideRecrutementsIntoChunks() {
     const chunkSize = 2;
@@ -101,6 +142,22 @@ export class RecrutementComponent {
       this.currentPage--;
     }
   }
+  addSkill() {
+    console.log("Adding new skill...");
+    this.addedSkills.push({ skill: Skill.WRITTEN_COMMUNICATION, level: SkillLevel.NONE });
+    
+    
+}
   
 
+  
+  removeSkill(index: number) {
+    this.addedSkills.splice(index, 1);
+  }
+  
+
+  
+
+
 }
+

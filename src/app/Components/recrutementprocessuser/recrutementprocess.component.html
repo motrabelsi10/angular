@@ -19,23 +19,32 @@
                             <thead>
                                 <tr>
                                     <th scope="col">interiew's Id</th>
-                                    <th scope="col">Skills</th>
+                                    
                                     <th scope="col">Interview Date</th>
                                     <th scope="col">Why do you want to join ?</th>
                                     <th scope="col">Availability</th>
                                     
                                     <th scope="col">Integration in other clubs</th>
-                                    <th scope="col">Recrutement Id</th>
+                                    <th scope="col">skills</th>
+                                    <th scope="col">Approvement</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let process of getProcessesForPage(currentPage)">
                                     <td class="text-center">{{ process.idProcessRecrutement }}</td>
-                                    <td class="text-center">{{ process.skills }}</td>
+                                    
                                     <td class="text-center">{{ process.interviewDate | date }}</td>
                                     <td class="text-center">{{ process.whyToJoin }}</td>
                                     <td class="text-center">{{ process.availability }}</td>
                                     <td class="text-center">{{ process.integratedInOtherClubs }}</td>
+                                    <td class="text-center">
+                                        <ul>
+                                          <li *ngFor="let skill of process.skills | keyvalue">
+                                            {{ skill.key }}: {{ skill.value }}
+                                          </li>
+                                        </ul>
+                                      </td>
+                                    <td class="text-center">{{ process.approved }}</td>
                             
                                     <td class="text-center"></td>
                                    
@@ -85,7 +94,7 @@
                 </div>
             </div>
         </div>
-
+        <app-process-chart></app-process-chart>
         <!-- Modal -->
         <div class="modal fade" id="EditAddprocess" tabindex="-1" process="dialog" aria-labelledby="exampleModalCenterTitle"
             aria-hidden="true">
@@ -105,12 +114,7 @@
                             </div>
                             <input type="text" class="form-control" [(ngModel)]="newRecrutementProcess.whyToJoin">
                         </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Skills</span>
-                            </div>
-                            <input type="text" class="form-control" [(ngModel)]="newRecrutementProcess.skills">
-                        </div>
+                        
                         
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -153,6 +157,28 @@
                                 <input type="text" class="form-control" value="{{ club }}" disabled>
                             </div>
                         </div>
+                        <button class="btn btn-primary mb-3" (click)="addSkill()">Add Skill</button>
+                        <!-- Votre code existant -->
+
+<div *ngFor="let skill of addedSkills; let i = index">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Skill</span>
+      </div>
+      <select class="form-select" [(ngModel)]="addedSkills[i].skill">
+        <option *ngFor="let item of skillValues" [value]="item">{{ item }}</option>
+      </select>
+      <select class="form-select" [(ngModel)]="addedSkills[i].level">
+        <option *ngFor="let level of skillLevelValues" [value]="level">{{ level }}</option>
+      </select>
+      <button class="btn btn-primary" (click)="addSkill()">+</button>
+      <button class="btn btn-danger" (click)="removeSkill(i)">-</button> 
+      
+
+    </div>
+  </div>
+
+
                         
                         
                         
@@ -184,5 +210,4 @@
         </div>
     </div>
 </div>
-
 

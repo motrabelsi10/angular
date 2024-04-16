@@ -14,10 +14,7 @@
                             <label for="whyToJoin" class="form-label">Why to join ?</label>
                             <input type="text" class="form-control" id="whyToJoin" [(ngModel)]="newRecrutementProcess.whyToJoin"  [ngModelOptions]="{standalone: true}">
                         </div>
-                        <div class="mb-3">
-                            <label for="skills" class="form-label">Skills</label>
-                            <input type="text" class="form-control" id="skills" [(ngModel)]="newRecrutementProcess.skills"  [ngModelOptions]="{standalone: true}">
-                        </div>
+                        
                         <div class="mb-3">
                             <label for="availability" class="form-label">Availability</label>
                             <select class="form-select" id="availability" [(ngModel)]="newRecrutementProcess.availability"  [ngModelOptions]="{standalone: true}">
@@ -53,9 +50,29 @@
                                 <input type="text" class="form-control" value="{{ club }}" disabled>
                             </div>
                         </div>
+                        <button class="btn btn-primary mb-3" (click)="addSkill()">Add Skill</button>
+                        <!-- Votre code existant -->
+
+<div *ngFor="let skill of addedSkills; let i = index">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Skill</span>
+      </div>
+      <select class="form-select" [(ngModel)]="addedSkills[i].skill"  [ngModelOptions]="{standalone: true}">
+        <option *ngFor="let item of skillValues" [value]="item">{{ item }}</option>
+      </select>
+      <select class="form-select" [(ngModel)]="addedSkills[i].level"  [ngModelOptions]="{standalone: true}">
+        <option *ngFor="let level of skillLevelValues" [value]="level">{{ level }}</option>
+      </select>
+      <button class="btn btn-primary" (click)="addSkill()">+</button>
+      <button class="btn btn-danger" (click)="removeSkill(i)">-</button> 
+      
+
+    </div>
+  </div>
                         <div class="mb-3">
                             <button type="button" class="btn btn-secondary" (click)="showRecrutementForm = false">Cancel</button>
-                         <button type="submit" class="btn btn-primary" *ngIf="creatingMode" (click)="createProcessbyRecrutement()">Create Interview</button>
+                         <button type="submit" class="btn btn-primary" *ngIf="creatingMode" (click)="createProcessbyRecrutement()">Send Request</button>
                         </div>
                     </form>
                 </div>
@@ -71,6 +88,7 @@
                             <div class="content-detail-wrap" style="margin-left: 30px;">    
                                 <div>
                                     <h5 class="card-title">{{ process.idProcessRecrutement }}</h5>
+                                    <h2 class="card-title">Approvement : {{ process.approved ? 'Approved' : 'Non approved' }}</h2>
                                     <p class="card-text">Availability:{{ process.availability }}</p>
                                 </div>
                                 <div class="mt-4 d-flex justify-content-between align-items-center">

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { RecrutementComponent } from '../Components/recrutement/recrutement.component';
-
+import { Recrutement } from '../models/recrutement';
 @Injectable({
   providedIn: 'root'
 })

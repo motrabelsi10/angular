@@ -15,7 +15,8 @@
                                         <div class="d-table mb-2">
                                             <p class="price float-start d-block"> Availability: {{process.availability}} </p>
                                         </div>
-                                        <p>Skills: <span class="item">{{process.skills}}</span>
+                                       
+                                        <p>Approuvement: <span class="item" > {{process.approved}} <p> </span>
                                         </p>
                                         <p>interview Start at :</p>
                                             <span class="badge badge-success light">{{process.interviewDate| date}}</span>
@@ -44,7 +45,13 @@
                                     <br>
                                     <br>
                                     <p class=""> Why To Join ? {{process.whyToJoin}}</p>
-                                    <p class=""> skills:{{process.skills}}</p>
+                                    <td class="text-center">
+                                        <ul>
+                                          <li *ngFor="let skill of process.skills | keyvalue">
+                                            {{ skill.key }}: {{ skill.value }}
+                                          </li>
+                                        </ul>
+                                      </td>
                                     <p class="">Availability :{{process.availability}}</p>
                                     <p class="">Interview Date:{{process.interviewDate}}</p>
                                     <p class=""> Am i integrated in other clubs ? {{process.integratedInOtherClubs}}</p>

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { RecrutementProcess } from 'src/app/models/recrutement-process';
+import { RecrutementProcess, RecrutementProcessAvecSkills } from 'src/app/models/recrutement-process';
 import { RecrutementprocessService } from 'src/app/Services/recrutementprocess.service';
 import { formatDate } from '@angular/common';
 import { RecrutementComponent } from '../recrutement/recrutement.component';
 import { RecrutementService } from 'src/app/Services/recrutement.service';
-import { Recrutement } from 'src/app/models/recrutement';
+import { Recrutement, Skill, SkillLevel } from 'src/app/models/recrutement';
 
 @Component({
   selector: 'app-recrutementprocess',
@@ -13,6 +13,17 @@ import { Recrutement } from 'src/app/models/recrutement';
   styleUrls: ['./recrutementprocess.component.css']
 })
 export class RecrutementprocessComponent {
+  skillSelectionPercentageChartOptions = {
+    title: {
+      text: "Skill Selection Percentage"
+    },
+    data: [{
+      type: "bar",
+      indexLabel: "{y}%",
+      yValueFormatString: "#,###K",
+      dataPoints: []
+    }]
+  };
   processes: any;
   newRecrutementProcess: RecrutementProcess = new RecrutementProcess();
   creatingMode: boolean = true;
@@ -25,6 +36,10 @@ export class RecrutementprocessComponent {
   selectedFile!: File;
   selectedClubs: any = {};
   recrutement: Recrutement = new Recrutement();
+ 
+  skillValues = Object.values(Skill);
+  skillLevelValues = Object.values(SkillLevel);
+  addedSkills: { skill: Skill; level: SkillLevel }[] = [];
   constructor(private processService: RecrutementprocessService, private router: Router,private RecrutementService:RecrutementService) {
     this.getAllProcesses();
   }
@@ -56,24 +71,43 @@ export class RecrutementprocessComponent {
   createProcess() {
     
     const newRecrutementProcess = {
-      skills: this.newRecrutementProcess.skills,
+     
       interviewDate: this.newRecrutementProcess.interviewDate,
       whyToJoin: this.newRecrutementProcess.whyToJoin,
-      
+      approved: this.newRecrutementProcess.approved,
       otherClubs: this.newRecrutementProcess.otherClubs,
       integratedInOtherClubs: this.newRecrutementProcess.integratedInOtherClubs,
       availability: this.newRecrutementProcess.availability,
+      Skills: this.newRecrutementProcess.Skills || new Map<Skill, SkillLevel>(),
   
       
     }
+     // Loop through addedSkills and add them to the requiredSkills Map
+     this.addedSkills.forEach(skill => {
+      newRecrutementProcess.Skills.set(skill.skill, skill.level);
+    });
     this.processService.addProcess(this.newRecrutementProcess).subscribe(() => {
       
       this.newRecrutementProcess = new RecrutementProcess();
+      this.addedSkills =[];
     this.getAllProcesses();
+    window.location.reload();
     });
   }
 
+  addSkill() {
+    console.log("Adding new skill...");
+    this.addedSkills.push({ skill: Skill.WRITTEN_COMMUNICATION, level: SkillLevel.NONE });
+    
+    
+}
+  
 
+  
+  removeSkill(index: number) {
+    this.addedSkills.splice(index, 1);
+  }
+  
   modifyProcess() {
     this.processService.editProcess(this.newRecrutementProcess).subscribe(() => {
       
@@ -88,7 +122,15 @@ export class RecrutementprocessComponent {
     } else {
       this.creatingMode = false;
       this.newRecrutementProcess = process;
+      this.processService.getProcess(process.idProcessRecrutement)
+      .subscribe((retrievedprocess: object) => { // Cast to any (not recommended)
+        const Skills = (retrievedprocess as RecrutementProcessAvecSkills).Skills;
+        this.newRecrutementProcess.Skills = Skills || new Map<Skill, SkillLevel>();
+      });
     }
+  }
+  getRequiredSkillsKeys(recrutement: any): string[] {
+    return Array.from(recrutement.requiredSkills.keys());
   }
 
   divideRecrutementsIntoChunks() {
@@ -104,11 +146,14 @@ export class RecrutementprocessComponent {
   }
 
   getProcessesForPage(pageNumber: number): any[] {
-    const processesPerPage = 2;
-    const startIndex = (pageNumber - 1) * processesPerPage;
-    const endIndex = startIndex + processesPerPage;
-    return this.processes.slice(startIndex, endIndex);
-  }
+    if (this.processes) {
+      const processesPerPage = 2;
+      const startIndex = (pageNumber - 1) * processesPerPage;
+      const endIndex = startIndex + processesPerPage;
+      return this.processes.slice(startIndex, endIndex);
+    } else {
+      return []; // Ou tout autre comportement par défaut que vous souhaitez
+    }} 
   
 
   incrementPage() {
@@ -122,6 +167,6 @@ export class RecrutementprocessComponent {
       this.currentPage--;
     }
   }
-  
+ 
 
 }

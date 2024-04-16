@@ -25,12 +25,21 @@
                                                 <a class="btn btn-primary nav-link" routerLink="/recrutementprocessuser//{{ recrutement.idRecrutement }}"><i class="fa-sharp fa-solid fa-link"></i>Apply</a>
                                             </div>
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-lg-6 col-md-6 col-xxl-5">
-                                <h1>Description:</h1>
-                                <p class="description">{{recrutement.description}}</p>
+                                <h1>Profile:</h1>
+                                <td class="text-center">
+                                    <ul>
+                                      <li *ngFor="let skill of recrutement.requiredSkills | keyvalue">
+                                        {{ skill.key }}: {{ skill.value }}
+                                      </li>
+                                    </ul>
+                                  </td>
+                                  <h1>Description:</h1>
+                                  <span class="">{{recrutement.description}}</span>
                             </div>
                         </div>
                     </div>

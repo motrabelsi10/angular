@@ -36,7 +36,18 @@ export class RecrutementprocessService {
     addProcessByRecrutement(process: any, idRecrutement: any) {
       return this.httpClient.post(`${this.API_URL}/add-process-by-recrutement/${idRecrutement}`, process);
     }
-    
+    getNonApprovedProcessCount(){
+      return this.httpClient.get<any>(`${this.API_URL}/non-approved`);
+
+    }
+    getApprovedProcessCount(){
+      return this.httpClient.get<any>(`${this.API_URL}/approved`);
+
+    }
+    getSkillSelectionPercentage(){
+      return this.httpClient.get<any>(`${this.API_URL}/skill-selection-percentage`);
+
+    }
    /* updateAvailablePosts(recrutementId: number, updatedPosts: number) {
       const url = `${this.API_URL}/recrutements/${recrutementId}/updatePosts`; // Exemple d'URL pour la mise à jour des postes
      

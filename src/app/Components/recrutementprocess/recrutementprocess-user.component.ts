@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecrutementComponent } from '../recrutement/recrutement.component';
-import { RecrutementProcess } from 'src/app/models/recrutement-process';
+import { RecrutementProcess, Skill, SkillLevel } from 'src/app/models/recrutement-process';
 import { RecrutementprocessService } from 'src/app/Services/recrutementprocess.service';
 import { NgForm } from '@angular/forms';
 import { RecrutementService } from 'src/app/Services/recrutement.service';
-import { Recrutement } from 'src/app/models/recrutement';
 @Component({
   selector: 'app-recrutementprocess-user',
   templateUrl: './recrutementprocess-user.component.html',
@@ -20,8 +19,10 @@ export class RecrutementprocessUserComponent implements OnInit {
   selectedClubs: any = {};
   creatingMode: boolean = true;
   idRecrutement :any;
-  recrutement! : Recrutement;
-
+  
+  skillValues = Object.values(Skill);
+  skillLevelValues = Object.values(SkillLevel);
+  addedSkills: { skill: Skill; level: SkillLevel }[] = [];
  
   constructor(private router: Router,private route: ActivatedRoute,private recrutementservice: RecrutementService,private RecrutementProcess :RecrutementprocessService) { 
   }
@@ -35,14 +36,19 @@ ngOnInit(): void {
 }
 
 retrieveProcessesByRecrutement(idRecrutement: number): void {
-  this.RecrutementProcess.retrieveProcessesByRecrutement(idRecrutement).subscribe(
-    (response: any) => {
-      this.processes = response;
-    },
-    (error: any) => {
-      console.error('Error fetching request by recrutement:', error);
-    }
-  );
+  this.RecrutementProcess.retrieveProcessesByRecrutement(idRecrutement)
+    .subscribe({
+      next: (response: any) => {
+        this.processes = response;
+      },
+      error: (error: any) => {
+        console.error('Error fetching processes by recruitment:', error);
+        // Optional: Implement additional error handling (e.g., display message)
+      },
+      complete: () => {
+        // Optional: Handle completion (e.g., loading indicator)
+      },
+    });
 }
 
   modifyProcess(modifiedProcess: RecrutementProcess): void {
@@ -74,30 +80,45 @@ retrieveProcessesByRecrutement(idRecrutement: number): void {
       
     }
   }
+  
   createProcessbyRecrutement(): void {
     const newRecrutementProcess = {
-        skills: this.newRecrutementProcess.skills,
+        approved: this.newRecrutementProcess.approved,
         interviewDate: this.newRecrutementProcess.interviewDate,
         whyToJoin: this.newRecrutementProcess.whyToJoin,
         otherClubs: this.newRecrutementProcess.otherClubs,
         integratedInOtherClubs: this.newRecrutementProcess.integratedInOtherClubs,
         availability: this.newRecrutementProcess.availability,
+        Skills: this.newRecrutementProcess.Skills || new Map<Skill, SkillLevel>(),
     };
+    this.addedSkills.forEach(skill => {
+      newRecrutementProcess.Skills.set(skill.skill, skill.level);
+    });
 
     this.RecrutementProcess.addProcessByRecrutement(newRecrutementProcess, this.idRecrutement).subscribe(() => {
       
         this.loadProcesses(this.idRecrutement);
         
-        this.newRecrutementProcess = {}; // Réinitialiser les valeurs du formulaire après la création réussie
+        this.newRecrutementProcess = {};
+        this.addedSkills =[]; // Réinitialiser les valeurs du formulaire après la création réussie
         this.showRecrutementForm = false;
+        
         this.retrieveProcessesByRecrutement(this.idRecrutement);
     });
 }
 
 
  
-
+addSkill() {
+  console.log("Adding new skill...");
+  this.addedSkills.push({ skill: Skill.WRITTEN_COMMUNICATION, level: SkillLevel.NONE });
   
+  
+}
+  
+removeSkill(index: number) {
+  this.addedSkills.splice(index, 1);
+}
 
  /* updateAvailablePosts(recrutementId: number, updatedPosts: number): void {
     this.RecrutementProcess.updateAvailablePosts(recrutementId, updatedPosts).subscribe({
@@ -109,6 +130,6 @@ retrieveProcessesByRecrutement(idRecrutement: number): void {
       }
     });
   }*/
-
+ 
   
   }

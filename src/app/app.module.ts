@@ -11,6 +11,9 @@ import { RecrutementDetailsUserComponent } from './Components/recrutement-detail
 import { RecrutementprocessDetailsUserComponent } from './Components/recrutementprocess-details-user/recrutementprocess-details-user.component';
 import { RecrutementprocessUserComponent } from './Components/recrutementprocess/recrutementprocess-user.component';
 import { FormsModule } from '@angular/forms';
+import { ProcessChartComponent } from './Components/process-chart/process-chart.component';
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,11 +22,12 @@ import { FormsModule } from '@angular/forms';
     RecrutementUserComponent,
     RecrutementDetailsUserComponent,
     RecrutementprocessDetailsUserComponent,
-    RecrutementprocessUserComponent
+    RecrutementprocessUserComponent,
+    ProcessChartComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,FormsModule,HttpClientModule
+    AppRoutingModule,FormsModule,HttpClientModule,CanvasJSAngularChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
