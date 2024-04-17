@@ -152,6 +152,8 @@
                                                     <button type="button" class="btn btn-primary light px-3">Management</button>
                                                     <button type="button" class="btn btn-primary light px-3">Tasks</button>
                                                     <button type="button" class="btn btn-primary light px-3">Equipements</button>
+                                                    <button type="button" class="btn btn-primary light px-3">Publications</button>
+
                                                     <button type="button" class="btn btn-primary light px-3">Volunteers</button>
                                                 </div>
                                                 <br>
@@ -239,13 +241,13 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Start</span>
                             </div>
-                            <input type="date" class="form-control" [(ngModel)]="newEvent.dateStart">
+                            <input type="date" class="form-control" [(ngModel)]="newEvent.dateStart" [ngModelOptions]="{standalone: true}">
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Finish</span>
                             </div>
-                            <input type="date" class="form-control" [(ngModel)]="newEvent.dateFinish">
+                            <input type="date" class="form-control" [(ngModel)]="newEvent.dateFinish" [ngModelOptions]="{standalone: true}">
                         </div>
 
                         <div class="input-group mb-3">

@@ -14,7 +14,7 @@
                 <div class="h-100">
                     <div class="card h-900 mb-6">
                         <div class="card-body d-flex flex-column justify-content-between">
-                            <div class="new-arrival-product">
+                            <div class="new-arrival-product" id="pdfTable" #pdfTable>
                                 <div class="new-arrival-content text-center mt-3">
                                     <h3>Ticket ID : {{ ticket.idTicket }}</h3>
                                     <div class="zoom-effect">
@@ -38,6 +38,7 @@
                                     class="list-group-item"><i class="fa fa-paper-plane font-18 align-middle me-2"></i>Modify</a>
                                 <a (click)="deleteTicket(ticket.idTicket)" class="list-group-item"><i
                                         class="fa fa-trash font-18 align-middle me-2"></i>Trash</a>
+                                        <a (click)="downloadTicketPDF(ticket.idTicket)" class="list-group-item"><i class="fa fa-paper-plane"></i>Download</a>
                             </div>
                             <br>
                             <div class="d-flex justify-content-center">

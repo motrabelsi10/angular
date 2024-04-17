@@ -71,7 +71,7 @@ export class EventComponent {
     formData.append('price', this.newEvent.price.toString());
     formData.append('imageFile', this.selectedFile); // Ajoutez le fichier ici
   
-    this.eventService.addEvent(formData).subscribe(() => {
+    this.eventService.addEventByUser(formData,1).subscribe(() => {
       this.getAllEvents();
       window.location.reload();
     });

@@ -18,6 +18,11 @@ export class EventService {
   addEvent(event : any) {
     return this.httpClient.post(`${this.API_URL}/add-event`, event)
   }
+
+  addEventByUser(event: any, userId: any) {
+    
+    return this.httpClient.post(`${this.API_URL}/add-event/${userId}`, event);
+  }
   
 
 

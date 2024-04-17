@@ -1,3 +1,4 @@
+
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Ticket } from 'src/app/models/ticket';
@@ -7,6 +8,14 @@ import { Event } from 'src/app/models/event';
 import { EventService } from 'src/app/services/event.service';
 import { EventNbtService } from 'src/app/services/event-nbt.service';
 import * as QRCode from 'qrcode';
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+import jsPDF from 'jspdf';
+import htmlToPdfmake from 'html-to-pdfmake';
+
+(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+
+
 @Component({
   selector: 'app-ticket',
   templateUrl: './ticket.component.html',
@@ -23,6 +32,10 @@ export class TicketComponent implements OnInit {
   creatingMode: boolean = true;
   event!: Event;
   exceedsAvailableTickets: boolean = false;
+
+  @ViewChild('pdfTable')
+  pdfTable!: ElementRef;
+
 
 
 
@@ -81,6 +94,8 @@ export class TicketComponent implements OnInit {
       this.generateQRCodeForTickets(); 
     });
   }
+
+
   
   
 
@@ -95,6 +110,11 @@ this.totalPrice = this.calculateTotalPrice(this.newTicket.nbts, pricePerTicket);
 }
 
 
+getTicket(ticketId: string) {
+  this.generateQRCodeForTickets(); 
+  return this.ticketService.getTicket(ticketId);
+
+}
 
 
 
@@ -127,18 +147,6 @@ modifyTicket() {
 }
 
 
-
-
-
-  
-  
-  
-  
-  
-
-
-  
-
   openModel(ticket: Ticket = new Ticket()) {
     if (ticket.idTicket == 0) {
       this.newTicket = new Ticket();
@@ -147,6 +155,35 @@ modifyTicket() {
       this.newTicket = ticket;
     }
   }
+
+
+  downloadTicketPDF(idTicket: any): void {
+    this.getTicket(idTicket).subscribe((ticket: any) => {
+      const docDefinition = {
+        content: [
+          {
+            stack: [
+              { text: `Ticket ID : ${ticket.idTicket}`, style: 'header' },
+              
+              { text: `Number of tickets : ${ticket.nbts}`, style: 'subheader' },
+              { text: `Date of Purchase : ${ticket.dateAchat}`, style: 'subheader' },
+              { text: `Type of Payment : ${ticket.typePay}`, style: 'subheader' },
+              {
+                text: `Total Price : ${ticket.event.price * ticket.nbts}`,
+                style: 'subheader'
+              }
+            ]
+          }
+        ],
+
+      };
+  
+      pdfMake.createPdf(docDefinition).download(`ticket_${ticket.idTicket}.pdf`);
+    });
+  }
+  
+  
+  
 
 
 }
