@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { EssaiComponent } from './essai/essai.component';
 import { EventComponent } from './components/event/event.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EventUserComponent } from './components/event-user/event-user.component';
 import { EventDetailsUserComponent } from './components/event-details-user/event-details-user.component';
 import { TicketComponent } from './components/ticket/ticket.component';
@@ -35,6 +35,7 @@ import { ErrorComponent } from './components/error/error.component';
     HttpClientModule,
     FormsModule,
     CanvasJSAngularChartsModule,
+    ReactiveFormsModule,
     
   ],
   providers: [],

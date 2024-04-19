@@ -8,6 +8,7 @@ import { EventService } from 'src/app/services/event.service';
   styleUrls: ['./event.component.css']
 })
 export class EventComponent {
+
   events: any;
   newEvent: Event = new Event();
   creatingMode: boolean = true;
@@ -15,6 +16,10 @@ export class EventComponent {
   eventsChunks: any[] = [];
   currentPage: number = 1;
   selectedFile!: File;
+  currentSection: number = 1;
+  nameEventTouched: boolean = false;
+
+
 
 
 
@@ -37,6 +42,10 @@ export class EventComponent {
       window.location.reload();
     });
   }
+  setCurrentSection(section: number) {
+    this.currentSection = section;
+  }
+
 
 
   onFileSelected(event: any) {
@@ -44,6 +53,30 @@ export class EventComponent {
       this.selectedFile = event.target.files[0];
     }
   }
+
+  nextSection() {
+    this.currentSection++;
+}
+
+previousSection() {
+    this.currentSection--;
+}
+
+areFieldsFilled(): boolean {
+  switch (this.currentSection) {
+      case 1:
+          return !!this.newEvent.nameEvent && !!this.newEvent.description;
+      case 2:
+        return !!this.newEvent.place;
+      case 3:
+          return !!this.newEvent.nbt && (!!this.newEvent.typeticket || this.newEvent.typeticket === 'nonPayante') && (!this.newEvent.typeticket || this.newEvent.typeticket === 'nonPayante' || !!this.newEvent.price);
+      case 4:      
+          return !!this.newEvent.dateStart && !!this.newEvent.dateFinish;
+      default:
+          return false;
+  }
+}
+
   
 
 
@@ -98,7 +131,7 @@ export class EventComponent {
 
 
   divideEventsIntoChunks() {
-    const chunkSize = 2;
+    const chunkSize = 4;
     this.eventsChunks = [];
     for (let i = 0; i < this.events.length; i += chunkSize) {
       this.eventsChunks.push(this.events.slice(i, i + chunkSize));
@@ -110,7 +143,7 @@ export class EventComponent {
   }
 
   getEventsForPage(pageNumber: number): any[] {
-    const eventsPerPage = 2;
+    const eventsPerPage = 4;
     const startIndex = (pageNumber - 1) * eventsPerPage;
     const endIndex = startIndex + eventsPerPage;
     return this.events.slice(startIndex, endIndex);
