@@ -60,7 +60,7 @@ export class TicketComponent implements OnInit {
           dateAchat: new Date(),
           typePay: this.newTicket.typePay
         };
-        this.ticketService.addTicketByEvent(newTicket, this.eventId).subscribe(() => {
+        this.ticketService.addTicketByEventAndUser(newTicket, this.eventId,1).subscribe(() => {
           this.eventNbtService.decrementNbt(this.eventId, selectedTickets);
           this.retrieveTicketsByEvent(this.eventId);
           this.newTicket = {};

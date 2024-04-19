@@ -35,6 +35,10 @@ export class TicketService {
     return this.httpClient.post(`${this.API_URL}/add-ticket-by-event/${eventId}`, ticket);
   }
 
+  addTicketByEventAndUser(ticket: any, eventId: any, userId: any) {
+    return this.httpClient.post(`${this.API_URL}/add-ticket-by-event-user/${userId}/${eventId}`, ticket);
+  }
+
   retrieveTicketsByEvent(eventId: any) {
     return this.httpClient.get(`${this.API_URL}/retrieve-tickets-by-event/${eventId}`);
   }
