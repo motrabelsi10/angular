@@ -13,6 +13,9 @@ import { EquipementComponent } from './Components/equipement/equipement.componen
 import { EquipementUserComponent } from './Components/equipement-user/equipement-user.component';
 import { FeedbackUserComponent } from './Components/feedback-user/feedback-user.component';
 import { ManagementUserComponent } from './Components/management-user/management-user.component';
+import { ManagementHistoryUserComponent } from './Components/management-history-user/management-history-user.component';
+import { EquipementHistoryUserComponent } from './Components/equipement-history-user/equipement-history-user.component';
+import { FeedbackHistoryUserComponent } from './Components/feedback-history-user/feedback-history-user.component';
 
 
 @NgModule({
@@ -24,7 +27,10 @@ import { ManagementUserComponent } from './Components/management-user/management
     EquipementComponent,
     EquipementUserComponent,
     FeedbackUserComponent,
-    ManagementUserComponent
+    ManagementUserComponent,
+    ManagementHistoryUserComponent,
+    EquipementHistoryUserComponent,
+    FeedbackHistoryUserComponent
   ],
   imports: [
     BrowserModule,

@@ -24,6 +24,9 @@ export class ManagementService {
   addManagementAdmin(management : any){
     return this.httpClient.put(`${this.API_URL}/add-management-admin`, management)
   }
+  AddClassroomsAcoordinally(management : any){
+    return this.httpClient.put(`${this.API_URL}/AddClassroomsAcoordinally`, management)
+  }
   deleteManagement(idmanagement : any){
     return  this.httpClient.delete(`${this.API_URL}/remove-management/${idmanagement}`)
   }

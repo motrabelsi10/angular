@@ -18,6 +18,12 @@ export class EquipementService {
   getEquipement(idequipement : any){
     return this.httpClient.get(`${this.API_URL}/retrieve-equipement/${idequipement}`)
   }
+  getPriceByEvent(idequipement : any){
+    return this.httpClient.get(`${this.API_URL}/getPriceByEvent/${idequipement}`)
+  }
+  getPriceByClub(idequipement : any){
+    return this.httpClient.get(`${this.API_URL}/getPriceByClub/${idequipement}`)
+  }
   editEquipement(equipement : any){
     return this.httpClient.put(`${this.API_URL}/modify-equipement`, equipement)
   }
