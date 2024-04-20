@@ -48,19 +48,45 @@
                                     <h4 class="text-center mb-4">Sign up your account</h4>
                                     <form [formGroup]="registerForm" (ngSubmit)=submitForm() >
                                         <div class="mb-3">
-                                            <label class="mb-1"><strong>Firstname</strong></label>
+                                            <label class="mb-1"><strong>ClubCreator</strong></label>
                                             <input type="text" class="form-control" placeholder="Firstname" formControlName="firstName">
+                                            <input type="text" class="form-control" placeholder="LastName" formControlName="lastName">
+
                                         </div>
                                         <div class="mb-3">
-                                            <label class="mb-1"><strong>LastName</strong></label>
-                                            <input type="text" class="form-control" placeholder="LastName" formControlName="lastName">
+                                            <label class="mb-1"><strong>ClubName</strong></label>
+                                            <input type="text" class="form-control" placeholder="ClubName" formControlName="clubName">
+
                                         </div>
                                         <div class="mb-3">
                                             <label class="mb-1"><strong>Email</strong></label>
                                             <input type="email" class="form-control" placeholder="hello@example.com" formControlName="mail">
                                         </div>
                                        
-                                        
+                                        <div class="mb-3">
+                                            <label class="mb-1"><strong>ClubTypes</strong></label>
+
+                                           
+                                       
+                                            <select class="default-select form-control wide" formControlName="clubTypes">
+                        
+                                                <option selected disabled >Choose...</option>
+                                                <option value="Academic" >Academic</option>
+                                                <option value="Arts">Arts</option>
+                                                <option value="Sports">Sports</option>
+                                                <option value="Technology">Technology</option>
+                                                <option value="Environmental">Environmental</option>
+                                                <option value="Cultural">Cultural</option>
+                                                <option value="Volunteer">Volunteer</option>
+
+
+
+
+
+                                
+                                               
+                                            </select>
+                                        </div>
                                         
 
                                         <div class="mb-3">
@@ -73,7 +99,11 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="mb-1"><strong>Address</strong></label>
-                                            <input type="email" class="form-control" placeholder="House number Street name Town/City County Postcode" formControlName="address">
+                                            <input type="text" class="form-control" placeholder="House number Street name Town/City County Postcode" formControlName="address">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="mb-1"><strong>ClubDescription</strong></label>
+                                            <input type="text" class="form-control" placeholder="Tell us more about the club" formControlName="clubDetails">
                                         </div>
                                         
                                         <div class="mb-3">

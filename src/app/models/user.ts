@@ -1,3 +1,4 @@
+import { ClubTypes } from "./clubTypes";
 import { Role } from "./role";
 
 export class User {
@@ -11,6 +12,10 @@ export class User {
     role!: Role;
     password!: string;
     approuvement!: boolean;
+    clubDetails!: string;
+    clubName! : string;
+    clubTypes! : ClubTypes;
+
     
 
 }

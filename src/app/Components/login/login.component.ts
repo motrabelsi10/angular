@@ -37,10 +37,10 @@ export class LoginComponent implements OnInit {
       (response) => {
         console.log(response);
         if (response.jwtToken !== null) {
-          alert("Helloooooooo" + response.jwtToken);
+          alert("Welcome To EspritGather ");
           const jwtToken = response.jwtToken;
           localStorage.setItem('jwtToken', jwtToken);
-
+  
           this.userService.retrieveByMail(this.loginForm.get('mail')?.value).subscribe(data => {
             this.user = data;
             console.log(this.user);
@@ -48,9 +48,16 @@ export class LoginComponent implements OnInit {
             this.redirectUserByRole();
           });
         }
+      },
+      (error) => {
+        // Handle error
+        console.error("Error:", error);
+        // Alert the user about the error
+        alert("Incorrect username or password.");
       }
     );
   }
+  
   
 
   redirectUserByRole() {
@@ -65,7 +72,7 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl("/user");
         break;
       case "club":
-        this.router.navigateByUrl("/user");
+        this.router.navigateByUrl("/club");
         break;
       case "admin":
         this.router.navigateByUrl("/admin");

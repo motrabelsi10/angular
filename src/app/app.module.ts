@@ -13,7 +13,9 @@ import { SideBarComponent } from './Components/side-bar/side-bar.component';
 import { LoginComponent } from './Components/login/login.component';
 import { ClubComponent } from './Components/club/club.component';
 import { SimpleUserComponent } from './Components/simple-user/simple-user.component';
-import { AdminComponent } from './Components/admin/admin.component'; // Import FormsModule here
+import { AdminComponent } from './Components/admin/admin.component';
+import { ClubRegestrationComponent } from './Components/club-regestration/club-regestration.component';
+import { HomeComponent } from './Components/home/home.component'; // Import FormsModule here
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import { AdminComponent } from './Components/admin/admin.component'; // Import F
     LoginComponent,
     ClubComponent,
     SimpleUserComponent,
-    AdminComponent
+    AdminComponent,
+    ClubRegestrationComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

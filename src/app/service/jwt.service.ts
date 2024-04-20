@@ -13,6 +13,9 @@ export class JwtService {
 
 
   constructor(private http: HttpClient) { }
+  clubregister(signRequest: any): Observable<any> {
+    return this.http.post(Base_URL + 'signup/club', signRequest)
+  }
 
   register(signRequest: any): Observable<any> {
     return this.http.post(Base_URL + 'signup', signRequest)
@@ -20,6 +23,13 @@ export class JwtService {
   
   login(loginRequest: any): Observable<any> {
     return this.http.post(Base_URL + 'login', loginRequest)
+  }
+  logout(): void {
+    localStorage.removeItem('jwtToken');
+  }
+  isAuthenticated(): boolean {
+    const jwtToken = localStorage.getItem('jwtToken');
+    return !!jwtToken; 
   }
 
   hello(): Observable<any> {
