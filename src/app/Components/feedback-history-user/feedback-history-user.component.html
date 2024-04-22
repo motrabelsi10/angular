@@ -7,12 +7,13 @@
                 
          </div>
          <div class="row">
-            <div class="col-lg-12 col-xl-6" *ngFor="let feedback of feedbackChunks">
-                <div class="card">
+            <div  *ngFor="let feedback of feedbackChunks">
+                <div *ngIf="feedback.user.idUser===iduser">
+                <div class="col-lg-12 col-xl-6" class="card" >
                     <div class="card-body">
                         <div class="menu-product d-flex">
                             <div class="content-detail-wrap">    
-                                <div class="card-body">
+                                <div class="card-body" >
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="d-flex justify-content-end">
@@ -48,7 +49,7 @@
                             </div>	
                         </div>
                     </div>
-                </div>
+                </div></div>
               
             </div>
             

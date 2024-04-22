@@ -15,7 +15,9 @@ export class ManagementComponent {
   user : User = new User();
   management : any;
   newManagement : Management = new Management();
+  testManagement : any;
   creatingMode: boolean = true;
+  test: boolean = false;
   ManagementChunks: any[] = [];
   currentPage: number = 1;
   selectedFile!: File;
@@ -42,6 +44,7 @@ export class ManagementComponent {
 
     EditApprouvement(man : Management = new Management()){
       man.approuvement = true;
+      console.log(man.approuvement);
       this.managementService.addManagementAdmin(man).subscribe(() => {
         this.getAllManagement();
         window.location.reload();
@@ -56,9 +59,9 @@ export class ManagementComponent {
       });
     }
   
-    createManagement() {
+   /* createManagement() {
       const event = {
-        idEvent : "2"
+        idEvent : "5"
       }
       const newManagement = {
         bloc: this.newManagement.bloc,
@@ -67,14 +70,18 @@ export class ManagementComponent {
         approuvement: this.newManagement.approuvement,
         event: event,
       }
-      this.managementService.addManagement(newManagement).subscribe(() => {
+      this.managementService.AddClassroomsAcoordinally(newManagement).subscribe(() => {
         this.getAllManagement();
         window.location.reload();
       });
-    }
+    }*/
   
     modifyManagement() {
-      this.managementService.editManagement(this.newManagement).subscribe(() => {
+    //  this.testManagement = this.managementService.AddClassroomsAcoordinally(this.newManagement);
+    console.log(this.newManagement);
+    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    console.log(this.managementService.AddClassroomsAcoordinally(this.newManagement));
+      this.managementService.AddClassroomsAcoordinally(this.newManagement).subscribe(() => {
         this.getAllManagement();
         window.location.reload();
       });

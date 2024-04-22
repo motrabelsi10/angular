@@ -18,15 +18,22 @@ export class ManagementUserComponent {
   creatingMode: boolean = true;
   ManagementChunks: any[] = [];
   currentPage: number = 1;
+  managementId :any = 0 ;
   selectedFile!: File;
   constructor(private managementService: ManagementService, private router: Router) {
     this.getAllManagement();
   }
     getAllManagement() {
-        this.managementService.getAllManagement().subscribe(data => {
-          this.management = data;
-         // this.divideManagementsIntoChunks();
-        });
+      console.log();
+      
+      this.managementService.getManagementByEvent(5).subscribe(data => {
+       const id = data;
+       this.managementService.getManagement(id).subscribe(data => {
+        console.log(this.managementId);
+        this.management = data;
+      });
+      });
+     
     }
   
     openModel(man : Management = new Management()) {
@@ -47,7 +54,7 @@ export class ManagementUserComponent {
   
     createManagement() {
       const event = {
-        idEvent : "1"
+        idEvent : "5"
       }
       const newManagement = {
         details: this.newManagement.details,

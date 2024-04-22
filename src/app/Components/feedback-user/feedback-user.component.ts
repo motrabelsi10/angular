@@ -16,7 +16,7 @@ export class FeedbackUserComponent {
 feedback : any;
 newFeedback : Feedback = new Feedback();
 creatingMode: boolean = true;
-
+iduser : any;
 feedbackChunks: any[] = [];
 currentPage: number = 1;
 selectedFile!: File;
@@ -24,6 +24,7 @@ constructor(private feedbackService: FeedbackService, private router: Router) {
   this.getAllFeedback();
 }
   getAllFeedback() {
+    this.iduser = 2;
       this.feedbackService.getAllFeedback().subscribe(data => {
         this.feedbackChunks = data;
        // this.divideFeedbacksIntoChunks();

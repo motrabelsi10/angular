@@ -1,85 +1,60 @@
-<html lang="en">
 
 <div class="content-body">
     <div class="container-fluid">
-        <div class="col-lg-12">
-
-           <div class="shopping-cart  mb-2 me-3">
-                <a class="btn btn-primary text-white" data-toggle="modal" data-target="#EditAddfeedback"
-                    (click)="openModel()"><i class="fa fa-shopping-basket me-2"></i>Create New Feedback</a>
-            </div>-
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Liste des feedbacks</h4>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-responsive-md">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Type</th>
-                                    <th scope="col">Titre</th>
-                                    <th scope="col">Corps</th>
-                                    <th scope="col">Note</th>
-                                    <th scope="col">Date du feedback</th>
-                                    <th scope="col">Date de traitement</th>
-                                    <th scope="col">User</th>
-                                    <th scope="col">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let feedback of feedbackChunks" >
-                                    <td class="text-center">{{feedback.serviceType}}</td>
-                                    <td class="text-center">{{feedback.title}}</td>
-                                    <td class="text-center">{{feedback.body}}</td>
-                                    <td class="text-center">{{feedback.note}}</td>
-                                    <td class="text-center">{{feedback.dateFeedback | date:'MMM dd, yyyy à HH:mm '}}</td>
-                                    <td class="text-center">{{feedback.datevu | date:'MMM dd, yyyy à HH:mm '}}</td>
-                                    <td class="text-center">{{feedback.user.firstName}} {{feedback.user.lastName}}</td>
-                                    
-                                    <td class="text-center">
-                                        <div class="d-flex justify-content-center">
-                                          <a type="button" class="btn btn-primary shadow btn-xs sharp me-1"
-                                                data-toggle="modal" data-target="#EditAddfeedback"
-                                                (click)="openModel(feedback)">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                            <a type="button" class="btn btn-danger shadow btn-xs sharp"
-                                                (click)="deleteFeedback(feedback.idFeedback)">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
+        <div class="row page-titles">
+             <div>
+                <li><h4> Historique de mes feedbacks :</h4></li>
+                
+         </div>
+         <div class="row">
+            <div  *ngFor="let feedback of feedbackChunks">
+                <div *ngIf="feedback.event.user.idUser===iduser">
+                <div class="col-lg-12 col-xl-6" class="card" >
+                    <div class="card-body">
+                        <div class="menu-product d-flex">
+                            <div class="content-detail-wrap">    
+                                <div class="card-body" >
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="d-flex justify-content-end">
+                                                <div>
+                                                    <h5>{{feedback.dateFeedback | date:'MMM dd, yyyy à HH:mm '}}</h5>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="d-flex justify-content-end">
+                                            <div>
+                                                <span>Type du feedback : {{feedback.serviceType}}</span>
+                                            </div>
+                                        </div></div>
+                                        
+                                    </div>
+                                    <div class="row mt-4">
+                                        <div class="col-md-12">
+                                            <h4>{{feedback.title}}</h4>
+                                            <span>{{feedback.body}}</span>
+                                            <h6 class="mb-0"><span class="fs-14 me-2">Ma note :</span>{{feedback.note}}</h6>
+                                            <h5 class="mb-0">Plus de détails : </h5>
+                                            <h5 class="mb-0">Traitée par l'administrateur le {{feedback.datevu | date:'MMM dd, yyyy à HH:mm '}}</h5>
                                         </div>
-                                    </td>
-                             </tr>   
+                                    </div>
+                                    
+                                </div>
                                 
-                            </tbody>
-                        </table>
-                        <br>
-                        <nav>
-                            <ul class="pagination pagination-gutter">
-                              <li class="page-item page-indicator">
-                                <a class="page-link" href="javascript:void(0)" (click)="decrementPage()">
-                                  <i class="la la-angle-left"></i>
-                                </a>
-                              </li>
-                              <li *ngFor="let chunk of feedbackChunks; let i = index"
-                                  [class.active]="currentPage === i + 1" class="page-item">
-                                <a class="page-link" href="javascript:void(0)" (click)="changePage(i + 1)">
-                                  {{ i + 1 }}
-                                </a>
-                              </li>
-                              <li class="page-item page-indicator">
-                                <a class="page-link" href="javascript:void(0)" (click)="incrementPage()">
-                                  <i class="la la-angle-right"></i>
-                                </a>
-                              </li>
-                            </ul>
-                          </nav>
-                          
+                            </div>	
+                        </div>
                     </div>
-                </div>
+                </div></div>
+              
             </div>
-        </div>
+            
+           
+            
+            <div>
+                
+            </div>
+
+
 
 
             <div class="modal fade" id="EditAddfeedback" tabindex="-1" event="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -92,62 +67,60 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+            
 
-                        <div class="input-group mb-3">
-                            <label class="input-group-text mb-0">Type</label>
-                            <select class="default-select form-control wide" [(ngModel)]="newFeedback.serviceType">
-                                <option value="equipement">equipement</option>
-                                <option value="emplacement">emplacement</option>
-                                <option value="horaire">horaire</option>
-                                <option value="tarification">tarification</option>
-                                <option value="services">services</option>
-                                <option value="nouriture">nourriture</option>
-                                <option value="autre">autre</option>
-                            </select>
-                        </div>
+            <div class="modal-body">
 
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Titre du feedback</span>
-                            </div>
-                            <input type="text" class="form-control" [(ngModel)]="newFeedback.title">
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Corps</span>
-                            </div>
-                            <input type="text" class="form-control" [(ngModel)]="newFeedback.body">
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <label class="input-group-text mb-0">Type</label>
-                            <select class="default-select form-control wide" [(ngModel)]="newFeedback.note">
-                                <option value="mauvais">mauvais</option>
-                                <option value="insuffisant">insuffisant</option>
-                                <option value="moyen">moyen</option>
-                                <option value="bien">bien</option>
-                                <option value="excellent">excellent</option>
-                            </select>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" *ngIf="creatingMode"
-                            (click)="createFeedback()">Create Feedback</button>
-                        <button type="button" class="btn btn-primary" *ngIf="!creatingMode"
-                            (click)="modifyFeedback()">Modify Feedback</button>
-                    </div>
+                <div class="input-group mb-3">
+                    <label class="input-group-text mb-0">Type</label>
+                    <select class="default-select form-control wide" [(ngModel)]="newFeedback.serviceType">
+                        <option value="equipement">equipement</option>
+                        <option value="emplacement">emplacement</option>
+                        <option value="horaire">horaire</option>
+                        <option value="tarification">tarification</option>
+                        <option value="services">services</option>
+                        <option value="nouriture">nourriture</option>
+                        <option value="autre">autre</option>
+                    </select>
                 </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Titre du feedback</span>
+                    </div>
+                    <input type="text" class="form-control" [(ngModel)]="newFeedback.title">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Corps</span>
+                    </div>
+                    <input type="text" class="form-control" [(ngModel)]="newFeedback.body">
+                </div>
+
+                <div class="input-group mb-3">
+                    <label class="input-group-text mb-0">Type</label>
+                    <select class="default-select form-control wide" [(ngModel)]="newFeedback.note">
+                        <option value="mauvais">mauvais</option>
+                        <option value="insuffisant">insuffisant</option>
+                        <option value="moyen">moyen</option>
+                        <option value="bien">bien</option>
+                        <option value="excellent">excellent</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" *ngIf="creatingMode"
+                    (click)="createFeedback()">Create Feedback</button>
+                <button type="button" class="btn btn-primary" *ngIf="!creatingMode"
+                    (click)="modifyFeedback()">Modify Feedback</button>
             </div>
         </div>
-
-
-
-
-        </div>
+    </div>  </div>
     </div>
 
-</html>
+    </div>
+    
+

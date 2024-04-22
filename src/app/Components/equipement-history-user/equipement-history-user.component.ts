@@ -17,12 +17,14 @@ export class EquipementHistoryUserComponent {
   creatingMode: boolean = true;
   equipementChunks: any[] = [];
   currentPage: number = 1;
+  idevent : any;
   selectedFile!: File;
   
   constructor(private equipementService: EquipementService, private router: Router) {
     this.getAllEquipement();
   }
     getAllEquipement() {
+      this.idevent=3;
       this.equipementService.getPriceByEvent(3).subscribe(data => {
         this.price = data;
       })
