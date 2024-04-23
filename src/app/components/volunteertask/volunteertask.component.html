@@ -1,0 +1,86 @@
+<html lang="en">
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="col-lg-12">
+
+            <div class="card">
+                <div class="card-header">
+                    <button *ngIf="!bolnumberVolunteers" type="button" class="btn btn-primary" (click)="approveVolunteersForTask()">Approve Volunteers</button>
+                    <button type="button" class="btn btn-primary"  [routerLink]="['/tasksuser']">Close</button>             
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-responsive-md">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name Volunteer</th>
+                                    <th scope="col">Approval</th>
+                                    <th scope="col">Why do you want to join ?</th>
+                                    <th scope="col">Availability</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let volunteer of getVolunteersForPage(currentPage)">
+                                    <td class="text-center">{{ volunteer.nameVolunteer }}</td>
+                                    <td class="text-center">{{ volunteer.approuvement }}</td>
+                                    <td class="text-center">{{ volunteer.reason }}</td>
+                                    <td class="text-center">{{ volunteer.availabilityVolunteer }}</td>
+
+                                    <td class="text-center">
+                                        <div class="d-flex justify-content-center">
+                                            <a type="button" class="btn btn-primary shadow btn-xs sharp me-1"
+                                                data-toggle="modal" data-target="#EditAddvolunteer"
+                                                (click)="openModel(volunteer)">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                            <a type="button" class="btn btn-danger shadow btn-xs sharp"
+                                                (click)="deleteVolunteers(volunteer.idVolunteer)">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+
+
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <br>
+                        <nav>
+                            <ul class="pagination pagination-gutter">
+                              <li class="page-item page-indicator">
+                                <a class="page-link" href="javascript:void(0)" (click)="decrementPage()">
+                                  <i class="la la-angle-left"></i>
+                                </a>
+                              </li>
+                              <li *ngFor="let chunk of volunteersChunks; let i = index"
+                                  [class.active]="currentPage === i + 1" class="page-item">
+                                <a class="page-link" href="javascript:void(0)" (click)="changePage(i + 1)">
+                                  {{ i + 1 }}
+                                </a>
+                              </li>
+                              <li class="page-item page-indicator">
+                                <a class="page-link" href="javascript:void(0)" (click)="incrementPage()">
+                                  <i class="la la-angle-right"></i>
+                                </a>
+                              </li>
+                            </ul>
+                          </nav>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+</html>
+
+
+
+
