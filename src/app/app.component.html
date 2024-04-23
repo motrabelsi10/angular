@@ -15,23 +15,16 @@
   <meta property="og:image" content="social-image.png" />
   <meta name="format-detection" content="telephone=no">
 
-  <title>Lezato : Restaurant Admin Template</title>
+  <title>EspritGather</title>
+
+  
 
 
 </head>
 
 <body>
 
-  <div id="preloader">
-    <div class="gooey">
-      <span class="dot"></span>
-      <div class="dots">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  </div>
+
 
   <div id="main-wrapper">
     <div class="nav-header">
@@ -72,6 +65,15 @@
 
                 </div>
               </li>
+              <div class="nav__btns">
+                <!-- Theme Change Buttons -->
+                <i class="uil uil-moon change-theme" id="theme-button"></i>
+
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="uil uil-apps"></i>
+                </div>
+            </div>
               <li class="nav-item dropdown notification_dropdown">
                 <a class="nav-link bell-link ai-icon" href="javascript:void(0);">
                   <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -88,6 +90,16 @@
                   
                 </a>
               </li>
+
+              <div class="nav__btns">
+                <!-- Theme Change Buttons -->
+                <i class="uil uil-moon change-theme" id="theme-button"></i>
+
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="uil uil-apps"></i>
+                </div>
+            </div>
               <li class="nav-item dropdown  header-profile">
                 <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
                   <img src="../assets/images/avatar/1.jpg" width="56" alt="" />
@@ -139,15 +151,15 @@
               <span class="nav-text">Profile</span>
             </a>
           </li>
-          <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+          <li><a class="has-arrow ai-icon" href="javascript:void()" class="nav-link" routerLink="/events" aria-expanded="false">
               <i class="flaticon-050-info"></i>
               
               <span class="nav-text">Events</span>
             </a>
           </li>
-          <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+          <li><a class="has-arrow ai-icon" href="javascript:void()" class="nav-link" routerLink="/eventsuser" aria-expanded="false">
               <i class="flaticon-041-graph"></i>
-              <span class="nav-text">Clubs</span>
+              <span class="nav-text">Events</span>
             </a>
 
           </li>
@@ -193,13 +205,27 @@
       
        
 
+
+
         </ul>
 
       </div>
     </div>
 
+
   </div>
+
+
   <router-outlet></router-outlet>
+  <div class="footer">
+    <div class="copyright">
+        <p>Copyright © Designed &amp; Developed by <a href="https://dexignzone.com/" target="_blank">Highbrow</a> 2024</p>
+    </div>
+</div>
+
+
+  <!-- Required vendors -->
+
   <script src="../assets/vendor/global/global.min.js"></script>
 <script src="../assets/vendor/chart.js/Chart.bundle.min.js"></script>
 <script src="../assets/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
@@ -218,4 +244,9 @@
   <script src="../assets/js/custom.min.js"></script>
 <script src="../assets/js/deznav-init.js"></script>
 <script src="../assets/js/demo.js"></script>
+
   <script src="../assets/js/styleSwitcher.js"></script>
+
+ 
+  <router-outlet></router-outlet>
+
