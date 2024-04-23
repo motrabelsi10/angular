@@ -7,6 +7,17 @@ import { RecrutementprocessUserComponent } from './Components/recrutementprocess
 import { RecrutementprocessDetailsUserComponent } from './Components/recrutementprocess-details-user/recrutementprocess-details-user.component';
 import { RecrutementDetailsUserComponent } from './Components/recrutement-details-user/recrutement-details-user.component';
 import { EssaiComponent } from './essai/essai.component';
+
+import { FeedbackComponent } from './Components/feedback/feedback.component';
+import { EquipementComponent } from './Components/equipement/equipement.component';
+import { ManagementComponent } from './Components/management/management.component';
+import { ManagementUserComponent } from './Components/management-user/management-user.component';
+import { EquipementUserComponent } from './Components/equipement-user/equipement-user.component';
+import { FeedbackUserComponent } from './Components/feedback-user/feedback-user.component';
+import { ManagementHistoryUserComponent } from './Components/management-history-user/management-history-user.component';
+import { EquipementHistoryUserComponent } from './Components/equipement-history-user/equipement-history-user.component';
+import { FeedbackHistoryUserComponent } from './Components/feedback-history-user/feedback-history-user.component';
+
 import { PublicationComponent } from './Components/publication/publication.component';
 import { InteractionComponent } from './Components/interaction/interaction.component';
 import { PublicationUserComponent } from './Components/publication-user/publication-user.component';
@@ -31,10 +42,16 @@ import { HomeComponent } from './Components/home/home.component';
 
 
 
+
 const routes: Routes = [{ path: 'essai', component: EssaiComponent },
-
-
-
+                        {path : 'feedback' , component : FeedbackComponent},
+                        {path : 'equipement' , component : EquipementComponent},
+                        {path : 'management' , component : ManagementComponent},
+                        {path : 'management-user' , component : ManagementUserComponent},
+                        {path : 'equipement-user' , component : EquipementUserComponent},
+                        {path : 'equipement-history-user' , component : EquipementHistoryUserComponent},
+                        {path : 'feedback-history-user', component : FeedbackHistoryUserComponent},
+                        {path : 'feedback-user' , component : FeedbackUserComponent}
 { path: 'publication', component: PublicationComponent },  
 { path: 'interactions', component: InteractionComponent },
 { path: 'publication/user', component: PublicationUserComponent },
@@ -63,6 +80,7 @@ const routes: Routes = [{ path: 'essai', component: EssaiComponent },
 { path: 'recrutementuserdetails/:idRecrutement', component: RecrutementDetailsUserComponent },
 
 ];
+
 
 
 

@@ -1,4 +1,5 @@
 
+
 import { ClubTypes } from "./clubTypes";
 import { Role } from "./role";
 
@@ -9,7 +10,11 @@ export class User {
     birthDay!: Date;
     address!: string;
     mail!: string;
-    telNumber!: string;
+
+    role!: string;
+    password!: string;
+    approuvement!: boolean;
+
     role!: Role;
     password!: string;
     approuvement!: boolean;
@@ -23,6 +28,7 @@ export class User {
     clubTypes! : ClubTypes;
 
     
+
 
 }
 

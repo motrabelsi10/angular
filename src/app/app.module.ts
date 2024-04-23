@@ -18,6 +18,18 @@ import { ProcessChartComponent } from './Components/process-chart/process-chart.
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 
 import { EssaiComponent } from './essai/essai.component';
+import { FeedbackComponent } from './Components/feedback/feedback.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ManagementComponent } from './Components/management/management.component';
+import { EquipementComponent } from './Components/equipement/equipement.component';
+import { EquipementUserComponent } from './Components/equipement-user/equipement-user.component';
+import { FeedbackUserComponent } from './Components/feedback-user/feedback-user.component';
+import { ManagementUserComponent } from './Components/management-user/management-user.component';
+import { ManagementHistoryUserComponent } from './Components/management-history-user/management-history-user.component';
+import { EquipementHistoryUserComponent } from './Components/equipement-history-user/equipement-history-user.component';
+import { FeedbackHistoryUserComponent } from './Components/feedback-history-user/feedback-history-user.component';
 
 import { PublicationComponent } from './Components/publication/publication.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -57,6 +69,16 @@ import { HomeComponent } from './Components/home/home.component'; // Import Form
     AppComponent,
 
     EssaiComponent,
+    FeedbackComponent,
+    ManagementComponent,
+    EquipementComponent,
+    EquipementUserComponent,
+    FeedbackUserComponent,
+    ManagementUserComponent,
+    ManagementHistoryUserComponent,
+    EquipementHistoryUserComponent,
+    FeedbackHistoryUserComponent
+    EssaiComponent,
     PublicationComponent,
     InteractionComponent,
     PublicationComponent,
@@ -68,14 +90,7 @@ import { HomeComponent } from './Components/home/home.component'; // Import Form
     RecrutementDetailsUserComponent,
     RecrutementprocessDetailsUserComponent,
     RecrutementprocessUserComponent,
-    ProcessChartComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,FormsModule,HttpClientModule,CanvasJSAngularChartsModule
-
-    EssaiComponent,
-
+    ProcessChartComponent,
     EventComponent,
     EventUserComponent,
     EventDetailsUserComponent,
@@ -91,9 +106,8 @@ import { HomeComponent } from './Components/home/home.component'; // Import Form
     SimpleUserComponent,
     AdminComponent,
     ClubRegestrationComponent,
-    HomeComponent
-
   ],
+ 
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -106,8 +120,7 @@ import { HomeComponent } from './Components/home/home.component'; // Import Form
     ReactiveFormsModule,
     ReactiveFormsModule,
     FormsModule
-  
-
+ 
   ],
   providers: [],
   bootstrap: [AppComponent]
