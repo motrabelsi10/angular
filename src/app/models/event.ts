@@ -1,3 +1,6 @@
+
+import { User } from "./user";
+
 export class Event {
 
     idEvent : number;
@@ -7,10 +10,12 @@ export class Event {
     dateFinish  : Date;
     place  : string;
     nbt  : number;
-    user : number;
+
+    user : User;
     price : number;
     typeticket: string;
-    image:string;
+    imagePath: string;
+
 
     constructor(){
       this.idEvent = 0;
@@ -20,9 +25,11 @@ export class Event {
       this.dateFinish = new Date();
       this.place = "";
       this.nbt = 0;
-      this.user = 1;
+
+      this.user = new User();
       this.price =0;
       this.typeticket = '';
-      this.image="";
+      this.imagePath="";
+
     }
 }
