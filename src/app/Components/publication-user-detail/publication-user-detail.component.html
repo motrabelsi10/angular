@@ -1,0 +1,31 @@
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="card text-center">
+    <div class="card-header">
+      Featured
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{publication["body"]}}</h5>
+      <p class="card-text">{{publication["datePublication"]}}</p>
+      <p class="card-text">{{publication["event"]["nameEvent"]}}</p>
+      <p class="card-text">{{publication["user"]["firstName"]}} {{publication["user"]["lastName"]}}</p>
+    </div>
+    <div class="card-footer text-muted">
+        <div *ngIf="!interaction1.dislike && !interaction1.liked">
+            <i class="bi bi-hand-thumbs-up-fill" style="margin-right: 10px; font-size: 24px;" (click)="like()"></i> 
+            <i class="bi bi-hand-thumbs-down-fill" style="font-size: 24px;" (click)="dislike()"></i>
+        </div>
+        <div *ngIf="interaction1.liked">
+            <i class="bi bi-hand-thumbs-up-fill alert alert-primary" style="margin-right: 10px; font-size: 24px;" (click)="removelike()"></i> 
+            <i class="bi bi-hand-thumbs-down-fill" style="font-size: 24px;" (click)="dislike()"></i>
+        </div>
+        <div *ngIf="interaction1.dislike">
+            <i class="bi bi-hand-thumbs-up-fill" style="margin-right: 10px; font-size: 24px;" (click)="like()"></i> 
+            <i class="bi bi-hand-thumbs-down-fill alert alert-primary" style="font-size: 24px;" (click)="removelike()"></i>
+        </div>
+    </div>
+  </div>

@@ -7,6 +7,10 @@ import { RecrutementprocessUserComponent } from './Components/recrutementprocess
 import { RecrutementprocessDetailsUserComponent } from './Components/recrutementprocess-details-user/recrutementprocess-details-user.component';
 import { RecrutementDetailsUserComponent } from './Components/recrutement-details-user/recrutement-details-user.component';
 import { EssaiComponent } from './essai/essai.component';
+import { PublicationComponent } from './Components/publication/publication.component';
+import { InteractionComponent } from './Components/interaction/interaction.component';
+import { PublicationUserComponent } from './Components/publication-user/publication-user.component';
+import { PublicationUserDetailComponent } from './Components/publication-user-detail/publication-user-detail.component';
 import { EventComponent } from './components/event/event.component';
 import { EventUserComponent } from './components/event-user/event-user.component';
 import { EventDetailsUserComponent } from './components/event-details-user/event-details-user.component';
@@ -26,7 +30,15 @@ import { HomeComponent } from './Components/home/home.component';
 
 
 
+
 const routes: Routes = [{ path: 'essai', component: EssaiComponent },
+
+
+
+{ path: 'publication', component: PublicationComponent },  
+{ path: 'interactions', component: InteractionComponent },
+{ path: 'publication/user', component: PublicationUserComponent },
+{ path: 'publication/user/:id', component: PublicationUserDetailComponent },
 {path : 'register' , component : RegisterComponent},
 {path : 'admin' , component : UserComponent},
 {path : 'sidebar' , component : SideBarComponent},
@@ -51,6 +63,7 @@ const routes: Routes = [{ path: 'essai', component: EssaiComponent },
 { path: 'recrutementuserdetails/:idRecrutement', component: RecrutementDetailsUserComponent },
 
 ];
+
 
 
 

@@ -18,6 +18,15 @@ import { ProcessChartComponent } from './Components/process-chart/process-chart.
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 
 import { EssaiComponent } from './essai/essai.component';
+
+import { PublicationComponent } from './Components/publication/publication.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { InteractionComponent } from './Components/interaction/interaction.component';
+import { PublicationUserComponent } from './Components/publication-user/publication-user.component';
+import { PublicationUserDetailComponent } from './Components/publication-user-detail/publication-user-detail.component';
+
 import { EventComponent } from './components/event/event.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -42,9 +51,17 @@ import { HomeComponent } from './Components/home/home.component'; // Import Form
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
+
+    EssaiComponent,
+    PublicationComponent,
+    InteractionComponent,
+    PublicationComponent,
+    PublicationUserComponent,
+    PublicationUserDetailComponent
     RecrutementComponent,
     RecrutementprocessComponent,
     RecrutementUserComponent,
@@ -75,18 +92,21 @@ import { HomeComponent } from './Components/home/home.component'; // Import Form
     AdminComponent,
     ClubRegestrationComponent,
     HomeComponent
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+
+    ReactiveFormsModule,
+    CommonModule,
     FormsModule,
     CanvasJSAngularChartsModule,
     ReactiveFormsModule,
     ReactiveFormsModule,
     FormsModule
-    
-    
+  
 
   ],
   providers: [],
