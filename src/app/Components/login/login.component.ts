@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Role } from 'src/app/models/role';
-import { JwtService } from 'src/app/service/jwt.service';
-import { UserService } from 'src/app/service/user.service';
+import { JwtService } from 'src/app/services/jwt.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
       (response) => {
         console.log(response);
         if (response.jwtToken !== null) {
-          alert("Welcome To EspritGather ");
+          //alert("Welcome To EspritGather ");
           const jwtToken = response.jwtToken;
           localStorage.setItem('jwtToken', jwtToken);
   

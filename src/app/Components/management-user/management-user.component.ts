@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { ManagementService } from 'src/app/Services/management.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ManagementService } from 'src/app/services/management.service';
 import { Management } from 'src/app/models/management';
 import { User } from 'src/app/models/user';
 import { Event } from 'src/app/models/event';
@@ -19,25 +19,35 @@ export class ManagementUserComponent {
   ManagementChunks: any[] = [];
   currentPage: number = 1;
   managementId :any = 0 ;
+  idEvent !: any;
+  id : any;
   selectedFile!: File;
-  constructor(private managementService: ManagementService, private router: Router) {
+  constructor(private managementService: ManagementService, private router: Router,private route: ActivatedRoute) {
+    
+  }
+  ngOnInit(): void {
+    this.idEvent = this.route.snapshot.paramMap.get('idEvent');
+    
     this.getAllManagement();
   }
     getAllManagement() {
-      console.log();
+    
       
-      this.managementService.getManagementByEvent(5).subscribe(data => {
-       const id = data;
-       this.managementService.getManagement(id).subscribe(data => {
-        console.log(this.managementId);
+      this.managementService.getManagementByEvent(this.idEvent).subscribe(data => {
+        this.id = data;
+        console.log(this.id);
+       if (this.id !=0){
+       this.managementService.getManagement(this.id).subscribe(data => {
+        
         this.management = data;
-      });
+      });}
       });
      
     }
   
     openModel(man : Management = new Management()) {
-      if (man.idManagement == 0) {
+      console.log(this.idEvent);
+      if (this.id ==0 ) {
         this.creatingMode = true;
         this.newManagement = new Management();
       } else {
@@ -54,7 +64,7 @@ export class ManagementUserComponent {
   
     createManagement() {
       const event = {
-        idEvent : "5"
+        idEvent : this.idEvent
       }
       const newManagement = {
         details: this.newManagement.details,

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PublicationService } from 'src/app/Services/publication.service';
+import { PublicationService } from 'src/app/services/publication.service';
 import { Publication } from 'src/app/models/publication';
 import { InteractionComponent } from '../interaction/interaction.component';
-import { InteractionService } from 'src/app/Services/interaction.service';
+import { InteractionService } from 'src/app/services/interaction.service';
 import { Interaction } from 'src/app/models/interaction';
 
 @Component({

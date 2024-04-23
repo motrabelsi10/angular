@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CanvasJS } from '@canvasjs/angular-charts';
-import { RecrutementprocessService } from 'src/app/Services/recrutementprocess.service';
+import { RecrutementprocessService } from 'src/app/services/recrutementprocess.service';
 
 @Component({
   selector: 'app-process-chart',

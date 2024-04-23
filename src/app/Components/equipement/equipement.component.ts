@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Event } from "src/app/models/event";
-import { EquipementService } from 'src/app/Services/equipement.service';
+import { EquipementService } from 'src/app/services/equipement.service';
 import { Equipement } from 'src/app/models/equipement';
 
 @Component({

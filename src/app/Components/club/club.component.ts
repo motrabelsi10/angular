@@ -10,6 +10,7 @@ export class ClubComponent {
 
   constructor() {
     this.getUserFromLocalStorage();
+    //window.location.reload();
   }
 
   getUserFromLocalStorage() {

@@ -1,4 +1,3 @@
-
 import { User } from "./user";
 
 export class Event {
@@ -10,7 +9,6 @@ export class Event {
     dateFinish  : Date;
     place  : string;
     nbt  : number;
-
     user : User;
     price : number;
     typeticket: string;
@@ -25,11 +23,9 @@ export class Event {
       this.dateFinish = new Date();
       this.place = "";
       this.nbt = 0;
-
       this.user = new User();
       this.price =0;
       this.typeticket = '';
       this.imagePath="";
-
     }
 }

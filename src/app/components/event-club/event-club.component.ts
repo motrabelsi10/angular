@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import { Event } from 'src/app/models/event';
 import { EventService } from 'src/app/services/event.service';
 @Component({
-  selector: 'app-event',
-  templateUrl: './event.component.html',
-  styleUrls: ['./event.component.css']
+  selector: 'app-event-club',
+  templateUrl: './event-club.component.html',
+  styleUrls: ['./event-club.component.css']
 })
-export class EventComponent {
+export class EventClubComponent {
 
   events: any;
   newEvent: Event = new Event();
@@ -19,18 +19,29 @@ export class EventComponent {
   currentSection: number = 1;
   nameEventTouched: boolean = false;
   showNav = true;
+  selectedUser: any = {};
+  id : any;
+
 
 
 
 
   constructor(private eventService: EventService, private router: Router) {
+    this.getUserFromLocalStorage();
     this.getAllEvents();
+
   }
 
-  
+  getUserFromLocalStorage() {
+    const userString = localStorage.getItem('user');
+    console.log(userString);
+    const user = userString ? JSON.parse(userString) : null;
+    this.id = user ? user.idUser : "";
+  }
 
   getAllEvents() {
-    this.eventService.getAllEvents().subscribe(data => {
+    console.log()
+    this.eventService.retrieveEventsByUser(this.id).subscribe(data => {
       this.events = data;
       this.divideEventsIntoChunks();
     });
@@ -104,7 +115,7 @@ areFieldsFilled(): boolean {
     formData.append('price', this.newEvent.price.toString());
     formData.append('imageFile', this.selectedFile); // Ajoutez le fichier ici
   
-    this.eventService.addEventByUser(formData,1).subscribe(() => {
+    this.eventService.addEventByUser(formData,this.id).subscribe(() => {
       this.getAllEvents();
       window.location.reload();
     });
@@ -168,7 +179,4 @@ areFieldsFilled(): boolean {
     }
   }
 
-
-
-  
 }

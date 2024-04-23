@@ -1,5 +1,4 @@
-import { Bloc } from "./bloc";
-import { Classe } from "./classe";
+
 import { Event } from "./event";
 
 export class Management {

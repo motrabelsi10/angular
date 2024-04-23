@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { PublicationService } from 'src/app/Services/publication.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PublicationService } from 'src/app/services/publication.service';
 import { Publication } from 'src/app/models/publication';
 
 @Component({
@@ -14,10 +14,24 @@ export class PublicationUserComponent implements OnInit  {
   creatingMode: boolean = true;
   publicationChunks: Publication[][] = [];
   currentPage: number = 1;
-
-  constructor(private publicationService: PublicationService, private router: Router) {   this.getAllPublications();}
+  idEvent!: any;
+  id : any;
+  role : any;
+  constructor(private publicationService: PublicationService, private router: Router, private route: ActivatedRoute) {   //this.getAllPublications();
+    this.getUserFromLocalStorage();
+  }
+  getUserFromLocalStorage() {
+    const userString = localStorage.getItem('user');
+    console.log(userString);
+    const user = userString ? JSON.parse(userString) : null;
+    this.id = user ? user.idUser : "";
+    this.role = user? user.role :"";
+  }
 
   ngOnInit(): void {
+    this.idEvent = this.route.snapshot.paramMap.get('id')?.charAt(0);
+    console.log(this.idEvent);
+    if (this.idEvent !== null) {}
     this.getAllPublications();
   }
 
@@ -52,8 +66,8 @@ export class PublicationUserComponent implements OnInit  {
 
   createPublication() {
     const newEvent = {
-        "idEvent": 1,
-        "nameEvent": "Event1",
+        "idEvent": this.idEvent,
+        //"nameEvent": "Event1",
         /*"eventDate": "2024-04-25T10:30:00", // Date et heure de l'événement
         "location": "Lieu de l'événement",
         "description": "Description de l'événement",
@@ -62,9 +76,9 @@ export class PublicationUserComponent implements OnInit  {
         // Vous pouvez ajouter d'autres propriétés ou relations ici
     }
     const newUser = {
-        "idUser": 1,
-        "firstName": "Adem",
-        "lastName": "Ben Hamouda",
+        "idUser": this.id,
+       // "firstName": "Adem",
+       // "lastName": "Ben Hamouda",
         /*"birthDay": "1990-01-01",
         "address": "123 Rue de la Paix",
         "mail": "john.doe@example.com",

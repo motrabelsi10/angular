@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Event } from "src/app/models/event";
-import { EquipementService } from 'src/app/Services/equipement.service';
+import { EquipementService } from 'src/app/services/equipement.service';
 import { Equipement } from 'src/app/models/equipement';
 
 @Component({
@@ -17,15 +17,20 @@ export class EquipementHistoryUserComponent {
   creatingMode: boolean = true;
   equipementChunks: any[] = [];
   currentPage: number = 1;
-  idevent : any;
+  idEvent !: any;
   selectedFile!: File;
   
-  constructor(private equipementService: EquipementService, private router: Router) {
+  constructor(private equipementService: EquipementService, private router: Router, private route: ActivatedRoute) {
+    //this.getAllEquipement();
+  }
+  ngOnInit(): void {
+    this.idEvent = this.route.snapshot.paramMap.get('idEvent');
+    console.log(this.idEvent);
     this.getAllEquipement();
   }
     getAllEquipement() {
-      this.idevent=3;
-      this.equipementService.getPriceByEvent(3).subscribe(data => {
+    //  this.idevent=3;
+      this.equipementService.getPriceByEvent(this.idEvent).subscribe(data => {
         this.price = data;
       })
         this.equipementService.getAllEquipement().subscribe(data => {
@@ -64,7 +69,7 @@ export class EquipementHistoryUserComponent {
   
     createEquipement() {
       const event = {
-        idEvent : "1"
+        idEvent : this.idEvent
       }
       const newEquipement = {
         equipement: this.newEquipement.equipement,
@@ -72,7 +77,9 @@ export class EquipementHistoryUserComponent {
         other: this.newEquipement.typeequip == "other"? this.newEquipement.other:"",
         datemeeting : this.newEquipement.datemeeting,
         quantite : this.newEquipement.quantite,
+        metric : this.newEquipement.metric,
         approuvement: true,
+        details : this.newEquipement.details,
         price: this.newEquipement.price,
         event: event,
   

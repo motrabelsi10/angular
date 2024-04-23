@@ -13,11 +13,24 @@ export class EventUserComponent implements OnInit {
   filterByPrice: boolean = false;
   filterByNbt: boolean = false;
   currentIndex: number = 0;
+  selectedUser: any = {};
+
   cardWidth: number = 310;
-  constructor(private eventService: EventService) { }
+  constructor(private eventService: EventService) {
+    this.getUserFromLocalStorage();
+
+   }
 
   ngOnInit(): void {
     this.retrieveAllEvents();
+  }
+
+  getUserFromLocalStorage() {
+    const userData = localStorage.getItem('user'); // Use 'user' as the key
+    if (userData) {
+      this.selectedUser = JSON.parse(userData);
+      console.log(this.selectedUser); // Log the user object separately
+    }
   }
 
   retrieveAllEvents(): void {

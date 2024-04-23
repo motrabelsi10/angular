@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Event } from "src/app/models/event";
-import { EquipementService } from 'src/app/Services/equipement.service';
+import { EquipementService } from 'src/app/services/equipement.service';
 import { Equipement } from 'src/app/models/equipement';
 
 @Component({
@@ -17,8 +17,13 @@ export class EquipementUserComponent {
   equipementChunks: any[] = [];
   currentPage: number = 1;
   selectedFile!: File;
-  
-  constructor(private equipementService: EquipementService, private router: Router) {
+  idEvent !:any;
+  constructor(private equipementService: EquipementService, private router: Router, private route: ActivatedRoute) {
+    
+  }
+  ngOnInit(): void {
+    this.idEvent = this.route.snapshot.paramMap.get('idEvent')?.charAt(0);
+    console.log(this.idEvent);
     this.getAllEquipement();
   }
     getAllEquipement() {
@@ -48,7 +53,7 @@ export class EquipementUserComponent {
   
     createEquipement() {
       const event = {
-        idEvent : "1"
+        idEvent : this.idEvent
       }
       const newEquipement = {
         equipement: this.newEquipement.equipement,

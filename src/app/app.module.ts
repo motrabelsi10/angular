@@ -1,44 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
 
-import {HttpClientModule} from "@angular/common/http"
-import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
-import { RecrutementComponent } from './Components/recrutement/recrutement.component';
-import { RecrutementprocessComponent } from './Components/recrutementprocessuser/recrutementprocess.component';
-import { RecrutementUserComponent } from './Components/recrutement-user/recrutement-user.component';
-import { RecrutementDetailsUserComponent } from './Components/recrutement-details-user/recrutement-details-user.component';
-import { RecrutementprocessDetailsUserComponent } from './Components/recrutementprocess-details-user/recrutementprocess-details-user.component';
-import { RecrutementprocessUserComponent } from './Components/recrutementprocess/recrutementprocess-user.component';
-import { FormsModule } from '@angular/forms';
-import { ProcessChartComponent } from './Components/process-chart/process-chart.component';
-import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
-
-import { EssaiComponent } from './essai/essai.component';
-import { FeedbackComponent } from './Components/feedback/feedback.component';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { ManagementComponent } from './Components/management/management.component';
-import { EquipementComponent } from './Components/equipement/equipement.component';
-import { EquipementUserComponent } from './Components/equipement-user/equipement-user.component';
-import { FeedbackUserComponent } from './Components/feedback-user/feedback-user.component';
-import { ManagementUserComponent } from './Components/management-user/management-user.component';
-import { ManagementHistoryUserComponent } from './Components/management-history-user/management-history-user.component';
-import { EquipementHistoryUserComponent } from './Components/equipement-history-user/equipement-history-user.component';
-import { FeedbackHistoryUserComponent } from './Components/feedback-history-user/feedback-history-user.component';
-
-import { PublicationComponent } from './Components/publication/publication.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
-import { InteractionComponent } from './Components/interaction/interaction.component';
-import { PublicationUserComponent } from './Components/publication-user/publication-user.component';
-import { PublicationUserDetailComponent } from './Components/publication-user-detail/publication-user-detail.component';
-
 import { EventComponent } from './components/event/event.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -49,26 +13,79 @@ import { TicketAdminComponent } from './components/ticket-admin/ticket-admin.com
 import { TicketChartsComponent } from './components/ticket-charts/ticket-charts.component';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { ErrorComponent } from './components/error/error.component';
+import { FooterComponent } from './components/footer/footer.component';
 import { RegisterComponent } from './register/register.component';
-import { UserComponent } from './Components/user/user.component';
-import { FormsModule } from '@angular/forms';
-import { SideBarComponent } from './Components/side-bar/side-bar.component';
-import { LoginComponent } from './Components/login/login.component';
-import { ClubComponent } from './Components/club/club.component';
-import { SimpleUserComponent } from './Components/simple-user/simple-user.component';
-import { AdminComponent } from './Components/admin/admin.component';
-import { ClubRegestrationComponent } from './Components/club-regestration/club-regestration.component';
-import { HomeComponent } from './Components/home/home.component'; // Import FormsModule here
-
-
+import { UserComponent } from './components/user/user.component';
+import { SideBarComponent } from './components/side-bar/side-bar.component';
+import { LoginComponent } from './components/login/login.component';
+import { ClubComponent } from './components/club/club.component';
+import { SimpleUserComponent } from './components/simple-user/simple-user.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { ClubRegestrationComponent } from './components/club-regestration/club-regestration.component';
+import { HomeComponent } from './components/home/home.component';
+import { EventClubComponent } from './components/event-club/event-club.component'
+import { RecrutementComponent } from './components/recrutement/recrutement.component';
+import { ProcessChartComponent } from './components/process-chart/process-chart.component';
+import { RecrutementDetailsUserComponent } from './components/recrutement-details-user/recrutement-details-user.component';
+import { RecrutementUserComponent } from './components/recrutement-user/recrutement-user.component';
+import { RecrutementprocessDetailsUserComponent } from './components/recrutementprocess-details-user/recrutementprocess-details-user.component';
+import { RecrutementprocessUserComponent } from './components/recrutementprocess/recrutementprocess-user.component';
+import { RecrutementprocessComponent } from './components/recrutementprocessuser/recrutementprocess.component';
+import { RecrutementClubComponent } from './components/recrutement-club/recrutement-club.component';
+import { ProcessClubComponent } from './components/process-club/process-club.component';
+import { PublicationComponent } from './components/publication/publication.component';
+import { InteractionComponent } from './components/interaction/interaction.component';
+import { PublicationUserDetailComponent } from './components/publication-user-detail/publication-user-detail.component';
+import { PublicationUserComponent } from './components/publication-user/publication-user.component';
+import { CommonModule } from '@angular/common';
+import { EquipementHistoryUserComponent } from './components/equipement-history-user/equipement-history-user.component';
+import { EquipementUserComponent } from './components/equipement-user/equipement-user.component';
+import { EquipementComponent } from './components/equipement/equipement.component';
+import { FeedbackHistoryUserComponent } from './components/feedback-history-user/feedback-history-user.component';
+import { FeedbackUserComponent } from './components/feedback-user/feedback-user.component';
+import { FeedbackComponent } from './components/feedback/feedback.component';
+import { ManagementHistoryUserComponent } from './components/management-history-user/management-history-user.component';
+import { ManagementUserComponent } from './components/management-user/management-user.component';
+import { ManagementComponent } from './components/management/management.component';
 
 
 
 @NgModule({
   declarations: [
-    AppComponent,
 
-    EssaiComponent,
+    AppComponent,
+    SideBarComponent,
+    EventComponent,
+    EventUserComponent,
+    EventDetailsUserComponent,
+    TicketComponent,
+    TicketAdminComponent,
+    TicketChartsComponent,
+    ErrorComponent,
+    FooterComponent,
+    RegisterComponent,
+    UserComponent,
+    LoginComponent,
+    ClubComponent,
+    SimpleUserComponent,
+    AdminComponent,
+    ClubRegestrationComponent,
+    HomeComponent,
+    EventClubComponent,
+    RecrutementComponent,
+    RecrutementprocessComponent,
+    RecrutementUserComponent,
+    RecrutementDetailsUserComponent,
+    RecrutementprocessDetailsUserComponent,
+    RecrutementprocessUserComponent,
+    ProcessChartComponent,
+    RecrutementClubComponent,
+    ProcessClubComponent,
+    PublicationComponent,
+    InteractionComponent,
+    PublicationComponent,
+    PublicationUserComponent,
+    PublicationUserDetailComponent,
     FeedbackComponent,
     ManagementComponent,
     EquipementComponent,
@@ -77,50 +94,19 @@ import { HomeComponent } from './Components/home/home.component'; // Import Form
     ManagementUserComponent,
     ManagementHistoryUserComponent,
     EquipementHistoryUserComponent,
-    FeedbackHistoryUserComponent
-    EssaiComponent,
-    PublicationComponent,
-    InteractionComponent,
-    PublicationComponent,
-    PublicationUserComponent,
-    PublicationUserDetailComponent
-    RecrutementComponent,
-    RecrutementprocessComponent,
-    RecrutementUserComponent,
-    RecrutementDetailsUserComponent,
-    RecrutementprocessDetailsUserComponent,
-    RecrutementprocessUserComponent,
-    ProcessChartComponent,
-    EventComponent,
-    EventUserComponent,
-    EventDetailsUserComponent,
-    TicketComponent,
-    TicketAdminComponent,
-    TicketChartsComponent,
-    ErrorComponent,
-    RegisterComponent,
-    UserComponent,
-    SideBarComponent,
-    LoginComponent,
-    ClubComponent,
-    SimpleUserComponent,
-    AdminComponent,
-    ClubRegestrationComponent,
+    FeedbackHistoryUserComponent,
+    
   ],
- 
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-
-    ReactiveFormsModule,
-    CommonModule,
     FormsModule,
+    CommonModule,
     CanvasJSAngularChartsModule,
     ReactiveFormsModule,
-    ReactiveFormsModule,
-    FormsModule
- 
+
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

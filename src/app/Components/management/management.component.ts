@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ManagementService } from 'src/app/Services/management.service';
+import { ManagementService } from 'src/app/services/management.service';
 import { Management } from 'src/app/models/management';
 import { User } from 'src/app/models/user';
 import { Event } from 'src/app/models/event';

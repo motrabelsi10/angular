@@ -48,7 +48,13 @@
                                     
 
                                     
-                                   
+                                    <td class="text-center">
+                                        <div class="d-flex justify-content-center">
+                               
+                                         
+
+                                        </div>
+                                    </td>
                                 </tr>
                                 
                             </tbody>
@@ -79,7 +85,6 @@
                 </div>
             </div>
         </div>
-        <app-process-chart></app-process-chart>
         <!-- Modal -->
         <div class="modal fade" id="EditAddprocess" tabindex="-1" process="dialog" aria-labelledby="exampleModalCenterTitle"
             aria-hidden="true">
@@ -183,13 +188,7 @@
                     <br>
 
                     
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" *ngIf="creatingMode"
-                            (click)="createProcess()">Create Interview</button>
-                        <button type="button" class="btn btn-primary" *ngIf="!creatingMode"
-                            (click)="modifyProcess()">Modify Interview</button>
-                    </div>
+           
                 </div>
             </div>
         </div>

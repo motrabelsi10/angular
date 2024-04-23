@@ -18,6 +18,14 @@ export class RecrutementprocessService {
 
       return this.httpClient.post(`${this.API_URL}/add-process`,process)
     }
+
+    addProcessByRecAndUser(process: any, recId: any, userId: any) {
+      return this.httpClient.post(`${this.API_URL}/add-process-by-rec-user/${userId}/${recId}`, process);
+    }
+
+    retrieveProcessByRecAndUser(userId: any,recId: any) {
+      return this.httpClient.get(`${this.API_URL}/retrieve-process-by-rec-and-user/${userId}/${recId}`);
+    }
     
   
   

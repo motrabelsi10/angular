@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute  } from '@angular/router';
-import { RecrutementprocessService } from 'src/app/Services/recrutementprocess.service';
+import { RecrutementprocessService } from 'src/app/services/recrutementprocess.service';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-recrutementprocess-details-user',

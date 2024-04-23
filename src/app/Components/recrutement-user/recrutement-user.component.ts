@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Recrutement } from 'src/app/models/recrutement';
-import { RecrutementService } from 'src/app/Services/recrutement.service';
+import { RecrutementService } from 'src/app/services/recrutement.service';
 @Component({
   selector: 'app-recrutement-user',
   templateUrl: './recrutement-user.component.html',

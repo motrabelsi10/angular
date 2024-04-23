@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
-import { UserService } from 'src/app/service/user.service';
+import { UserService } from 'src/app/services/user.service';
 
 
 @Component({
@@ -14,12 +14,21 @@ export class SideBarComponent {
   userToModify : User = new User(); 
   creatingMode : boolean = true;
   selectedUser: any = {};
-
+  showFooter = true; // Set to true by default
+  role : any;
   constructor(private router: Router,private userService: UserService) {
+    
     this.getUsers();
     this.getUserFromLocalStorage();
 
-  }
+  
+
+
+
+
+    }
+
+  
   getUsers(){
     this.userService.getUsers().subscribe((response : User[])=>{
       this.userList = response;

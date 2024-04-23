@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { JwtService } from '../service/jwt.service';
+import { JwtService } from '../services/jwt.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { User } from '../models/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -10,19 +10,14 @@ import { User } from '../models/user';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  
-  creatingMode : boolean = true;
-  userToModify : User = new User();
+  selectedFile: File | undefined;
 
- 
   constructor(
     private service: JwtService,
     private fb: FormBuilder,
-
+    private router: Router
   ) {
-    // Initialize registerForm in the constructor
     this.registerForm = this.fb.group({
-
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       mail: ['', [Validators.required]],
@@ -30,44 +25,59 @@ export class RegisterComponent implements OnInit {
       birthDay: ['', [Validators.required]],
       address: ['', [Validators.required]],
       password: ['', [Validators.required]],
+      imageFile: [null, [Validators.required]] // Initialize imageFile field with null
     });
   }
 
   ngOnInit(): void {
-    // No need to initialize registerForm here anymore
   }
 
+  onFileSelected(event: any) {
+    if (event.target.files.length > 0) {
+      this.selectedFile = event.target.files[0];
+      this.registerForm.patchValue({
+        imageFile: this.selectedFile // Update imageFile field in form
+      });
+    }
+  }
   submitForm() {
-     console.log(this.registerForm.value);
-     
-     this.service.register(this.registerForm.value).subscribe(
-      ( Response ) => {
-        
-        alert("User Added Successfully");
-        window.location.reload();
-        console.log(Response)
-        
+    if (this.registerForm.valid) {
+      const formData = new FormData();
+      formData.append('firstName', this.registerForm.get('firstName')?.value);
+      formData.append('lastName', this.registerForm.get('lastName')?.value);
+      formData.append('mail', this.registerForm.get('mail')?.value);
+      formData.append('telNumber', this.registerForm.get('telNumber')?.value);
+      formData.append('address', this.registerForm.get('address')?.value);
+      formData.append('password', this.registerForm.get('password')?.value);
+  
+      // Formatage de la date de naissance
+      const birthDayValue = this.registerForm.get('birthDay')?.value;
+      if (birthDayValue instanceof Date) {
+        const formattedBirthDay = new Date(birthDayValue).toISOString();
+        formData.append('birthDay', formattedBirthDay);
+      } else {
+        console.error('birthDay is not an instance of Date');
       }
-    )
-   /* const newUser = {
-      iduser : this.userToModify.idUser,
-      firstName : this.userToModify.firstName,
-      lastName : this.userToModify.lastName,
-      password: this.userToModify.password,
-      mail:this.userToModify.mail,
-      telNumber:this.userToModify.telNumber,
-      
-    };
-    
-    this.service.register(newUser).subscribe(()=>{
-      alert("User Added Successfully");
-      window.location.reload();
-    });
-    */
-
-   
-
-
-
+  
+      // Ajout du fichier image s'il est sélectionné
+      if (this.selectedFile) {
+        formData.append('imageFile', this.selectedFile);
+      }
+  
+      this.service.register(formData).subscribe(
+        (response) => {
+          //alert("User Added Successfully");
+          console.log(response);
+          this.router.navigate(['/login']);
+        },
+        (error) => {
+          console.error('Error registering user:', error);
+          // Gérer l'erreur, par exemple afficher un message d'erreur à l'utilisateur
+        }
+      );
+    } else {
+      alert("Please fill out all required fields and select an image.");
+    }
   }
+  
 }

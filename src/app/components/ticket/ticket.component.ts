@@ -35,38 +35,51 @@ export class TicketComponent implements OnInit {
 
   @ViewChild('pdfTable')
   pdfTable!: ElementRef;
+  id: any;
 
 
 
 
 
 
-  constructor(private router: Router,private route: ActivatedRoute,private eventNbtService:EventNbtService,private eventService:EventService, private ticketService: TicketService) { }
+
+  constructor(private router: Router, private route: ActivatedRoute, private eventNbtService: EventNbtService, private eventService: EventService, private ticketService: TicketService) {
+    this.getUserFromLocalStorage();
+
+  }
 
   ngOnInit(): void {
+
     this.eventId = this.route.snapshot.paramMap.get('idEvent');
     if (this.eventId !== null) {
       this.retrieveTicketsByEvent(this.eventId);
     }
   }
 
+  getUserFromLocalStorage() {
+    const userString = localStorage.getItem('user');
+    console.log(userString);
+    const user = userString ? JSON.parse(userString) : null;
+    this.id = user ? user.idUser : "";
+  }
+
   createTicketbyEvent() {
     this.eventService.getEvent(this.eventId).subscribe((event: any) => {
       const availableTickets = event.nbt;
-      const selectedTickets = this.newTicket.nbts; 
+      const selectedTickets = this.newTicket.nbts;
       if (selectedTickets <= availableTickets) {
         const newTicket = {
           nbts: selectedTickets,
           dateAchat: new Date(),
           typePay: this.newTicket.typePay
         };
-        this.ticketService.addTicketByEventAndUser(newTicket, this.eventId,1).subscribe(() => {
+        this.ticketService.addTicketByEventAndUser(newTicket, this.eventId, this.id).subscribe(() => {
           this.eventNbtService.decrementNbt(this.eventId, selectedTickets);
           this.retrieveTicketsByEvent(this.eventId);
           this.newTicket = {};
         });
       } else {
-        this.exceedsAvailableTickets = true; 
+        this.exceedsAvailableTickets = true;
       }
     });
   }
@@ -86,65 +99,65 @@ export class TicketComponent implements OnInit {
   }
 
 
-  
+
 
   retrieveTicketsByEvent(eventId: any): void {
-    this.ticketService.retrieveTicketsByEvent(eventId).subscribe((tickets: any) => {
+    this.ticketService.retrieveTicketsByEventAndUser(eventId, this.id).subscribe((tickets: any) => {
       this.tickets = tickets;
-      this.generateQRCodeForTickets(); 
+      this.generateQRCodeForTickets();
     });
   }
 
 
-  
-  
 
 
 
-calculateTotalPrice(nbts: number, pricePerTicket: number): number {
-  return nbts * pricePerTicket;
-}
-updateTotalPrice() {
-const pricePerTicket = this.newTicket.event.price;
-this.totalPrice = this.calculateTotalPrice(this.newTicket.nbts, pricePerTicket);
-}
 
 
-getTicket(ticketId: string) {
-  this.generateQRCodeForTickets(); 
-  return this.ticketService.getTicket(ticketId);
+  calculateTotalPrice(nbts: number, pricePerTicket: number): number {
+    return nbts * pricePerTicket;
+  }
+  updateTotalPrice() {
+    const pricePerTicket = this.newTicket.event.price;
+    this.totalPrice = this.calculateTotalPrice(this.newTicket.nbts, pricePerTicket);
+  }
 
-}
+
+  getTicket(ticketId: string) {
+    this.generateQRCodeForTickets();
+    return this.ticketService.getTicket(ticketId);
+
+  }
 
 
 
-  
+
   deleteTicket(ticketId: string) {
     this.ticketService.getTicket(ticketId).subscribe((ticket: any) => {
-        if (ticket) {
-            const nbtsToDelete = ticket.nbts;
-                this.ticketService.deleteTicket(ticketId).subscribe(() => {
-                this.eventNbtService.incrementNbt(this.eventId, nbtsToDelete);
-                this.retrieveTicketsByEvent(this.eventId);
-            });
-        } else {
-            console.error('Ticket not found with ID:', ticketId);
-        }
+      if (ticket) {
+        const nbtsToDelete = ticket.nbts;
+        this.ticketService.deleteTicket(ticketId).subscribe(() => {
+          this.eventNbtService.incrementNbt(this.eventId, nbtsToDelete);
+          this.retrieveTicketsByEvent(this.eventId);
+        });
+      } else {
+        console.error('Ticket not found with ID:', ticketId);
+      }
     });
-}
+  }
 
-modifyTicket() {
-  const previousNbts = this.tickets.find(ticket => ticket.idTicket === this.newTicket.idTicket)?.nbts || 0;
-  this.ticketService.editTicket(this.newTicket).subscribe(() => {
+  modifyTicket() {
+    const previousNbts = this.tickets.find(ticket => ticket.idTicket === this.newTicket.idTicket)?.nbts || 0;
+    this.ticketService.editTicket(this.newTicket).subscribe(() => {
       const nbtsDifference = this.newTicket.nbts - previousNbts;
       if (nbtsDifference > 0) {
-          this.eventNbtService.incrementNbt(this.newTicket.event.id, nbtsDifference);
+        this.eventNbtService.incrementNbt(this.newTicket.event.id, nbtsDifference);
       } else if (nbtsDifference < 0) {
-          this.eventNbtService.decrementNbt(this.newTicket.event.id, Math.abs(nbtsDifference));
+        this.eventNbtService.decrementNbt(this.newTicket.event.id, Math.abs(nbtsDifference));
       }
-          this.retrieveTicketsByEvent(this.newTicket.event.id);
-  });
-}
+      this.retrieveTicketsByEvent(this.newTicket.event.id);
+    });
+  }
 
 
   openModel(ticket: Ticket = new Ticket()) {
@@ -159,31 +172,89 @@ modifyTicket() {
 
   downloadTicketPDF(idTicket: any): void {
     this.getTicket(idTicket).subscribe((ticket: any) => {
-      const docDefinition = {
+      const docDefinition: any = {
         content: [
           {
-            stack: [
-              { text: `Ticket ID : ${ticket.idTicket}`, style: 'header' },
-              
-              { text: `Number of tickets : ${ticket.nbts}`, style: 'subheader' },
-              { text: `Date of Purchase : ${ticket.dateAchat}`, style: 'subheader' },
-              { text: `Type of Payment : ${ticket.typePay}`, style: 'subheader' },
-              {
-                text: `Total Price : ${ticket.event.price * ticket.nbts}`,
-                style: 'subheader'
-              }
-            ]
-          }
+            text: 'Event Ticket',
+            style: 'header',
+            alignment: 'center',
+          },
+          {
+            text: [
+              { text: 'Ticket ID: ', style: 'subheader' },
+              { text: `${ticket.idTicket}`, style: 'subheader-red' }
+            ],
+            alignment: 'center',
+          },
+          {
+            text: [
+              { text: 'Number of Tickets: ', style: 'subheader' },
+              { text: `${ticket.nbts}`, style: 'subheader-red' }
+            ],
+            alignment: 'center',
+          },
+          {
+            text: [
+              { text: 'Date of Purchase: ', style: 'subheader' },
+              { text: `${ticket.dateAchat}`, style: 'subheader-red' }
+            ],
+            alignment: 'center',
+          },
+          {
+            text: [
+              { text: 'Type of Payment: ', style: 'subheader' },
+              { text: `${ticket.typePay}`, style: 'subheader-red' }
+            ],
+            alignment: 'center',
+          },
+          {
+            text: [
+              { text: 'qrcoe: ', style: 'subheader' },
+              { text: `${ticket.qrCodeURL}`, style: 'subheader-red' }
+            ],
+            alignment: 'center',
+          },
+          {
+            text: [
+              { text: 'Total Price: ', style: 'subheader' },
+              { text: `${ticket.event.price * ticket.nbts}`, style: 'subheader-red' }
+            ],
+            alignment: 'center',
+          },
         ],
-
+        styles: {
+          header: {
+            fontSize: 24,
+            bold: true,
+            margin: [0, 0, 0, 20],
+          },
+          subheader: {
+            fontSize: 18,
+            margin: [0, 0, 0, 10],
+            bold: true,
+            color: 'black', // Couleur du texte en noir
+          },
+          'subheader-red': {
+            fontSize: 18,
+            margin: [0, 0, 0, 10],
+            bold: true,
+            color: 'maroon', // Couleur du texte en rouge bordeaux
+          },
+        },
       };
-  
+      
+      
+
       pdfMake.createPdf(docDefinition).download(`ticket_${ticket.idTicket}.pdf`);
     });
   }
-  
-  
-  
+
+
+
+
+
+
+
 
 
 }

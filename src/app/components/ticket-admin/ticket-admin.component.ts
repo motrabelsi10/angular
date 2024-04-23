@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Ticket } from 'src/app/models/ticket';
 import { EventService } from 'src/app/services/event.service';
 import { TicketService } from 'src/app/services/ticket.service';
+import * as QRCode from 'qrcode';
+
 
 @Component({
   selector: 'app-ticket-admin',
@@ -37,6 +39,8 @@ export class TicketAdminComponent {
     this.ticketService.retrieveTicketsByEvent(eventId).subscribe(
       (response: any) => {
         this.tickets = response;
+        this.generateQRCodeForTickets(); 
+
       },
       (error: any) => {
         console.error('Error fetching tickets by event:', error);
@@ -60,6 +64,19 @@ export class TicketAdminComponent {
     } else {
       this.creatingMode = false;
       this.newTicket = ticket;
+    }
+  }
+
+  generateQRCodeForTickets(): void {
+    for (let ticket of this.tickets) {
+      const ticketId = ticket.idTicket;
+      QRCode.toDataURL(ticketId.toString(), (err, url) => {
+        if (err) {
+          console.error('Erreur lors de la génération du QR code :', err);
+        } else {
+          ticket.qrCodeURL = url;
+        }
+      });
     }
   }
 

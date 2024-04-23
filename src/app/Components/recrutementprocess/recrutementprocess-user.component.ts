@@ -3,9 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecrutementComponent } from '../recrutement/recrutement.component';
 import { RecrutementProcess, Skill, SkillLevel } from 'src/app/models/recrutement-process';
-import { RecrutementprocessService } from 'src/app/Services/recrutementprocess.service';
+import { RecrutementprocessService } from 'src/app/services/recrutementprocess.service';
 import { NgForm } from '@angular/forms';
-import { RecrutementService } from 'src/app/Services/recrutement.service';
+import { RecrutementService } from 'src/app/services/recrutement.service';
+import { User } from 'src/app/models/user';
 @Component({
   selector: 'app-recrutementprocess-user',
   templateUrl: './recrutementprocess-user.component.html',
@@ -23,8 +24,12 @@ export class RecrutementprocessUserComponent implements OnInit {
   skillValues = Object.values(Skill);
   skillLevelValues = Object.values(SkillLevel);
   addedSkills: { skill: Skill; level: SkillLevel }[] = [];
+  selectedSkillLevel: any;
+  selectedSkill: any;
+  id : any;
  
   constructor(private router: Router,private route: ActivatedRoute,private recrutementservice: RecrutementService,private RecrutementProcess :RecrutementprocessService) { 
+ this.getUserFromLocalStorage();
   }
   
 
@@ -35,18 +40,16 @@ ngOnInit(): void {
   }
 }
 
-retrieveProcessesByRecrutement(idRecrutement: number): void {
-  this.RecrutementProcess.retrieveProcessesByRecrutement(idRecrutement)
+retrieveProcessesByRecrutement(idRecrutement: any): void {
+  this.RecrutementProcess.retrieveProcessByRecAndUser(this.id,idRecrutement)
     .subscribe({
       next: (response: any) => {
         this.processes = response;
       },
       error: (error: any) => {
         console.error('Error fetching processes by recruitment:', error);
-        // Optional: Implement additional error handling (e.g., display message)
       },
       complete: () => {
-        // Optional: Handle completion (e.g., loading indicator)
       },
     });
 }
@@ -80,22 +83,40 @@ retrieveProcessesByRecrutement(idRecrutement: number): void {
       
     }
   }
+  getUserFromLocalStorage() {
+    const userString = localStorage.getItem('user');
+    console.log(userString);
+    const user = userString ? JSON.parse(userString) : null;
+    this.id = user ? user.idUser : "";
+  }
   
   createProcessbyRecrutement(): void {
-    const newRecrutementProcess = {
-        approved: this.newRecrutementProcess.approved,
-        interviewDate: this.newRecrutementProcess.interviewDate,
-        whyToJoin: this.newRecrutementProcess.whyToJoin,
-        otherClubs: this.newRecrutementProcess.otherClubs,
-        integratedInOtherClubs: this.newRecrutementProcess.integratedInOtherClubs,
-        availability: this.newRecrutementProcess.availability,
-        Skills: this.newRecrutementProcess.Skills || new Map<Skill, SkillLevel>(),
-    };
-    this.addedSkills.forEach(skill => {
-      newRecrutementProcess.Skills.set(skill.skill, skill.level);
-    });
+    let newRecrutementProcess = {
+      approved: this.newRecrutementProcess.approved,
+      interviewDate: this.newRecrutementProcess.interviewDate,
+      whyToJoin: this.newRecrutementProcess.whyToJoin,
+      otherClubs: this.newRecrutementProcess.otherClubs,
+      integratedInOtherClubs: this.newRecrutementProcess.integratedInOtherClubs,
+      availability: this.newRecrutementProcess.availability,
+      skills: this.addedSkills.reduce((map, skill) => {
+          map.set(skill.skill, skill.level);
+          return map;
+      }, new Map<Skill, SkillLevel>())
+  };
+    
+   
+    console.log(this.addedSkills);
+    
+    this.newRecrutementProcess.skills =  new Map<Skill, SkillLevel>(
+      this.addedSkills.map(skill => [skill.skill, skill.level])
+    ),
+    
+    console.log(this.newRecrutementProcess );   
+    console.log(this.addedSkills );
+    console.log(newRecrutementProcess.skills);
+console.log(this.id);
 
-    this.RecrutementProcess.addProcessByRecrutement(newRecrutementProcess, this.idRecrutement).subscribe(() => {
+    this.RecrutementProcess.addProcessByRecAndUser(newRecrutementProcess, this.idRecrutement,this.id ).subscribe(() => {
       
         this.loadProcesses(this.idRecrutement);
         
@@ -106,11 +127,15 @@ retrieveProcessesByRecrutement(idRecrutement: number): void {
         this.retrieveProcessesByRecrutement(this.idRecrutement);
     });
 }
+trackBySkill(skill: { skill: Skill; level: SkillLevel }) {
+  return skill; // Track by the entire skill object
+}
 
 
  
 addSkill() {
   console.log("Adding new skill...");
+  
   this.addedSkills.push({ skill: Skill.WRITTEN_COMMUNICATION, level: SkillLevel.NONE });
   
   

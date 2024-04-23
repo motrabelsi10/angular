@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FeedbackService } from 'src/app/Services/feedback.service';
+import { FeedbackService } from 'src/app/services/feedback.service';
 import { Feedback } from 'src/app/models/feedback';
 import { User } from 'src/app/models/user';
 import { Event } from 'src/app/models/event';

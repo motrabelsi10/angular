@@ -4,12 +4,11 @@ import { Recrutement, RecrutementAvecSkills, Skill, SkillLevel } from 'src/app/m
 import { RecrutementService } from 'src/app/services/recrutement.service';
 
 @Component({
-  selector: 'app-recrutement',
-  templateUrl: './recrutement.component.html',
-  styleUrls: ['./recrutement.component.css']
+  selector: 'app-recrutement-club',
+  templateUrl: './recrutement-club.component.html',
+  styleUrls: ['./recrutement-club.component.css']
 })
-export class RecrutementComponent {
-
+export class RecrutementClubComponent {
   recrutements: any;
   newRecrutement: Recrutement = new Recrutement();
   creatingMode: boolean = true;
@@ -26,11 +25,9 @@ export class RecrutementComponent {
   addedSkills: { skill: Skill; level: SkillLevel }[] = [];
   
   constructor(private recrutementService: RecrutementService, private router: Router) {
-    this.getUserFromLocalStorage();
-  
+    this.getUserFromLocalStorage() ;
     this.getAllRecrutements();
   }
-
   getUserFromLocalStorage() {
     const userString = localStorage.getItem('user');
     console.log(userString);
@@ -39,7 +36,7 @@ export class RecrutementComponent {
   }
 
   getAllRecrutements() {
-    this.recrutementService.getAllRecrutements().subscribe(data => {
+    this.recrutementService.retrieveRecssByUser(this.id).subscribe(data => {
       this.recrutements = data;
       this.divideRecrutementsIntoChunks();
     });
@@ -121,7 +118,7 @@ getRequiredSkillsKeys(recrutement: any): string[] {
   }*/
 
   divideRecrutementsIntoChunks() {
-    const chunkSize = 2;
+    const chunkSize = 5;
     this.recrutementsChunks = [];
     for (let i = 0; i < this.recrutements.length; i += chunkSize) {
       this.recrutementsChunks.push(this.recrutements.slice(i, i + chunkSize));
@@ -133,7 +130,7 @@ getRequiredSkillsKeys(recrutement: any): string[] {
   }
 
   getRecrutementsForPage(pageNumber: number): any[] {
-    const recrutementsPerPage = 2;
+    const recrutementsPerPage = 5;
     const startIndex = (pageNumber - 1) * recrutementsPerPage;
     const endIndex = startIndex + recrutementsPerPage;
     return this.recrutements.slice(startIndex, endIndex);
@@ -163,10 +160,4 @@ getRequiredSkillsKeys(recrutement: any): string[] {
   removeSkill(index: number) {
     this.addedSkills.splice(index, 1);
   }
-  
-
-  
-
-
 }
-

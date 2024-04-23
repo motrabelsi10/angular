@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { RecrutementService } from 'src/app/Services/recrutement.service';
+import { RecrutementService } from 'src/app/services/recrutement.service';
 
 @Component({
   selector: 'app-recrutement-details-user',
@@ -10,11 +10,18 @@ import { RecrutementService } from 'src/app/Services/recrutement.service';
 export class RecrutementDetailsUserComponent implements OnInit {
   recrutement: any;
   idRecrutement: number | undefined;
+  id : any;
 
   constructor(
     private route: ActivatedRoute,
     private recrutementService: RecrutementService
-  ) {}
+  ) {this.getUserFromLocalStorage();}
+  getUserFromLocalStorage() {
+    const userString = localStorage.getItem('user');
+    console.log(userString);
+    const user = userString ? JSON.parse(userString) : null;
+    this.id = user ? user.idUser : "";
+  }
 
   ngOnInit() {
     const idRecrutementParam = this.route.snapshot.paramMap.get('idRecrutement');

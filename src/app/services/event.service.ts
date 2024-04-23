@@ -23,6 +23,10 @@ export class EventService {
     
     return this.httpClient.post(`${this.API_URL}/add-event/${userId}`, event);
   }
+
+  retrieveEventsByUser(userId: any) {
+    return this.httpClient.get(`${this.API_URL}/retrieve-events-by-user/${userId}`)
+  }
   
 
 

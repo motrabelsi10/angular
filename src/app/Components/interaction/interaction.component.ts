@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { InteractionService } from 'src/app/Services/interaction.service';
+import { InteractionService } from 'src/app/services/interaction.service';
 import { Interaction } from 'src/app/models/interaction';
 
 

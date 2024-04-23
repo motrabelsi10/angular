@@ -2,10 +2,7 @@
     <div class="container-fluid">
         <div class="col-lg-12">
 
-            <div class="shopping-cart mb-2 me-3">
-                <a class="btn btn-primary text-white" data-toggle="modal" data-target="#EditAddPublication"
-                    (click)="openModel()"><i class="fa fa-shopping-basket me-2"></i>Create New Publication</a>
-            </div>
+           
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">List of Publications</h4>
@@ -19,7 +16,7 @@
                                     <th scope="col">Body</th>
                                     <th scope="col">Publication Date</th>
                                     <!-- Add more headers for interactions, event, user -->
-                                    <th scope="col">Actions</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -27,20 +24,7 @@
                                     <td class="text-center">{{ publication.idPublication }}</td>
                                     <td class="text-center">{{ publication.body }}</td>
                                     <td class="text-center">{{ publication.datePublication }}</td>
-                                    <!-- Add more columns for interactions, event, user -->
-                                    <td class="text-center">
-                                        <div class="d-flex justify-content-center">
-                                            <a type="button" class="btn btn-primary shadow btn-xs sharp me-1"
-                                                data-toggle="modal" data-target="#EditAddPublication"
-                                                (click)="openModel(publication)">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                            <a type="button" class="btn btn-danger shadow btn-xs sharp"
-                                                (click)="deletePublication(publication.idPublication)">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </div>
-                                    </td>
+                                   
                                 </tr>
                             </tbody>
                         </table>
