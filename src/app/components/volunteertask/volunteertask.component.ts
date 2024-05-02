@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { VolunteerService } from 'src/app/services/volunteer.service';
+import { VolunteerService } from 'src/app/Services/volunteer.service';
 import { Volunteer } from '../../models/volunteer';
 
 @Component({
@@ -92,17 +92,13 @@ export class VolunteerTaskComponent implements OnInit {
     this.volunteerService.approveVolunteersForTask(this.taskId).subscribe(
       response => {
         console.log("Volunteers approved successfully");
-        
-
         // Rafraîchissez les données des volontaires ou effectuez une autre action appropriée après l'approbation réussie
       },
       error => {
         console.error("Error approving volunteers:", error);
         // Gérez l'erreur appropriée, affichez un message à l'utilisateur ou effectuez une autre action
       }
-      
     );
-    window.location.reload();
   }
 
   checkNumberVolunteers(taskId: any) {

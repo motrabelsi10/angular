@@ -1,7 +1,3 @@
-
-import { Event } from "./event";
-
-
 export class Task {
     nameTask : string;
     idTask : number;
@@ -11,7 +7,6 @@ export class Task {
     details : string;
     numberVolunteer : number;
     skills: string[]; 
-//event: Event;
     constructor(){
         this.nameTask = '';
         this.idTask = 0;
@@ -21,7 +16,6 @@ export class Task {
         this.details = '';
         this.numberVolunteer = 0;
         this.skills = [];
-    //    this.event = new Event();
 
     }
 }
