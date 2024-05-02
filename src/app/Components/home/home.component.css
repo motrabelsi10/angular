@@ -4,20 +4,7 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* Background Styles */
-.background-image {
-    background-color: #f0f0f0;
-    background-image: url('/../../assets/images/11.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    animation: fadeIn 1.5s ease; /* Simplified animation */
-}
+
 
 @keyframes fadeIn {
     from {

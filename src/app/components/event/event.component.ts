@@ -98,18 +98,18 @@ createEvent() {
   formData.append('description', this.newEvent.description);
 
   // Vérifiez si this.newEvent.dateStart est une instance de Date avant de l'ajouter au FormData
-  if (this.newEvent.dateStart instanceof Date) {
+  /*if (this.newEvent.dateStart instanceof Date) {
     formData.append('dateStart', new Date(this.newEvent.dateStart).toISOString().slice(0, 16).replace('T', ' '));
   } else {
     console.error('this.newEvent.dateStart n\'est pas une instance de Date');
-  }
+  }*/
 
   // Vérifiez si this.newEvent.dateFinish est une instance de Date avant de l'ajouter au FormData
-  if (this.newEvent.dateFinish instanceof Date) {
+  /*if (this.newEvent.dateFinish instanceof Date) {
     formData.append('dateFinish', new Date(this.newEvent.dateFinish).toISOString().slice(0, 16).replace('T', ' '));
   } else {
     console.error('this.newEvent.dateFinish n\'est pas une instance de Date');
-  }
+  }*/
 
   formData.append('place', this.newEvent.place);
   formData.append('nbt', this.newEvent.nbt.toString());

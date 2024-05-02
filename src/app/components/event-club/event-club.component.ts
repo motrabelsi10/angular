@@ -59,7 +59,7 @@ export class EventClubComponent {
   
     formData.append('nameEvent', this.newEvent.nameEvent);
     formData.append('description', this.newEvent.description);
-    
+
     if (this.newEvent.dateStart instanceof Date) {
       formData.append('dateStart', new Date(this.newEvent.dateStart).toISOString());
     } else {
@@ -82,10 +82,17 @@ export class EventClubComponent {
   
     this.eventService.addEventByUser(formData,this.id).subscribe(() => {
       this.getAllEvents();
+      console.log(formData);
+      
       window.location.reload();
     });
   }
-
+  dateS(){
+    console.log(this.newEvent.dateStart);
+    //console.log(new Date(this.newEvent.dateStart).toISOString());
+    
+    
+  }
   getUserFromLocalStorage() {
     const userString = localStorage.getItem('user');
     console.log(userString);

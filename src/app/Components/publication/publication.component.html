@@ -12,14 +12,14 @@
                         <table class="table table-responsive-md">
                             <thead>
                                 <tr>
-                                    <th>Publication ID</th>
+                                   <th>User name</th>
                                     <th scope="col">Body</th>
                                     <th scope="col">Publication Date</th>                                    
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let publication of publications">
-                                    <td>{{ publication.idPublication }}</td>
+                                   <td>{{ publication.user.firstName }} {{ publication.user.lastName }}</td>
                                     <td>{{ publication.body }}</td>
                                     <td>{{ publication.datePublication |date}}</td>
                                    

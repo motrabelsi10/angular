@@ -418,7 +418,7 @@
                         <div *ngIf="currentSection === 4" class="d-flex justify-content-center">
                             <div class="col-md-8">
                                 <label for="validationServer01" class="form-label">Date Start</label>
-                                <input input type="datetime-local" class="form-control" [(ngModel)]="newEvent.dateStart"
+                                <input input type="datetime-local" class="form-control" (click)="dateS()" [(ngModel)]="newEvent.dateStart"
                                     required (blur)="nameEventTouched = true"
                                     [ngClass]="{'is-valid': newEvent.dateStart && nameEventTouched, 'is-invalid': !newEvent.dateStart}">
                                 <div class="valid-feedback" *ngIf="newEvent.dateStart && nameEventTouched">
