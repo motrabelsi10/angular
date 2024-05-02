@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { VolunteerService } from 'src/app/Services/volunteer.service';
+import { VolunteerService } from 'src/app/services/volunteer.service';
 
 
 @Component({
@@ -20,6 +20,7 @@ export class VolunteerComponent {
   volunteersChunks: any[] = [];
   currentPage: number = 1;
   selectedFile!: File;
+  id:any;
 
 
 
@@ -27,6 +28,7 @@ export class VolunteerComponent {
      private router: Router,
      private http: HttpClient) {
     this.getAllVolunteers();
+    this.getUserFromLocalStorage();
   }
 
   getAllVolunteers() {
@@ -34,6 +36,13 @@ export class VolunteerComponent {
       this.volunteers = data;
       this.divideVolunteersIntoChunks();
     });
+  }
+
+  getUserFromLocalStorage() {
+    const userString = localStorage.getItem('user');
+    console.log(userString);
+    const user = userString ? JSON.parse(userString) : null;
+    this.id = user ? user.idUser : "";
   }
 
   deleteVolunteers(idVolunteer: number) {
@@ -44,14 +53,14 @@ export class VolunteerComponent {
   }
 
 
-
+/*
   createVolunteerByTask() {
-    this.VolunteerService.addVolunteerByTask(this.newVolunteer, 1).subscribe( () => {
+    this.VolunteerService.addVolunteerByTask(this.newVolunteer,1, this.id).subscribe( () => {
         this.getAllVolunteers();
         window.location.reload();
       });
   }
-
+*/
 
 
   modifyVolunteer() {

@@ -1,0 +1,181 @@
+//interface user affichage cards
+<div class="content-body">
+  <div class="container-fluid">
+    <div class="row mt-3">
+      <div *ngFor="let process of processes" class="col-lg-12 col-xl-6">
+        <div class="card">
+          <div class="card-body">
+            <div class="menu-product d-flex">
+              <div class="content-detail-wrap" style="margin-left: 30px">
+                <div>
+                  <h2 class="card-title">
+                    Approvement :
+                    {{ process.approved ? "Approved" : "Nonapproved" }}
+                  </h2>
+                  <hr />
+                  <p class="card-text">
+                    Availability : {{ process.availability }}
+                  </p>
+                  <p class="mb-0">
+                    <span class="fs-14 me-2">Interview Date : </span
+                    >{{ process.interviewDate | date }}
+                  </p>
+                </div>
+                <div
+                  class="mt-4 d-flex justify-content-between align-items-center"
+                >
+                  <div></div>
+                  <div>
+                    <a
+                      class="btn btn-danger nav-link"
+                      routerLink="/recrutementprocessdetailsuser/{{
+                        process.idProcessRecrutement
+                      }}"
+                      >View Details</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Bouton pour afficher le formulaire -->
+    <div class="row mt-3">
+      <div *ngFor="let process of processes" class="col-lg-12 col-xl-6">
+        <!-- Votre code actuel pour afficher les détails des processus -->
+      </div>
+    </div>
+    <!-- Bouton pour afficher le formulaire -->
+    <button
+      *ngIf="processes.length === 0"
+      type="button"
+      class="btn btn-primary"
+      (click)="showRecrutementForm = true"
+    >
+      Create Interview
+    </button>
+
+    <!-- Formulaire de demande d'interview -->
+    <div *ngIf="showRecrutementForm">
+      <div class="card mt-3">
+        <div class="card-body">
+          <h5 class="card-title">Interview Request</h5>
+          <form>
+            <div class="mb-3">
+              <label for="whyToJoin" class="form-label">Why to join ?</label>
+              <input
+                type="text"
+                class="form-control"
+                id="whyToJoin"
+                [(ngModel)]="newRecrutementProcess.whyToJoin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="availability" class="form-label">Availability</label>
+              <select
+                class="form-select"
+                id="availability"
+                [(ngModel)]="newRecrutementProcess.availability"
+                [ngModelOptions]="{ standalone: true }"
+              >
+                <option value="full-time">Full-time</option>
+                <option value="part-time">Part-time</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="dateInterview" class="form-label"
+                >Interview Date</label
+              >
+              <input
+                type="date"
+                class="form-control"
+                id="dateInterview"
+                [value]="newRecrutementProcess.interviewDate"
+                [(ngModel)]="newRecrutementProcess.interviewDate"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+
+            <div class="col-md-8">
+              <label for="validationServer01" class="form-label">Image</label>
+              <input
+                input
+                type="file"
+                class="form-control"
+                (change)="onFileSelected($event)"
+                [(ngModel)]="newRecrutementProcess.imagePath"
+              />
+              <!-- Feedback pour le champ "Event Name" -->
+            </div>
+
+            <div class="form-group">
+              <label for="requiredSkills">Required Skills</label>
+              <select
+                multiple
+                class="form-control"
+                id="requiredSkills"
+                name="requiredSkills"
+                [(ngModel)]="newRecrutementProcess.skills"
+              >
+                <option value="WRITTEN_COMMUNICATION">
+                  + Written communication
+                </option>
+                <option value="ORAL_COMMUNICATION">+Oral communication</option>
+                <option value="TEAMWORK">+ Teamwork</option>
+                <option value="COLLABORATION">+ Collaboration</option>
+                <option value="PROJECT_MANAGEMENT">+ Project management</option>
+                <option value="PROBLEM_SOLVING">+Problem-solving</option>
+                <option value="ADAPTABILITY">+ Adaptability</option>
+                <option value="QUICK_LEARNING">+ Quick learning</option>
+                <option value="CREATIVITY">+ Creativity</option>
+                <option value="INNOVATION">+ Innovation</option>
+                <option value="TIME_MANAGEMENT">+ Time management</option>
+                <option value="PRIORITIZATION">+ Prioritization</option>
+                <option value="MARKETING_COMMUNICATION">
+                  + Marketing communication
+                </option>
+                <option value="HUMAN_RESOURCES">+Human resources</option>
+                <option value="FINANCE_ACCOUNTING">+ Finance accounting</option>
+                <option value="ENGINEERING_CONSTRUCTION">
+                  +Engineering construction
+                </option>
+              </select>
+            </div>
+
+            <div>
+              <!-- Votre code existant -->
+            </div>
+            <div class="mb-5 d-inline-block mr-2">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                (click)="showRecrutementForm = false"
+              >
+                Cancel
+              </button>
+              <br />
+            </div>
+
+            <div class="mb-5 d-inline-block">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                *ngIf="creatingMode"
+                (click)="createProcessbyRecrutement()"
+              >
+                Send Request
+                <span class="btn-icon-end"><i class="fa fa-envelope"></i></span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Afficher les processus de recrutement -->
+  </div>
+</div>

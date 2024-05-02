@@ -1,3 +1,4 @@
+
 <html lang="en">
 
 <div class="content-body">
@@ -13,32 +14,39 @@
                         <table class="table table-responsive-md">
                             <thead>
                                 <tr>
+                                    <th scope="col">Volunter name</th>
+
                                     <th scope="col">Name Volunteer</th>
                                     <th scope="col">Approval</th>
                                     <th scope="col">Why do you want to join ?</th>
                                     <th scope="col">Availability</th>
+                                    <th scope="col">Task</th>
+
+
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let volunteer of getVolunteersForPage(currentPage)">
+                                    <td class="text-center">{{ volunteer.user.firstName }}</td>
                                     <td class="text-center">{{ volunteer.nameVolunteer }}</td>
                                     <td class="text-center">{{ volunteer.approuvement }}</td>
                                     <td class="text-center">{{ volunteer.reason }}</td>
                                     <td class="text-center">{{ volunteer.availabilityVolunteer }}</td>
+                                    <td class="text-center">{{ volunteer.task.nameTask }}</td>
 
-                                    <td class="text-center">
-                                        <div class="d-flex justify-content-center">
-                                            <a type="button" class="btn btn-primary shadow btn-xs sharp me-1"
+                                 <!--   <td class="text-center">
+                                        <div class="d-flex justify-content-center" class="btn-group mb-1">
+                                            <a type="button" class="btn btn-primary light px-3"
                                                 data-toggle="modal" data-target="#EditAddvolunteer"
                                                 (click)="openModel(volunteer)">
-                                                <i class="fa fa-pencil"></i>
+                                                <i class="fa fa-pencil"></i> Edit
                                             </a>
-                                            <a type="button" class="btn btn-danger shadow btn-xs sharp"
+                                            <a type="button" class="btn btn-primary light px-3"
                                                 (click)="deleteVolunteers(volunteer.idVolunteer)">
-                                                <i class="fa fa-trash"></i>
+                                                <i class="fa fa-trash"></i> Delete
                                             </a>
                                         </div>
-                                    </td>
+                                    </td>-->
                                 </tr>
 
                             </tbody>
@@ -150,7 +158,6 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" *ngIf="creatingMode" (click)="createVolunteerByTask()">Create Volunteer</button>
                         <button type="button" class="btn btn-primary" *ngIf="!creatingMode" (click)="modifyVolunteer()">Modify Volunteer</button>
                     </div>
                 </div>
@@ -163,7 +170,3 @@
 
 
 </html>
-
-
-
-

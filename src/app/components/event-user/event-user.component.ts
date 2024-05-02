@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from 'src/app/services/event.service';
+import { TicketService } from 'src/app/services/ticket.service';
 
 @Component({
   selector: 'app-event',
@@ -11,20 +12,69 @@ export class EventUserComponent implements OnInit {
   filteredEvents: any[] = [];
   searchQuery: string = '';
   filterByPrice: boolean = false;
+  filterByPref: boolean = false;
   filterByNbt: boolean = false;
   currentIndex: number = 0;
+  selectedUser: any = {};
+  type: string = '';
+  showCalendarComponent: boolean = false;
+  showEventsComponent: boolean = true;
+
+  mostLikedEventType: string = ''; 
+id:any;
   cardWidth: number = 310;
-  constructor(private eventService: EventService) { }
+eventsOfType: any;
+  constructor(private eventService: EventService,private ticketService: TicketService) {
+    this.getUserFromLocalStorage();
+
+   }
 
   ngOnInit(): void {
     this.retrieveAllEvents();
   }
 
+  getUserFromLocalStorage() {
+    const userString = localStorage.getItem('user');
+    console.log(userString);
+    const user = userString ? JSON.parse(userString) : null;
+    this.id = user ? user.idUser : "";
+  }
+
+  showCalendar() {
+    this.showCalendarComponent = true;
+  }
+
+  showEventList() {
+    this.showCalendarComponent = false;
+  }
+
+  toggleFilterByPreferences(): void {
+    this.ticketService.getTotalNbtsByEventType(this.id).subscribe((data: any) => {
+      const eventTypes = Object.keys(data);
+      eventTypes.sort((a, b) => data[b] - data[a]);
+      this.mostLikedEventType = eventTypes[0];
+      const sortedEvents: any[] = [];
+      eventTypes.forEach(eventType => {
+        const eventsOfType = this.filteredEvents.filter(event => event.typeEvent === eventType);
+        sortedEvents.push(...eventsOfType);
+      });
+      this.filteredEvents = sortedEvents;
+    }, (error: any) => {
+      console.error('Error retrieving events:', error);
+    });
+  }
+  
+  
+  
+  
+  
+  
+
   retrieveAllEvents(): void {
     this.eventService.getAllEvents().subscribe(
       (data: any) => {
-        this.events = data;
-        this.filteredEvents = this.events;
+        this.events = data.filter((event: { archive: any; }) => !event.archive);
+        this.filteredEvents = data.filter((event: { archive: any; }) => !event.archive);
       },
       (error: any) => {
         console.error('Error retrieving events:', error);
@@ -60,8 +110,8 @@ export class EventUserComponent implements OnInit {
   retrieveAllEventsOrderedByPriceAsc(): void {
     this.eventService.getAllEventsOrderedByPriceAsc().subscribe(
       (data: any) => {
-        this.events = data;
-        this.filteredEvents = this.events;
+        this.events = data.filter((event: { archive: any; }) => !event.archive);
+        this.filteredEvents = data.filter((event: { archive: any; }) => !event.archive);
       },
       (error: any) => {
         console.error('Error retrieving events ordered by price:', error);
@@ -72,8 +122,8 @@ export class EventUserComponent implements OnInit {
   retrieveAllEventsOrderedByNbt(): void {
     this.eventService.findAllEventsOrderedByNbt().subscribe(
       (data: any) => {
-        this.events = data;
-        this.filteredEvents = this.events;
+        this.events = data.filter((event: { archive: any; }) => !event.archive);
+        this.filteredEvents = data.filter((event: { archive: any; }) => !event.archive);
       },
       (error: any) => {
         console.error('Error retrieving events ordered by NBT:', error);

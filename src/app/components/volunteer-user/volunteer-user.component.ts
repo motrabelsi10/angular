@@ -2,7 +2,7 @@ import { Volunteer } from './../../models/volunteer';
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { VolunteerService } from 'src/app/Services/volunteer.service';
+import { VolunteerService } from 'src/app/services/volunteer.service';
 
 @Component({
   selector: 'app-volunteer-user',

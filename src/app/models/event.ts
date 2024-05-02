@@ -1,3 +1,4 @@
+import { ClubTypes } from "./clubTypes";
 import { User } from "./user";
 
 export class Event {
@@ -13,6 +14,8 @@ export class Event {
     price : number;
     typeticket: string;
     imagePath: string;
+    archive: Boolean;
+    typeEvent :string;
 
 
     constructor(){
@@ -27,5 +30,7 @@ export class Event {
       this.price =0;
       this.typeticket = '';
       this.imagePath="";
+      this.typeEvent = "";
+      this.archive = false;
     }
 }
