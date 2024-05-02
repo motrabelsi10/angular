@@ -29,7 +29,7 @@ export class PublicationUserComponent implements OnInit  {
   }
 
   ngOnInit(): void {
-    this.idEvent = this.route.snapshot.paramMap.get('id')?.charAt(0);
+    this.idEvent = this.route.snapshot.paramMap.get('id');
     console.log(this.idEvent);
     if (this.idEvent !== null) {}
     this.getAllPublications();
@@ -60,6 +60,8 @@ export class PublicationUserComponent implements OnInit  {
   deletePublication(publicationId: number) {
     this.publicationService.deletePublication(publicationId).subscribe(() => {
       this.getAllPublications();
+      window.location.reload();
+
     });
   }
 
@@ -116,7 +118,7 @@ export class PublicationUserComponent implements OnInit  {
 
   modifyPublication() {
     this.publicationService.editPublication(this.newPublication).subscribe(() => {
-      alert("Pub Updated Successfully");
+      //alert("Pub Updated Successfully");
       this.getAllPublications();
       
       

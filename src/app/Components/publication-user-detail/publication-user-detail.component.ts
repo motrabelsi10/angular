@@ -5,6 +5,8 @@ import { Publication } from 'src/app/models/publication';
 import { InteractionComponent } from '../interaction/interaction.component';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { Interaction } from 'src/app/models/interaction';
+import { Commentairepub } from 'src/app/models/commentairepub';
+import { CommentairepubService } from 'src/app/services/commentairepub.service';
 
 @Component({
   selector: 'app-publication-user-detail',
@@ -13,24 +15,37 @@ import { Interaction } from 'src/app/models/interaction';
 })
 export class PublicationUserDetailComponent implements OnInit  {
 
+  commentaire: Commentairepub=new Commentairepub();
   id!:any;
   publication!:any;
+  listCommentaires!:any;
   interaction:any;
   idU!:any;
+  role : any;
+  creatingMode: boolean = true;
   likeC:Boolean=false;
   dislikeC:Boolean=false;
   interaction1:Interaction=new Interaction();
   newInteraction: Interaction = new Interaction();
-  constructor(private publicationService: PublicationService,private interactionService: InteractionService, private router: Router,private route: ActivatedRoute) {   
-    
+  constructor(private publicationService: PublicationService,private interactionService: InteractionService, private router: Router,private route: ActivatedRoute,private commentaireService: CommentairepubService) {   
+    this.getUserFromLocalStorage();
+
   }
 
   ngOnInit(): void {
-    this.idU=1;
+    this.idU=this.id;
     this.id = this.route.snapshot.params['id']; 
     console.log(this.id,"AAA")
     this.getPublication(this.id);
     this.getInteractionByPublication(this.id,this.idU);
+    this.getAllCOmmentaireByPublication();
+  }
+
+  getAllCOmmentaireByPublication(){
+    this.commentaireService.getAllCommentaireByPublication(this.id).subscribe(data => {
+      this.listCommentaires = data;
+      console.log(data)
+    });
   }
 
   getPublication(id:Number){
@@ -39,6 +54,14 @@ export class PublicationUserDetailComponent implements OnInit  {
       console.log(data)
 
     });
+  }
+
+  getUserFromLocalStorage() {
+    const userString = localStorage.getItem('user');
+    console.log(userString);
+    const user = userString ? JSON.parse(userString) : null;
+    this.id = user ? user.idUser : "";
+    this.role = user? user.role :"";
   }
   like(){
     const newInteraction = {
@@ -111,6 +134,84 @@ export class PublicationUserDetailComponent implements OnInit  {
   }
 //this.interactionService.modifyInteraction(this.newInteraction).subscribe(() => {
   //alert("Interaction Updated Successfully");
+
+  
+  ////COMMENTAIRE
+
+  openModel(commentairepub: Commentairepub = new Commentairepub()) {
+    if (commentairepub.idCommentaire==null) {
+      this.commentaire = new Commentairepub();
+      this.creatingMode = true;
+      console.log(this.commentaire)
+    } else {
+      console.log(this.commentaire);
+      this.creatingMode = false;
+      this.commentaire = commentairepub;
+    }
+  }
+
+  createCommentaire() {
+    const newPublication = {
+        "idPublication": this.id,
+        //"nameEvent": "Event1",
+        /*"eventDate": "2024-04-25T10:30:00", // Date et heure de l'événement
+        "location": "Lieu de l'événement",
+        "description": "Description de l'événement",
+        "tickets": [],
+        "user": [],*/
+        // Vous pouvez ajouter d'autres propriétés ou relations ici
+    }
+    const newUser = {
+        "idUser": this.idU,
+       // "firstName": "Adem",
+       // "lastName": "Ben Hamouda",
+        /*"birthDay": "1990-01-01",
+        "address": "123 Rue de la Paix",
+        "mail": "john.doe@example.com",
+        "telNumber": "123-456-7890",
+        "password": "hashedPassword123",
+        "approuvement": true,
+        "role": "ADMIN",
+        "events": [],*/
+        // Vous pouvez ajouter d'autres propriétés ou relations ici
+      
+    }
+    const newCommentaire = {
+      body: this.commentaire.body,
+     // interactions: this.newPublication.interactions ,
+     publication: newPublication,
+      user: newUser,
+
+    }
+    
+
+
+    this.commentaireService.addCommentaire(newCommentaire).subscribe((response: any) => {
+
+      // Assuming the response contains the newly created publication
+      //this.publications.unshift(response); // Add the new publication to the beginning of the list
+      //this.dividePublicationsIntoChunks(); // Update the pagination chunks
+      this.commentaire = new Commentairepub(); // Reset the newPublication object
+      console.log(response,"response")
+    });
+    console.log(this.commentaire)
+    
+    window.location.reload();
+  }
+
+
+
+  modifyCommentaire() {
+    this.commentaireService.editCommentaire(this.commentaire).subscribe(() => {
+      //alert("Pub Updated Successfully");
+      //this.getAllPublications();
+      
+      
+      window.location.reload();
+    });
+  }
+
+
 
 
   }

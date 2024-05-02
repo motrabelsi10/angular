@@ -23,7 +23,7 @@ import { SimpleUserComponent } from './components/simple-user/simple-user.compon
 import { AdminComponent } from './components/admin/admin.component';
 import { ClubRegestrationComponent } from './components/club-regestration/club-regestration.component';
 import { HomeComponent } from './components/home/home.component';
-import { EventClubComponent } from './components/event-club/event-club.component'
+import { EventClubComponent } from './components/event-club/event-club.component';
 import { RecrutementComponent } from './components/recrutement/recrutement.component';
 import { ProcessChartComponent } from './components/process-chart/process-chart.component';
 import { RecrutementDetailsUserComponent } from './components/recrutement-details-user/recrutement-details-user.component';
@@ -47,12 +47,22 @@ import { FeedbackComponent } from './components/feedback/feedback.component';
 import { ManagementHistoryUserComponent } from './components/management-history-user/management-history-user.component';
 import { ManagementUserComponent } from './components/management-user/management-user.component';
 import { ManagementComponent } from './components/management/management.component';
-
-
+import { VolunteerComponent } from './components/volunteer/volunteer.component';
+import { VolunteerUserComponent } from './components/volunteer-user/volunteer-user.component';
+import { VolunteerDetailsUserComponent } from './components/volunteer-details-user/volunteer-details-user.component';
+import { TaskComponent } from './components/task/task.component';
+import { TaskUserComponent } from './components/task-user/task-user.component';
+import { DetailsUserComponent } from './components/task-details-user/task-details-user.component';
+import { VolunteerTaskComponent } from './components/volunteertask/volunteertask.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { EquipementChartsComponent } from './components/equipement-charts/equipement-charts.component';
+import { ManagementChartsComponent } from './components/management-charts/management-charts.component';
+import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
+import { RestPasswordComponent } from './components/rest-password/rest-password.component';
 
 @NgModule({
   declarations: [
-
     AppComponent,
     SideBarComponent,
     EventComponent,
@@ -95,7 +105,19 @@ import { ManagementComponent } from './components/management/management.componen
     ManagementHistoryUserComponent,
     EquipementHistoryUserComponent,
     FeedbackHistoryUserComponent,
-    
+    DetailsUserComponent,
+    VolunteerComponent,
+    VolunteerUserComponent,
+    VolunteerDetailsUserComponent,
+    TaskComponent,
+    TaskUserComponent,
+    TaskComponent,
+    VolunteerTaskComponent,
+    CalendarComponent,
+    EquipementChartsComponent,
+    ManagementChartsComponent,
+    ForgetPasswordComponent,
+    RestPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -105,10 +127,9 @@ import { ManagementComponent } from './components/management/management.componen
     CommonModule,
     CanvasJSAngularChartsModule,
     ReactiveFormsModule,
-
-    
+    FullCalendarModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

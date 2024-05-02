@@ -1,63 +1,78 @@
-
 <div class="content-body">
     <div class="container-fluid">
         <div class="row page-titles">
-             <div>
-                <li><h4> Historique de mes équipements démandé :</h4></li>
-                <div class="d-flex justify-content-end mb-3 mt-3">
-                 <h4 class="mb-0" style="color: black;"> Coût total : {{price}}</h4></div> 
-             </div>
-         </div>
-         <div class="row">
-            <div  *ngFor="let equipement of equipement" >
-                <div  *ngIf="equipement.event.idEvent==idEvent">
-                <div class="col-lg-12 col-xl-6" class="card"  >
-                    <div class="card-body">
-                        <div class="menu-product d-flex">
-                            <div class="content-detail-wrap" >
-                              
-                                
-                                <div class="mt-4 d-flex justify-content-between align-items-center" >
-                                    <div> 
-                                        <h4>{{equipement.equipement}} pour l'évènement {{equipement.event.nameEvent}}</h4>
-                                        <span>D'une quantité de {{equipement.quantite}} {{equipement.typeequip=="nothing"?"":equipement.typeequip}}</span>
-                                        <h5 class="mb-0"><span class="fs-14 me-2">Prix estimé pour :</span>{{equipement.price}} DT</h5>
-                                        <h5 class="mb-0">Plus de détails : </h5>
-                                        <h5 class="mb-0">{{equipement.details}}</h5>
-
-                                        <span class="text-danger"> Date du rendez-vous avec l'administration : {{equipement.datemeeting  | date:'MMM dd, yyyy à HH:mm '}}</span>
-                                    </div>
-                                    
-                                </div>
-                                <div class="d-flex justify-content-end mb-3 mt-3">
-                                    <button type="button" class="btn btn-warning me-2" data-toggle="modal" data-target="#EditAddEquipement"
-                                    (click)="openModel(equipement)" >Modify <span class="btn-icon-end"><i class="fa fa-star"></i></span></button>
-                                    <button type="button" class="btn btn-danger"  (click)="deleteEquipement(equipement.idEquipmenet)" >Remove <span class="btn-icon-end"><i class="fas fa-times"></i></span></button>
-                                </div>
-                            </div>	
-                        </div>
+            <div class="col">
+                <div class="d-flex justify-content-between align-items-center mb-3 mt-3">
+                    <div>
+                        <h4 class="text-center">Historique de mes équipements demandés :</h4>
                     </div>
-                </div></div>
-              
+                    <div class="text-end">
+                        <!-- Coût total à droite -->
+                        <h4 class="mb-0">
+                            <p class="hihi">Coût total : </p>{{ price }} DT
+                        </h4>
+                    </div>
+                </div>
             </div>
-            
-            <div class="d-flex justify-content-center mb-5">
-                <a href="javascript:void()" data-bs-toggle="modal" data-bs-target="#EditAddEquipement" class="btn btn-primary btn-event w-50" 
-                (click)="openModel()">
-                    <span class="align-middle"><i class="ti-plus"></i></span> Create New
-                </a>
+        </div>
+        
+        <div class="row page-titles">
+        <div class="row" style="width: 100%;">
+            <div *ngFor="let equipement of equipement">
+                <div *ngIf="equipement.event.idEvent==idEvent" class="col-lg-34 col-xl-28">
+                    
+                        <div class="card-body">
+                            <div class="menu-product d-flex">
+                                <div class="content-detail-wrap">
+                                    <div class="mt-4 d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <div class="col">
+                                                <h4 class="ooo">{{ equipement.equipement }} pour l'évènement {{
+                                                    equipement.event.nameEvent }}</h4>
+                                            </div>
+                                            
+                                            <hr>
+                                            <span>D'une quantité de {{ equipement.quantite }} {{
+                                                equipement.typeequip=="nothing"?"":equipement.typeequip }}</span>
+                                            <h5><span>Prix estimé pour : </span>{{
+                                                equipement.price }} DT</h5>
+                                            <h5>Plus de détails : </h5>
+                                            <h5>{{ equipement.details }}</h5>
+                                            <br>
+                                            <span class="text-danger"> Date du rendez-vous avec l'administration : {{
+                                                equipement.datemeeting | date:'MMM dd, yyyy à HH:mm '}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-end mb-3 mt-3">
+                                        <button type="button" class="btn btn-warning me-2" data-toggle="modal"
+                                            data-target="#EditAddEquipement" (click)="openModel(equipement)">Modify
+                                            <span class="btn-icon-end"><i class="fa fa-star"></i></span></button>
+                                        <button type="button" class="btn btn-danger"
+                                            (click)="deleteEquipement(equipement.idEquipmenet)">Remove <span
+                                                class="btn-icon-end"><i class="fas fa-times"></i></span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    
+                </div>
             </div>
-            
-            <div>
-                
-            </div>
+        </div>
+        </div>
 
 
 
+        <div class="d-flex justify-content-center mb-3">
+            <button href="javascript:void()" data-toggle="modal" data-target="#EditAddEquipement"
+                class="btn btn-primary btn-event w-22 px-3" (click)="openModel()">
+                <span class="align-middle"><i class="ti-plus"></i></span> Create New
+        </button>
+        </div>
 
-            <div class="modal fade" id="EditAddEquipement" tabindex="-1" event="dialog" aria-labelledby="exampleModalCenterTitle"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-xl" event="document">
+        <div class="modal fade" id="EditAddEquipement" tabindex="-1" event="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">Equipement</h5>
@@ -65,7 +80,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                
+                    <div class="modal-body">
                     <div class="input-group mb-3">
                         <label class="input-group-text mb-0">type équipement</label>
                         <select class="default-select form-control wide" [(ngModel)]="newEquipement.metric">
@@ -75,8 +90,8 @@
                             <option value="all">autre</option>
                         </select>
                     </div>
-    
-    
+
+
                     <div class="input-group mb-3" *ngIf="newEquipement.metric === 'nouriture'">
                         <label class="input-group-text mb-0">équipement</label>
                         <select class="default-select form-control wide" [(ngModel)]="newEquipement.equipement">
@@ -108,7 +123,7 @@
                             <option value="projecteur">projecteur</option>
                         </select>
                     </div>
-    
+
                     <div class="input-group mb-3" *ngIf="newEquipement.metric === 'all'">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroup-sizing-default">autre équipement</span>
@@ -116,57 +131,59 @@
                         <input type="text" class="form-control" [(ngModel)]="newEquipement.other">
                     </div>
                     <div class="input-group mb-3">
-                        
+
                         <label class="input-group-text mb-0">Type de métrique</label>
                         <select class="default-select form-control wide" [(ngModel)]="newEquipement.typeequip"
                             (ngModelChange)="handleTypeChange()">
-    
-                         <!--  <option selected>Veuillez choisir...</option>-->
-                         <option selected value="nothing">pas de métrique</option>
+
+                            <!--  <option selected>Veuillez choisir...</option>-->
+                            <option selected value="nothing">pas de métrique</option>
                             <option value="Bouteille">Bouteille</option>
                             <option value="kg">kg</option>
                             <option value="littre">littre</option>
-                            
+
                         </select>
                     </div>
-    
+
                     <div class="input-group mb-3" *ngIf=" newEquipement.typeequip !== 'nothing'">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroup-sizing-default">Quantité</span>
                         </div>
                         <input type="text" class="form-control" [(ngModel)]="newEquipement.quantite">
                     </div>
-                    <div class="modal-body">
+                    
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Prix Estimé</span>
                             </div>
                             <input type="text" class="form-control" [(ngModel)]="newEquipement.price">
                         </div>
-                        <div class="input-group mb-3" >
+                        <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroup-sizing-default">plus de détails</span>
                             </div>
                             <input type="text" class="form-control" [(ngModel)]="newEquipement.details">
                         </div>
                         <div class="input-group mb-3">
-    
-                <div class="modal-body">
-                          
-    
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" *ngIf="creatingMode == true"
-                            (click)="createEquipement()">Create Equipement</button>
-                        <button type="button" class="btn btn-primary" *ngIf="creatingMode == false"
-                            (click)="modifyEquipement()">Modify Equipement</button>
+
+                            <div class="modal-body">
+
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" *ngIf="creatingMode == true"
+                                        (click)="createEquipement()">Create Equipement</button>
+                                    <button type="button" class="btn btn-primary" *ngIf="creatingMode == false"
+                                        (click)="modifyEquipement()">Modify Equipement</button>
+                                </div>
+
+
+
+                            </div>
+                        </div>
                     </div>
-    
-    
-                    
                 </div>
             </div>
-         </div>
-     </div>
+        </div>
     </div>
-    
+</div>

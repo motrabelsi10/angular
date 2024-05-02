@@ -43,6 +43,10 @@ export class TicketService {
     return this.httpClient.get(`${this.API_URL}/retrieve-tickets-by-event/${eventId}`);
   }
 
+  getTotalNbtsByEventType(userId: any) {
+    return this.httpClient.get(`${this.API_URL}/totalNbtsByEventType/${userId}`);
+  }
+
   retrieveTicketsByEventAndUser(eventId: any,userId: any) {
     return this.httpClient.get(`${this.API_URL}/retrieve-tickets-by-event-and-user/${userId}/${eventId}`);
   }
@@ -62,6 +66,12 @@ export class TicketService {
   getTotalPricesByEvent() {
     return this.httpClient.get<any>(`${this.API_URL}/total-prices-by-event`);
   }
+
+  getTotalPricesByEventUser(userId: any){
+    return this.httpClient.get<any>(`${this.API_URL}/total-prices-by-event/${userId}`);
+
+  }
+  
 
 
 

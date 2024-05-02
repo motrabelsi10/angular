@@ -8,9 +8,16 @@
                     (click)="openModel()"><i class="fa fa-shopping-basket me-2"></i>Create New event</a>
             </div>
             <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">List des events</h4>
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="card-title mb-0">Liste des événements</h4>
+                    <div>
+                        <button class="btn btn-outline-primary btn-xs mr-2" (click)="getAllEvents()">Upcoming
+                            events</button>
+                        <button class="btn btn-outline-primary btn-xs" (click)="showArchivedEvents()">Past
+                            events</button>
+                    </div>
                 </div>
+
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-responsive-md">
@@ -59,6 +66,10 @@
                                                 routerLink="/tickets/{{ event.idEvent }}">
                                                 tickets
                                             </a>
+                                            <button type="button" class="btn btn-primary light px-3" data-toggle="modal"
+                                                data-target="#EditAddtask" (click)="selectEvent(event.idEvent)">
+                                                Add Task
+                                            </button>
 
 
                                         </div>
@@ -100,9 +111,7 @@
                                                 <div class="modal-body">
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            <img class="img-fluid"
-                                                                src="../../../assets/images/{{ event.imagePath }}"
-                                                                alt="">
+                                                            <img class="img-fluid" src="{{ event.imagePath }}" alt="">
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="product-detail-content">
@@ -112,8 +121,12 @@
                                                                     <p class="price float-start d-block">{{ event.price
                                                                         }} TND</p>
                                                                 </div>
+
+
                                                                 <br>
                                                                 <h4>Availability : {{ event.nbt }} </h4>
+                                                                <h4>Event Type : {{ event.typeEvent }} </h4>
+
                                                                 <span *ngIf="event.nbt > 0; else soldOut">
                                                                     <span class="badge badge-success">Available<span
                                                                             class="ms-1 fa fa-check"></span></span>
@@ -148,17 +161,15 @@
 
 
                                                 <div class="btn-group mb-1" style="width: 80%; margin: 0 auto;">
-                                                    <button type="button"
-                                                        class="btn btn-primary light px-3" routerLink="/management-user/{{event.idEvent}}">Management</button>
-                                                    <button type="button"
-                                                        class="btn btn-primary light px-3">Tasks</button>
-                                                    <button type="button"
-                                                        class="btn btn-primary light px-3" routerLink="/equipement-history-user/{{event.idEvent}}">Equipements</button>
-                                                    <button type="button"
-                                                        class="btn btn-primary light px-3"  routerLink="/publication/user/{{event.idEvent}}">Publications</button>
+                                                    <button type="button" class="btn btn-primary light px-3"
+                                                        routerLink="/management-user/{{event.idEvent}}">Management</button>
+                                                    <button type="button" class="btn btn-primary light px-3"
+                                                        routerLink="/tasksuser/{{event.idEvent}}">Tasks</button>
+                                                    <button type="button" class="btn btn-primary light px-3"
+                                                        routerLink="/equipement-history-user/{{event.idEvent}}">Equipements</button>
+                                                    <button type="button" class="btn btn-primary light px-3"
+                                                        routerLink="/publication/user/{{event.idEvent}}">Publications</button>
 
-                                                    <button type="button"
-                                                        class="btn btn-primary light px-3">Volunteers</button>
                                                 </div>
                                                 <br>
 
@@ -214,6 +225,33 @@
             </div>
         </div>
 
+        <div class="row">
+            <div *ngFor="let event of eventsData" class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                <div class="widget-stat card">
+                    <div class="card-body  p-4">
+                        <div class="media ai-icon">
+                            <span class="me-3 bgl-danger text-danger">
+                                <svg id="icon-revenue" xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign">
+                                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                </svg>
+                            </span>
+                            <div class="media-body">
+                                <p class="mb-1">{{ event.name }}</p>
+                                <h4 class="mb-0">Total : {{ event.netTotalPrice}}</h4>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
 
 
         <!-- Modal -->
@@ -234,8 +272,7 @@
                                 <ul class="nav nav-wizard">
                                     <li *ngFor="let section of [1, 2, 3, 4]; let i = index">
                                         <a class="nav-link" [class.inactive]="currentSection !== i + 1"
-                                            [class.done]="currentSection === i + 1"
-                                            (click)="setCurrentSection(i + 1)">
+                                            [class.done]="currentSection === i + 1" (click)="setCurrentSection(i + 1)">
                                             <span class="circle" [ngClass]="{'highlight': currentSection === i + 1}">{{
                                                 i + 1 }}</span>
                                         </a>
@@ -325,11 +362,13 @@
                                     Event nbt is required!
                                 </div>
                             </div>
+
                         </div>
+
                         <br>
                         <div *ngIf="currentSection === 3" class="d-flex justify-content-center">
-                            <div class="col-md-8">
-                                <label for="validationServer01" class="form-label">type of icket</label>
+                            <div class="col-md-4"> <!-- Utilisez la classe col-md-4 pour chaque liste déroulante -->
+                                <label for="validationServer01" class="form-label">Type of ticket</label>
                                 <select class="default-select form-control wide" [(ngModel)]="newEvent.typeticket"
                                     (ngModelChange)="handleTicketTypeChange()" required (blur)="nameEventTouched = true"
                                     [ngClass]="{'is-valid': newEvent.typeticket && nameEventTouched, 'is-invalid': !newEvent.typeticket}">
@@ -345,7 +384,21 @@
                                     Event typeticket is required!
                                 </div>
                             </div>
+                            <div class="col-md-4"> <!-- Utilisez la classe col-md-4 pour chaque liste déroulante -->
+                                <label for="validationServer01" class="form-label">Type of event</label>
+                                <select class="default-select form-control wide" [(ngModel)]="newEvent.typeEvent">
+                                    <option selected disabled>Choose...</option>
+                                    <option value="Academic">Academic</option>
+                                    <option value="Arts">Arts</option>
+                                    <option value="Sports">Sports</option>
+                                    <option value="Technology">Technology</option>
+                                    <option value="Environmental">Environmental</option>
+                                    <option value="Cultural">Cultural</option>
+                                    <option value="Volunteer">Volunteer</option>
+                                </select>
+                            </div>
                         </div>
+
                         <br>
                         <div *ngIf="currentSection === 3" class="d-flex justify-content-center">
                             <div class="col-md-8" *ngIf="newEvent.typeticket === 'payante'">
@@ -365,8 +418,8 @@
                         <div *ngIf="currentSection === 4" class="d-flex justify-content-center">
                             <div class="col-md-8">
                                 <label for="validationServer01" class="form-label">Date Start</label>
-                                <input input type="date" class="form-control" [(ngModel)]="newEvent.dateStart" required
-                                    (blur)="nameEventTouched = true"
+                                <input input type="datetime-local" class="form-control" [(ngModel)]="newEvent.dateStart"
+                                    required (blur)="nameEventTouched = true"
                                     [ngClass]="{'is-valid': newEvent.dateStart && nameEventTouched, 'is-invalid': !newEvent.dateStart}">
                                 <div class="valid-feedback" *ngIf="newEvent.dateStart && nameEventTouched">
                                     Looks good!
@@ -380,8 +433,8 @@
                         <div *ngIf="currentSection === 4" class="d-flex justify-content-center">
                             <div class="col-md-8">
                                 <label for="validationServer01" class="form-label">Date Finish</label>
-                                <input type="date" class="form-control" [(ngModel)]="newEvent.dateFinish" required
-                                    [ngModelOptions]="{standalone: true}"
+                                <input type="datetime-local" class="form-control" [(ngModel)]="newEvent.dateFinish"
+                                    required [ngModelOptions]="{standalone: true}"
                                     [ngClass]="{'is-valid': newEvent.dateFinish && newEvent.dateStart && newEvent.dateFinish > newEvent.dateStart, 'is-invalid': !newEvent.dateFinish || !newEvent.dateStart || newEvent.dateFinish <= newEvent.dateStart}">
                                 <div class="valid-feedback"
                                     *ngIf="newEvent.dateFinish && newEvent.dateStart && newEvent.dateFinish > newEvent.dateStart">
@@ -393,6 +446,14 @@
                                 </div>
                             </div>
                         </div>
+
+
+
+
+
+                        <br>
+
+
                     </div>
 
                     <div class="modal-footer">
@@ -412,6 +473,87 @@
                     </div>
 
 
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="EditAddtask" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Create a new task </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="taskName">Task Name</label>
+                            <input type="text" class="form-control" id="taskName" name="nameTask"
+                                [(ngModel)]="newTask.nameTask" placeholder="Enter task name">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="taskStart">Start Date</label>
+                                    <input type="date" class="form-control" id="taskStart" name="taskStart"
+                                        [(ngModel)]="newTask.taskStart">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="taskFinish">Finish Date</label>
+                                    <input type="date" class="form-control" id="taskFinish" name="taskFinish"
+                                        [(ngModel)]="newTask.taskFinish">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="taskDetails">Task Details</label>
+                                    <input type="text" class="form-control" id="taskDetails" name="taskDetails"
+                                        [(ngModel)]="newTask.details" placeholder="Enter task details">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label for="numVolunteers">Number of Volunteers Desired</label>
+                                    <input type="number" class="form-control" id="numVolunteers" name="numVolunteers"
+                                        [(ngModel)]="newTask.numberVolunteer" placeholder="Enter number of volunteers">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskSkills">Skills </label>
+                            <select multiple class="form-control" id="taskSkills" name="taskSkills"
+                                [(ngModel)]="newTask.skills" style="width: 100%; height: 205px;">
+                                <option value="GESTION_LOGISTIQUE">+ Gestion Logistique</option>
+                                <option value="PROMOTION_ET_MARKETING">+ Promotion & Marketing</option>
+                                <option value="ANIMATION_ET_DIVERTISSEMENT">+ Animation & Divertissement</option>
+                                <option value="GESTION_DES_PARTICIPANTS">+ Gestion des Participants</option>
+                                <option value="COLLECTE_DE_FONDS">+ Collecte de Fonds</option>
+                                <option value="GESTION_DES_VOLONTAIRES">+ Gestion des Volontaires</option>
+                                <option value="GESTION_DES_SPECTACLES">+ Gestion des Spectacles</option>
+                                <option value="PLANIFICATION_STRATEGIQUE">+ Planification Stratégique</option>
+                                <option value="COORDINATION_DES_EQUIPES">+ Coordination des Équipes</option>
+                                <option value="NEGOCIATION_DES_PARTENARIATS">+ Négociation des Partenariats</option>
+                                <option value="SECURITE_ET_SAUVEGARDE">+ Sécurité et Sauvegarde</option>
+                                <option value="GESTION_DES_COMMUNICATIONS">+ Gestion des Communications</option>
+                                <option value="ANALYSE_DES_RETROACTIONS">+ Analyse des Rétroactions</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" (click)="createTask(selectedEventId)">Create
+                            Task</button>
+                    </div>
                 </div>
             </div>
         </div>

@@ -74,7 +74,7 @@ export class ClubRegestrationComponent implements OnInit {
 
       this.service.clubregister(formData).subscribe(
         (response) => {
-          alert("User Added Successfully");
+          //alert("User Added Successfully");
           console.log(response);
           this.router.navigate(['/login']);
         },

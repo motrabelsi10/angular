@@ -20,15 +20,22 @@ iduser : any;
 feedbackChunks: any[] = [];
 currentPage: number = 1;
 selectedFile!: File;
+  id: any;
 constructor(private feedbackService: FeedbackService, private router: Router) {
+  this.getUserFromLocalStorage() ;
   this.getAllFeedback();
 }
   getAllFeedback() {
-    this.iduser=1;
+    this.iduser=this.id;
       this.feedbackService.getAllFeedback().subscribe(data => {
         this.feedbackChunks = data;
-       // this.divideFeedbacksIntoChunks();
       });
+  }
+  getUserFromLocalStorage() {
+    const userString = localStorage.getItem('user');
+    console.log(userString);
+    const user = userString ? JSON.parse(userString) : null;
+    this.id = user ? user.idUser : "";
   }
 
   openModel(feedback: Feedback = new Feedback()) {
@@ -74,7 +81,7 @@ constructor(private feedbackService: FeedbackService, private router: Router) {
       idEvent : "1"
     }
     const user = {
-      idUser : "1"
+      idUser : this.id
     }
     
 

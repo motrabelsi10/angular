@@ -12,18 +12,16 @@
                         <table class="table table-responsive-md">
                             <thead>
                                 <tr>
-                                    <th scope="col">Publication ID</th>
+                                    <th>Publication ID</th>
                                     <th scope="col">Body</th>
-                                    <th scope="col">Publication Date</th>
-                                    <!-- Add more headers for interactions, event, user -->
-                                    
+                                    <th scope="col">Publication Date</th>                                    
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let publication of publications">
-                                    <td class="text-center">{{ publication.idPublication }}</td>
-                                    <td class="text-center">{{ publication.body }}</td>
-                                    <td class="text-center">{{ publication.datePublication }}</td>
+                                    <td>{{ publication.idPublication }}</td>
+                                    <td>{{ publication.body }}</td>
+                                    <td>{{ publication.datePublication |date}}</td>
                                    
                                 </tr>
                             </tbody>
@@ -63,7 +61,7 @@ aria-hidden="true">
 <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Publication</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Add a new publication</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -71,7 +69,7 @@ aria-hidden="true">
         <div class="modal-body">
             <div class="input-group">
                 <div class="input-grsoup-prepend">
-                    <span class="input-group-text">Contenu</span>
+                    <span class="input-group-text">Body</span>
                 </div>
                 <input type="text" class="form-control" [(ngModel)]="newPublication.body">
             </div>

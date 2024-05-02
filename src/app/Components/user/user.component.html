@@ -72,6 +72,21 @@
         </div>
       </div>
     </div>
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Statistiques</h4>
+      </div>
+      <div class="card-body">
+    <div *ngIf="chartOptions && chartOptions[0]">
+      <canvasjs-chart [options]="chartOptions[0]" id="pie-chart"></canvasjs-chart>
+    </div>
+    <br>
+    <br>
+    <div *ngIf="chartOptions && chartOptions[1]">
+      <canvasjs-chart [options]="chartOptions[1]" id="bar-chart"></canvasjs-chart>
+    </div>
+  </div>
+</div>
   </div>
 </div>
 

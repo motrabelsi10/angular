@@ -49,7 +49,7 @@ export class EquipementHistoryUserComponent {
     }*/
     openModel(equip: Equipement = new Equipement()) {
       if (equip.idEquipement == 0) {
-        this.creatingMode = true;
+        //this.creatingMode = true;
         this.newEquipement = new Equipement();
       } else {
         this.creatingMode = false;

@@ -8,30 +8,34 @@ import { Router } from '@angular/router';
 export class EquipementService {
   readonly API_URL = 'http://localhost:8089/espritgather/equipement';
 
-  constructor(private router: Router,private httpClient: HttpClient) { }
+  constructor(private router: Router, private httpClient: HttpClient) { }
   getAllEquipement() {
     return this.httpClient.get(`${this.API_URL}/equipements`)
   }
-  addEquipement(equipement : any) {
+  addEquipement(equipement: any) {
     return this.httpClient.post(`${this.API_URL}/add-equipement`, equipement)
   }
-  getEquipement(idequipement : any){
+  getEquipement(idequipement: any) {
     return this.httpClient.get(`${this.API_URL}/retrieve-equipement/${idequipement}`)
   }
-  getPriceByEvent(idequipement : any){
+  getPriceByEvent(idequipement: any) {
     return this.httpClient.get(`${this.API_URL}/getPriceByEvent/${idequipement}`)
   }
-  getPriceByClub(idequipement : any){
+  getPriceByClub(idequipement: any) {
     return this.httpClient.get(`${this.API_URL}/getPriceByClub/${idequipement}`)
   }
-  editEquipement(equipement : any){
+  editEquipement(equipement: any) {
     return this.httpClient.put(`${this.API_URL}/modify-equipement`, equipement)
   }
-  addEquipementAdmin(equipement : any){
+  addEquipementAdmin(equipement: any) {
     return this.httpClient.put(`${this.API_URL}/add-equipement-admin`, equipement)
   }
-  deletEequipement(idequipement : any){
-    return  this.httpClient.delete(`${this.API_URL}/remove-equipement/${idequipement}`)
+  deletEequipement(idequipement: any) {
+    return this.httpClient.delete(`${this.API_URL}/remove-equipement/${idequipement}`)
+  }
+  //stat 
+  calculateEquipmentStatistics() {
+    return this.httpClient.get<any>(`${this.API_URL}/statistics`);
   }
 
 }

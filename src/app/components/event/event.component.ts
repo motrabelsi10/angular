@@ -29,9 +29,20 @@ export class EventComponent {
 
   
 
+  showArchivedEvents() {
+    this.eventService.getAllEvents().subscribe((data:any) => {
+    this.events = data.filter((event: { archive: any; }) => event.archive);
+    this.divideEventsIntoChunks();
+    //window.location.reload();
+
+
+  });
+  }
+  
   getAllEvents() {
-    this.eventService.getAllEvents().subscribe(data => {
-      this.events = data;
+    this.eventService.getAllEvents().subscribe((data:any) => {
+      // Filtrer les événements avec archive = false
+      this.events = data.filter((event: { archive: any; }) => !event.archive);
       this.divideEventsIntoChunks();
     });
   }
@@ -81,34 +92,38 @@ areFieldsFilled(): boolean {
 
 
   
-  createEvent() {
-    const formData = new FormData();
-    formData.append('nameEvent', this.newEvent.nameEvent);
-    formData.append('description', this.newEvent.description);
-    
-    if (this.newEvent.dateStart instanceof Date) {
-      formData.append('dateStart', new Date(this.newEvent.dateStart).toISOString());
-    } else {
-      console.error('this.newEvent.dateStart is not an instance of Date');
-    }
-    
-    if (this.newEvent.dateFinish instanceof Date) {
-      formData.append('dateFinish', new Date(this.newEvent.dateFinish).toISOString()); // Utilisez dateFinish ici
-    } else {
-      console.error('this.newEvent.dateFinish is not an instance of Date');
-    }
-    
-    formData.append('place', this.newEvent.place);
-    formData.append('nbt', this.newEvent.nbt.toString());
-    formData.append('typeticket', this.newEvent.typeticket);
-    formData.append('price', this.newEvent.price.toString());
-    formData.append('imageFile', this.selectedFile); // Ajoutez le fichier ici
-  
-    this.eventService.addEventByUser(formData,1).subscribe(() => {
-      this.getAllEvents();
-      window.location.reload();
-    });
+createEvent() {
+  const formData = new FormData();
+  formData.append('nameEvent', this.newEvent.nameEvent);
+  formData.append('description', this.newEvent.description);
+
+  // Vérifiez si this.newEvent.dateStart est une instance de Date avant de l'ajouter au FormData
+  if (this.newEvent.dateStart instanceof Date) {
+    formData.append('dateStart', new Date(this.newEvent.dateStart).toISOString().slice(0, 16).replace('T', ' '));
+  } else {
+    console.error('this.newEvent.dateStart n\'est pas une instance de Date');
   }
+
+  // Vérifiez si this.newEvent.dateFinish est une instance de Date avant de l'ajouter au FormData
+  if (this.newEvent.dateFinish instanceof Date) {
+    formData.append('dateFinish', new Date(this.newEvent.dateFinish).toISOString().slice(0, 16).replace('T', ' '));
+  } else {
+    console.error('this.newEvent.dateFinish n\'est pas une instance de Date');
+  }
+
+  formData.append('place', this.newEvent.place);
+  formData.append('nbt', this.newEvent.nbt.toString());
+  formData.append('typeticket', this.newEvent.typeticket);
+  formData.append('typeEvent', this.newEvent.typeEvent);
+  formData.append('price', this.newEvent.price.toString());
+  formData.append('imageFile', this.selectedFile); // Ajoutez le fichier ici
+
+  this.eventService.addEventByUser(formData, 1).subscribe(() => {
+    this.getAllEvents();
+    window.location.reload();
+  });
+}
+
   
   
 
@@ -131,7 +146,7 @@ areFieldsFilled(): boolean {
 
 
   divideEventsIntoChunks() {
-    const chunkSize = 4;
+    const chunkSize = 2;
     this.eventsChunks = [];
     for (let i = 0; i < this.events.length; i += chunkSize) {
       this.eventsChunks.push(this.events.slice(i, i + chunkSize));
@@ -143,7 +158,7 @@ areFieldsFilled(): boolean {
   }
 
   getEventsForPage(pageNumber: number): any[] {
-    const eventsPerPage = 4;
+    const eventsPerPage = 2;
     const startIndex = (pageNumber - 1) * eventsPerPage;
     const endIndex = startIndex + eventsPerPage;
     return this.events.slice(startIndex, endIndex);

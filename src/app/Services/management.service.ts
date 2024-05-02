@@ -33,4 +33,7 @@ export class ManagementService {
   deleteManagement(idmanagement : any){
     return  this.httpClient.delete(`${this.API_URL}/remove-management/${idmanagement}`)
   }
+  calculateManagementStatistics() {
+    return this.httpClient.get<any>(`${this.API_URL}/statistics`);
+  }
 }

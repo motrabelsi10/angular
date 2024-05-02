@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ManagementUserComponent } from './management-user.component';
+import { RestPasswordComponent } from './rest-password.component';
 
-describe('ManagementUserComponent', () => {
-  let component: ManagementUserComponent;
-  let fixture: ComponentFixture<ManagementUserComponent>;
+describe('RestPasswordComponent', () => {
+  let component: RestPasswordComponent;
+  let fixture: ComponentFixture<RestPasswordComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ManagementUserComponent ]
+      declarations: [ RestPasswordComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ManagementUserComponent);
+    fixture = TestBed.createComponent(RestPasswordComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
