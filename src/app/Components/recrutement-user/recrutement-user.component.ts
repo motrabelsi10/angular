@@ -6,19 +6,36 @@ import { RecrutementService } from 'src/app/services/recrutement.service';
 @Component({
   selector: 'app-recrutement-user',
   templateUrl: './recrutement-user.component.html',
-  styleUrls: ['./recrutement-user.component.css']
+  styleUrls: ['./recrutement-user.component.css'],
 })
 export class RecrutementUserComponent {
-  recrutements:any;
-  recrutement:any;
-  constructor(private recrutementService: RecrutementService,private httpClient: HttpClient, private route: ActivatedRoute)
-  {
+  recrutements: any;
+  recrutement: any;
+  role : any;
+  constructor(
+    private recrutementService: RecrutementService,
+    private httpClient: HttpClient,
+    private router : Router,
+    private route: ActivatedRoute
+  ) {
+    this.getrole();
     this.getAllRecrutements();
   }
 
-  getAllRecrutements() {
-    this.recrutementService.getAllRecrutements().subscribe(data => {
-      this.recrutements = data;
+  getAllRecrutements(): void {
+    this.recrutementService.getAllRecrutements().subscribe((data: any) => {
+      this.recrutements = data.filter(
+        (recrutement: { archive: any }) => !recrutement.archive
+      );
     });
   }
+  getrole(){
+    const userString = localStorage.getItem('user');
+      console.log(userString);
+      const user = userString ? JSON.parse(userString) : null;
+       this.role = user ? user.role : "";
+       if(this.role !='user'){
+        this.router.navigateByUrl('/error')
+       }
   }
+}

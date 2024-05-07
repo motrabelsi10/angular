@@ -6,11 +6,13 @@
           <div class="card-body">
             <div class="row">
               <!--Tab slider End-->
-              <div class="col-xl-9 col-lg-6 col-md-6 col-xxl-7 col-sm-12">
+              <div class="col-xl-6 col-lg-6 col-md-6 col-xxl-6 col-sm-6">
                 <div class="product-detail-content">
                   <!--Product details-->
                   <div class="new-arrival-content pr">
-                    <h1>{{ volunteer.nameVolunteer }}</h1>
+                    <h1>Volunteer title : {{ volunteer.nameVolunteer }}</h1>
+                    <h4>Task : {{ volunteer.task.nameTask }}</h4>
+                    <h1>My name : {{ volunteer.user.firstName }}</h1>
 
                     <p>
                       Availability :
@@ -21,7 +23,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-xl-3 col-lg-6 col-md-6 col-xxl-5">
+              <div class="col-xl-6 col-lg-6 col-md-6 col-xxl-6 col-sm-6">
                 <!-- Tab panes -->
                 <br />
 

@@ -10,8 +10,45 @@
                 <div>
                   <h2 class="card-title">
                     Approvement :
-                    {{ process.approved ? "Approved" : "Nonapproved" }}
+                    {{ process.approved ? "Approved" : "Non approved" }}
+                    <svg
+                      *ngIf="process.approved"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="icon icon-tabler icon-tabler-smile"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      stroke-width="2"
+                      stroke="currentColor"
+                      fill="none"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <circle cx="12" cy="12" r="9" />
+                      <line x1="9" y1="10" x2="9.01" y2="10" />
+                      <line x1="15" y1="10" x2="15.01" y2="10" />
+                      <path d="M9 15a3.5 3.5 0 0 0 6 0" />
+                    </svg>
+                    <svg
+                      *ngIf="!process.approved"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="icon icon-tabler icon-tabler-x"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      stroke-width="2"
+                      stroke="currentColor"
+                      fill="none"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <line x1="18" y1="6" x2="6" y2="18" />
+                      <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
                   </h2>
+
                   <hr />
                   <p class="card-text">
                     Availability : {{ process.availability }}
@@ -63,53 +100,70 @@
         <div class="card-body">
           <h5 class="card-title">Interview Request</h5>
           <form>
-            <div class="mb-3">
-              <label for="whyToJoin" class="form-label">Why to join ?</label>
-              <input
-                type="text"
-                class="form-control"
-                id="whyToJoin"
-                [(ngModel)]="newRecrutementProcess.whyToJoin"
-                [ngModelOptions]="{ standalone: true }"
-              />
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="whyToJoin" class="form-label"
+                    >Why to join ?</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="whyToJoin"
+                    [(ngModel)]="newRecrutementProcess.whyToJoin"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="availability" class="form-label"
+                    >Availability</label
+                  >
+                  <select
+                    class="form-select"
+                    id="availability"
+                    [(ngModel)]="newRecrutementProcess.availability"
+                    [ngModelOptions]="{ standalone: true }"
+                  >
+                    <option value="full-time">Full-time</option>
+                    <option value="part-time">Part-time</option>
+                  </select>
+                </div>
+              </div>
             </div>
 
-            <div class="mb-3">
-              <label for="availability" class="form-label">Availability</label>
-              <select
-                class="form-select"
-                id="availability"
-                [(ngModel)]="newRecrutementProcess.availability"
-                [ngModelOptions]="{ standalone: true }"
-              >
-                <option value="full-time">Full-time</option>
-                <option value="part-time">Part-time</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="dateInterview" class="form-label"
-                >Interview Date</label
-              >
-              <input
-                type="date"
-                class="form-control"
-                id="dateInterview"
-                [value]="newRecrutementProcess.interviewDate"
-                [(ngModel)]="newRecrutementProcess.interviewDate"
-                [ngModelOptions]="{ standalone: true }"
-              />
-            </div>
-
-            <div class="col-md-8">
-              <label for="validationServer01" class="form-label">Image</label>
-              <input
-                input
-                type="file"
-                class="form-control"
-                (change)="onFileSelected($event)"
-                [(ngModel)]="newRecrutementProcess.imagePath"
-              />
-              <!-- Feedback pour le champ "Event Name" -->
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="dateInterview" class="form-label"
+                    >Interview Date</label
+                  >
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="dateInterview"
+                    [value]="newRecrutementProcess.interviewDate"
+                    [(ngModel)]="newRecrutementProcess.interviewDate"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="validationServer01" class="form-label"
+                    >Image</label
+                  >
+                  <input
+                    input
+                    type="file"
+                    class="form-control"
+                    (change)="onFileSelected($event)"
+                    [(ngModel)]="newRecrutementProcess.imagePath"
+                  />
+                  <!-- Feedback pour le champ "Event Name" -->
+                </div>
+              </div>
             </div>
 
             <div class="form-group">
@@ -120,6 +174,7 @@
                 id="requiredSkills"
                 name="requiredSkills"
                 [(ngModel)]="newRecrutementProcess.skills"
+                style="height: 200px"
               >
                 <option value="WRITTEN_COMMUNICATION">
                   + Written communication

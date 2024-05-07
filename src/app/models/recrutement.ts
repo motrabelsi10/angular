@@ -7,6 +7,7 @@ export class Recrutement {
   description: string;
   requiredSkills: String[]; // Utilisation d'un ensemble pour les compétences requises
   users: any[];
+  archive: Boolean;
 
   constructor() {
     this.idRecrutement = 0;
@@ -17,5 +18,6 @@ export class Recrutement {
     this.requiredSkills = []; // Initialisation de l'ensemble
     this.niveau = 0;
     this.users = [];
+    this.archive = false;
   }
 }

@@ -13,15 +13,32 @@
           >
         </div>
         <div class="card">
-          <div class="card-header">
-            <h4 class="card-title">Recrutement List</h4>
+          <div
+            class="card-header d-flex justify-content-between align-items-center"
+          >
+            <h4 class="card-title mb-0">Recrutement List</h4>
+            <div>
+              <button
+                class="btn btn-outline-primary btn-xs mr-2"
+                (click)="getAllRecrutements()"
+              >
+                Upcoming recrutements
+              </button>
+              <button
+                class="btn btn-outline-primary btn-xs"
+                (click)="showArchivedRecs()"
+              >
+                Past recrutements
+              </button>
+            </div>
           </div>
+          <div class="card-header"></div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-responsive-md">
                 <thead>
                   <tr>
-                  <!--  <th scope="col">Recrutement ID</th>-->
+                    <!--  <th scope="col">Recrutement ID</th>-->
                     <th scope="col">Recrutement Title</th>
                     <th scope="col">Start Date</th>
                     <th scope="col">End Date</th>
@@ -35,7 +52,7 @@
                       let recrutement of getRecrutementsForPage(currentPage)
                     "
                   >
-                <!--    <td class="text-center">{{ recrutement.idRecrutement }}</td>-->
+                    <!--    <td class="text-center">{{ recrutement.idRecrutement }}</td>-->
                     <td class="text-center">{{ recrutement.title }}</td>
                     <td class="text-center">
                       {{ recrutement.dateStart | date }}
@@ -189,6 +206,7 @@
                   type="date"
                   class="form-control"
                   [(ngModel)]="newRecrutement.dateStart"
+                  min="{{ today }}"
                 />
               </div>
               <div class="input-group mb-3">
@@ -201,6 +219,7 @@
                   type="date"
                   class="form-control"
                   [(ngModel)]="newRecrutement.dateFinish"
+                  min="{{ today }}"
                 />
               </div>
               <div class="input-group mb-3">

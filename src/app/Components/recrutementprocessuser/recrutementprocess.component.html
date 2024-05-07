@@ -12,9 +12,9 @@
               <table class="table table-responsive-md">
                 <thead>
                   <tr>
-                 <!--   <th scope="col">interiew's Id</th>-->
+                    <!--   <th scope="col">interiew's Id</th>-->
 
-                    <th scope="col" >Interview Date</th>
+                    <th scope="col">Interview Date</th>
                     <th scope="col">Why do you want to join ?</th>
                     <th scope="col">Availability</th>
 
@@ -25,7 +25,7 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let process of getProcessesForPage(currentPage)">
-                 <!--   <td class="text-center">
+                    <!--   <td class="text-center">
                       {{ process.idProcessRecrutement }}
                     </td>-->
 
@@ -44,8 +44,9 @@
                         </li>
                       </ul>
                     </td>
-                    <td class="text-center">{{ process.approved }}</td>
-
+                    <td class="text-center">
+                      {{ process.approved ? "Approved" : "Non approved" }}
+                    </td>
                     <td class="text-center"></td>
                   </tr>
                 </tbody>

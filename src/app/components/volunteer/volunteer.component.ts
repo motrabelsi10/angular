@@ -5,36 +5,57 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { VolunteerService } from 'src/app/services/volunteer.service';
 
-
 @Component({
   selector: 'app-volunteer',
   templateUrl: './volunteer.component.html',
-  styleUrls: ['./volunteer.component.css']
+  styleUrls: ['./volunteer.component.css'],
 })
 export class VolunteerComponent {
-
   newVolunteer: Volunteer = new Volunteer();
+  userVolunteerCounts: any[] = [];
 
   volunteers: any;
   creatingMode: boolean = true;
   volunteersChunks: any[] = [];
   currentPage: number = 1;
   selectedFile!: File;
-  id:any;
+  id: any;
+  role : any;
 
-
-
-  constructor(private VolunteerService: VolunteerService,
-     private router: Router,
-     private http: HttpClient) {
+  constructor(
+    private VolunteerService: VolunteerService,
+    private router: Router,
+    private http: HttpClient
+  ) {
     this.getAllVolunteers();
     this.getUserFromLocalStorage();
+    this.getUserVolunteerCounts();
+    this.getrole();
+  }
+  getrole(){
+    const userString = localStorage.getItem('user');
+      console.log(userString);
+      const user = userString ? JSON.parse(userString) : null;
+       this.role = user ? user.role : "";
+       if(this.role !='admin'){
+        this.router.navigateByUrl('/error')
+       }
   }
 
   getAllVolunteers() {
-    this.VolunteerService.getAllVolunteers().subscribe(data => {
+    this.VolunteerService.getAllVolunteers().subscribe((data) => {
       this.volunteers = data;
       this.divideVolunteersIntoChunks();
+    });
+  }
+
+  getUserVolunteerCounts() {
+    this.VolunteerService.getUserVolunteerCounts().subscribe((data: any) => {
+      this.userVolunteerCounts = Object.entries(data).map(([name, count]) => ({
+        name,
+        count,
+      }));
+      this.userVolunteerCounts.sort((a, b) => b.count - a.count);
     });
   }
 
@@ -42,7 +63,7 @@ export class VolunteerComponent {
     const userString = localStorage.getItem('user');
     console.log(userString);
     const user = userString ? JSON.parse(userString) : null;
-    this.id = user ? user.idUser : "";
+    this.id = user ? user.idUser : '';
   }
 
   deleteVolunteers(idVolunteer: number) {
@@ -52,8 +73,7 @@ export class VolunteerComponent {
     });
   }
 
-
-/*
+  /*
   createVolunteerByTask() {
     this.VolunteerService.addVolunteerByTask(this.newVolunteer,1, this.id).subscribe( () => {
         this.getAllVolunteers();
@@ -62,10 +82,8 @@ export class VolunteerComponent {
   }
 */
 
-
   modifyVolunteer() {
     this.VolunteerService.editVolunteer(this.newVolunteer).subscribe(() => {
-
       this.getAllVolunteers();
       window.location.reload();
     });
@@ -79,7 +97,6 @@ export class VolunteerComponent {
       this.newVolunteer = volunteer;
     }
   }
-
 
   divideVolunteersIntoChunks() {
     const chunkSize = 2;
@@ -100,7 +117,6 @@ export class VolunteerComponent {
     return this.volunteers.slice(startIndex, endIndex);
   }
 
-
   incrementPage() {
     if (this.currentPage < this.volunteersChunks.length) {
       this.currentPage++;
@@ -112,13 +128,4 @@ export class VolunteerComponent {
       this.currentPage--;
     }
   }
-
-
-
-
-
-
-
-
-
 }

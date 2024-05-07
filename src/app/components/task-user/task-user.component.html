@@ -1,27 +1,48 @@
 <div class="content-body">
   <div class="container-fluid">
+    <div class="container">
       <div class="row">
+        <div *ngFor="let task of tasks" class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">{{ task.nameTask }}</h5>
+              <br />
+              <span
+                *ngIf="task.status === 'TODO'"
+                class="badge badge-success light"
+                style="margin-bottom: 10px"
+                >{{ task.status }}</span
+              >
 
-          <div *ngFor="let task of tasks" class="col-lg-12 col-xl-6">
-              <div class="card">
-                  <div class="card-body">
-                      <div class="menu-product d-flex">
-                          <div class="content-detail-wrap" style="margin-left: 30px;">
-                              <div>
-                                  <h2>{{ task.nameTask}}</h2>
-                              </div>
-                              <div class="mt-4 d-flex justify-content-between align-items-center">
+              <span
+                *ngIf="task.status === 'IN_PROGRESS'"
+                class="badge badge-warning light"
+                style="margin-bottom: 10px"
+                >{{ task.status }}</span
+              >
 
-                                  <div>
-                                      <a class="btn btn-danger nav-link" routerLink="/task/{{ task.idTask }}">View Details</a>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
+              <span
+                *ngIf="task.status === 'COMPLETED'"
+                class="badge badge-danger light"
+                style="margin-bottom: 10px"
+                >{{ task.status }}</span
+              >
+
+              <br />
+              <div class="d-flex justify-content-between align-items-center">
+                <button
+                  class="btn btn-info"
+                  routerLink="/task/{{ task.idTask }}"
+                  [disabled]="task.status === 'COMPLETED'"
+                >
+                  View Details
+                  <span class="btn-icon-end"><i class="fa fa-heart"></i></span>
+                </button>
               </div>
+            </div>
           </div>
-
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-

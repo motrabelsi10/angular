@@ -22,6 +22,8 @@
               style="font-size: 21px"
               (click)="dislike()"
             ></i>
+            <span>Total likes : {{ interaction1.publication.nl }}</span>
+            <span> Total dislikes : {{ interaction1.publication.dl }}</span>
           </div>
           <div *ngIf="interaction1.liked">
             <i
@@ -34,6 +36,8 @@
               style="font-size: 21px"
               (click)="dislike()"
             ></i>
+            <span>Total likes : {{ interaction1.publication.nl }}</span>
+            <span> Total dislikes : {{ interaction1.publication.dl }}</span>
           </div>
           <div *ngIf="interaction1.dislike">
             <i
@@ -46,38 +50,47 @@
               style="font-size: 21px"
               (click)="removelike()"
             ></i>
+            <span>Total likes : {{ interaction1.publication.nl }}</span>
+            <span> Total dislikes : {{ interaction1.publication.dl }}</span>
           </div>
-          <i
-            class="bi bi-plus-circle-fill"
-            style="margin-right: 10px; font-size: 21px"
-            data-toggle="modal"
-            data-target="#AddCommentaire"
-            (click)="openModel(publication)"
-          >
-          </i>
         </div>
+        <i
+          class="bi bi-plus-circle-fill"
+          style="margin-right: 10px; font-size: 21px"
+          data-toggle="modal"
+          data-target="#AddCommentaire"
+          (click)="openModel(publication)"
+        ></i>
         <p class="date">{{ publication["datePublication"] | date }}</p>
       </div>
     </div>
   </div>
   <div></div>
 </div>
-
 <div class="content-body">
   <div class="container-fluid">
+    <h4>Liste des commentaires</h4>
+
     <div class="card text-center">
       <div class="card-body" *ngFor="let commentaire of listCommentaires">
         <h5 class="card-title">{{ commentaire["body"] }}</h5>
         <p class="card-text">
           {{ commentaire["user"]["firstName"] }}
-          {{ publication["user"]["lastName"] }}
         </p>
         <div *ngIf="idU == commentaire.user.idUser">
           <i
             class="bi bi-trash-fill"
             style="margin-right: 10px; font-size: 21px"
+            (click)="deleteCommentaire(commentaire.idCommentaire)"
+          >
+          </i>
+          <i
+            class="bi bi-pencil-square"
+            style="font-size: 21px"
+            data-toggle="modal"
+            data-target="#AddCommentaire"
+            (click)="openModel(commentaire)"
           ></i>
-          <i class="bi bi-pencil-square" style="font-size: 21px"></i>
         </div>
       </div>
     </div>
@@ -96,7 +109,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Add a Comment </h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Add a Comment</h5>
         <button
           type="button"
           class="close"

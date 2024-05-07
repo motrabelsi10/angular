@@ -46,4 +46,8 @@ export class TaskService {
   getCountSkills() {
     return this.httpClient.get<Task[]>(`${this.API_URL}/skills/count`);
   }
+
+  getStatus() {
+    return this.httpClient.get<Task[]>(`${this.API_URL}/total-tasks-by-status`);
+  }
 }

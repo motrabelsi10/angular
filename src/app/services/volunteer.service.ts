@@ -15,6 +15,10 @@ export class VolunteerService {
   getAllVolunteers() {
     return this.httpClient.get(`${this.API_URL}/retrieve-all-volunteers`);
   }
+
+  getUserVolunteerCounts() {
+    return this.httpClient.get(`${this.API_URL}/user-volunteer-counts`);
+  }
   /*
   getAllVolunteersByIdTask(taskId: number) {
     return this.httpClient.get(`${this.API_URL}/retrieve-volunteer-by-task/${taskId}`)
